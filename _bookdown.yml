@@ -1,13 +1,16 @@
 book_filename: "Course_Name"
 chapter_name: "Chapter "
 repo: https://github.com/jhudsl/OTTR_Template/
-rmd_files: ["index.Rmd",
-            "week 01.Rmd",
-            "week 02.Rmd",
-            "week 03.Rmd",
-            "week 04.Rmd",
-            "About.Rmd",
-            "References.Rmd"]
+rmd_files:
+  [
+    "index.Rmd",
+    "week_01.Rmd",
+    "week_02.Rmd",
+    "week_03.Rmd",
+    "week_04.Rmd",
+    "About.Rmd",
+    "References.Rmd",
+  ]
 new_session: yes
 delete_merged_file: true
 language:
