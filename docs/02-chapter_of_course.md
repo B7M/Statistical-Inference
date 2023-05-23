@@ -59,7 +59,7 @@ And make plots too:
 hist_plot <- hist(iris$Sepal.Length)
 ```
 
-<img src="resources/images/02-chapter_of_course_files/figure-html/unnamed-chunk-4-1.png" width="672" />
+![](resources/images/02-chapter_of_course_files/figure-docx/unnamed-chunk-4-1.png)<!-- -->
 
 You can also save these plots to file:
 
@@ -107,7 +107,7 @@ dev.off()
 How to include a Google slide. It's simplest to use the `ottrpal` package:
 
 
-<img src="resources/images/02-chapter_of_course_files/figure-html//1YmwKdIy9BeQ3EShgZhvtb3MgR8P6iDX4DfFD65W_gdQ_gcc4fbee202_0_141.png" title="Major point!! example image" alt="Major point!! example image" width="100%" style="display: block; margin: auto;" />
+![](resources/images/02-chapter_of_course_files/figure-docx//1YmwKdIy9BeQ3EShgZhvtb3MgR8P6iDX4DfFD65W_gdQ_gcc4fbee202_0_141.png){width=100%}
 
 But if you have the slide or some other image locally downloaded you can also use HTML like this:
 
@@ -124,7 +124,7 @@ To embed videos in your course, you can use `knitr::include_url()` like this:
 Note that you should use `echo=FALSE` in the code chunk because we don't want the code part of this to show up. If you are unfamiliar with [how R Markdown code chunks work, read this](https://rmarkdown.rstudio.com/lesson-3.html).
 
 
-<iframe src="https://www.youtube.com/embed/VOCYL-FNbr0" width="672" height="400px"></iframe>
+<iframe src="https://www.youtube.com/embed/VOCYL-FNbr0" width="100%" height="400px"></iframe>
 
 ### Using HTML
 
@@ -162,7 +162,7 @@ Or, you can embed some websites.
 
 This works:
 
-<iframe src="https://yihui.org" width="672" height="400px"></iframe>
+<iframe src="https://yihui.org" width="100%" height="400px"></iframe>
 
 
 ### Using HTML
@@ -297,13 +297,12 @@ devtools::session_info()
 ##  collate  en_US.UTF-8                 
 ##  ctype    en_US.UTF-8                 
 ##  tz       Etc/UTC                     
-##  date     2023-05-20                  
+##  date     2023-05-23                  
 ## 
 ## ─ Packages ───────────────────────────────────────────────────────────────────
 ##  package     * version date       lib source                            
 ##  assertthat    0.2.1   2019-03-21 [1] RSPM (R 4.0.5)                    
 ##  bookdown      0.24    2023-03-28 [1] Github (rstudio/bookdown@88bc4ea) 
-##  bslib         0.4.2   2022-12-16 [1] CRAN (R 4.0.2)                    
 ##  cachem        1.0.7   2023-02-24 [1] CRAN (R 4.0.2)                    
 ##  callr         3.5.0   2020-10-08 [1] RSPM (R 4.0.2)                    
 ##  cli           3.6.1   2023-03-23 [1] CRAN (R 4.0.2)                    
@@ -322,8 +321,6 @@ devtools::session_info()
 ##  hms           0.5.3   2020-01-08 [1] RSPM (R 4.0.0)                    
 ##  htmltools     0.5.5   2023-03-23 [1] CRAN (R 4.0.2)                    
 ##  httr          1.4.2   2020-07-20 [1] RSPM (R 4.0.3)                    
-##  jquerylib     0.1.4   2021-04-26 [1] CRAN (R 4.0.2)                    
-##  jsonlite      1.7.1   2020-09-07 [1] RSPM (R 4.0.2)                    
 ##  knitr         1.33    2023-03-28 [1] Github (yihui/knitr@a1052d1)      
 ##  lifecycle     1.0.3   2022-10-07 [1] CRAN (R 4.0.2)                    
 ##  magrittr    * 2.0.3   2022-03-30 [1] CRAN (R 4.0.2)                    
@@ -342,7 +339,6 @@ devtools::session_info()
 ##  rlang         1.1.0   2023-03-14 [1] CRAN (R 4.0.2)                    
 ##  rmarkdown     2.10    2023-03-28 [1] Github (rstudio/rmarkdown@02d3c25)
 ##  rprojroot     2.0.3   2022-04-02 [1] CRAN (R 4.0.2)                    
-##  sass          0.4.5   2023-01-24 [1] CRAN (R 4.0.2)                    
 ##  sessioninfo   1.1.1   2018-11-05 [1] RSPM (R 4.0.3)                    
 ##  stringi       1.5.3   2020-09-09 [1] RSPM (R 4.0.3)                    
 ##  stringr       1.4.0   2019-02-10 [1] RSPM (R 4.0.3)                    
