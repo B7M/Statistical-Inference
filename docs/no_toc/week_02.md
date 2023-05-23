@@ -1,0 +1,31 @@
+# Variability, Distribution, & Asymptotics
+
+## Variability
+
+### Variance simulation examples
+
+### Standard error of the mean
+
+### Variance data example
+
+## Distributions
+
+### Binomial distribution
+
+### Normal distribution
+
+### Poisson distribution
+
+## Asymptotics
+
+### Asymptotics and LLN
+
+
+### Asymptotics and the CLT
+
+
+### Asymptotics and confidence intervals
+
+## Practical R Exercises in swirl
+
+## Quiz
