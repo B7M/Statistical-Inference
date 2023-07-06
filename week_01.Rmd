@@ -267,8 +267,7 @@ fig xxx histogram with mean center of mass
 The example employs a dataset from R called "Galton," which consists of paired data representing the heights of parents and their children. 
 
 ```{r, fig.height=6,fig.width=12, fig.align='center', echo = TRUE, message =FALSE, warning=FALSE}
-library(ggplot2)
-library(reshape2)
+install.packages("ggplot2","reshape2")
 data(galton)
 longGalton <- melt(galton, measure.vars = c("child", "parent"))
 g <- ggplot(longGalton, aes(x = value)) + geom_histogram(aes(y = ..density..,  fill = variable), binwidth=1, colour = "black") + geom_density(size = 2)
