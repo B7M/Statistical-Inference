@@ -266,25 +266,34 @@ fig xxx histogram with mean center of mass
 
 The example employs a dataset from R called "Galton," which consists of paired data representing the heights of parents and their children. 
 
-fig xxx galton data
-
-The histogram displays the child's height distribution, and a continuous density estimate is superimposed. To further explore this concept, we can use the "manipulate" function available in RStudio. By manipulating the mean value, we can observe how it balances out the histogram. 
-```{r, echo=T,eval=T}
-library(ggplot2)
-library(manipulate)
-library(HistData)
-myHist <- function (mu) {
-  g <- ggplot(Galton, aes(x = child))
-  g <- g + geom_histogram(fill = "salmon", binwidth=1, aes(y = ..density..),colour = "black")
-  g <- g + geom_density (size = 2)
-  g <- g + geom_vline(xintercept = mu, size = 2)
-  mse <- round(mean((Galton$child-mu)^2), 3)
-  g <- g + labs(title = paste("mu = ", mu,"MSE = ", mse))
-  g
-}
-manipulate(myHist (mu), mu = slider (62, 74, step = 0.5))
+```{r galton, fig.height=6,fig.width=12, fig.align='center', echo = FALSE, message =FALSE, warning=FALSE}
+library(UsingR); data(galton); library(ggplot2)
+library(reshape2)
+longGalton <- melt(galton, measure.vars = c("child", "parent"))
+g <- ggplot(longGalton, aes(x = value)) + geom_histogram(aes(y = ..density..,  fill = variable), binwidth=1, colour = "black") + geom_density(size = 2)
+g <- g + facet_grid(. ~ variable)
+g
 ```
+The histogram displays the child's height distribution, and a continuous density estimate is superimposed. To further explore this concept, we can use the "manipulate" function available in RStudio. By manipulating the mean value, we can observe how it balances out the histogram.
 
+```{r, echo=T,eval=T}
+install.packages("manipulate")
+library(manipulate)
+library(UsingR)
+data(galton)
+library(ggplot2)
+myHist <- function(mu){
+    g <- ggplot(galton, aes(x = child))
+    g <- g + geom_histogram(fill = "salmon", 
+      binwidth=1, aes(y = ..density..), colour = "black")
+    g <- g + geom_density(size = 2)
+    g <- g + geom_vline(xintercept = mu, size = 2)
+    mse <- round(mean((galton$child - mu)^2), 3)  
+    g <- g + labs(title = paste('mu = ', mu, ' MSE = ', mse))
+    g
+}
+manipulate(myHist(mu), mu = slider(62, 74, step = 0.5))
+```
 The mean squared error is a measure of imbalance, indicating how stable or unsteady the histogram appears. As we move the mean closer to the center of the distribution, the mean value increases, while the mean squared error decreases, signifying a better balance. However, if we move the mean too far from the center, the mean squared error increases again, indicating increased imbalance. This demonstration illustrates that the empirical mean serves as the balancing point for the empirical distribution, and we will utilize this concept when discussing the population mean, which serves as the balancing point for the population distribution.
 
 Now, let's consider an example to understand how to obtain the expected value of a population. Suppose we flip a fair coin, and we assign the value 0 to tails and the value 1 to heads. What is the expected value of X? Again, the expected value represents a property of the population. By plugging the values into our formula, we calculate the expected value of X as follows: The probability of obtaining tails (0) is 0.5 multiplied by the value 0, plus the probability of obtaining heads (1) is also 0.5 multiplied by the value 1. When we compute this expression, we find that the expected value of X is 0.5. It's interesting to note that the expected value is a value that the coin itself cannot actually take.
