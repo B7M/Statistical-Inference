@@ -265,9 +265,10 @@ To demonstrate this concept, I have provided some code that calculates the sampl
 fig xxx histogram with mean center of mass
 
 The example employs a dataset from R called "Galton," which consists of paired data representing the heights of parents and their children. 
-
-```{r, fig.height=6,fig.width=12, fig.align='center', echo = TRUE, message =FALSE, warning=FALSE}
+```{r, include=FALSE}
 install.packages("ggplot2","reshape2")
+```
+```{r, fig.height=6,fig.width=12, fig.align='center', echo = TRUE, message =FALSE, warning=FALSE}
 data(galton)
 longGalton <- melt(galton, measure.vars = c("child", "parent"))
 g <- ggplot(longGalton, aes(x = value)) + geom_histogram(aes(y = ..density..,  fill = variable), binwidth=1, colour = "black") + geom_density(size = 2)
@@ -280,8 +281,11 @@ fig xxx histogram
 
 To further explore this concept, we can use the "manipulate" function available in RStudio. By manipulating the mean value, we can observe how it balances out the histogram.
 
-```{r, echo=T,eval=T}
+```{r, echo=FALSE}
 install.packages("manipulate","ggplot2","reshape2")
+```
+
+```{r, echo=T,eval=T}
 library(manipulate)
 data(galton)
 library(ggplot2)
