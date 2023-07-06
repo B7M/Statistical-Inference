@@ -1,3 +1,19 @@
+fig:unnamed-chunk-1
+fig:unnamed-chunk-2
+fig:unnamed-chunk-3
+fig:unnamed-chunk-4
+fig:unnamed-chunk-5
+fig:unnamed-chunk-6
+fig:unnamed-chunk-7
+fig:unnamed-chunk-8
+fig:unnamed-chunk-10
+fig:unnamed-chunk-12
+fig:unnamed-chunk-13
+fig:unnamed-chunk-14
+fig:unnamed-chunk-15
+fig:unnamed-chunk-16
+fig:unnamed-chunk-17
+fig:unnamed-chunk-18
 probability-expected-values
 introduction
 course-book
@@ -11,6 +27,7 @@ quantiles
 conditional-probability
 independence
 expected-values
+practical-r-exercises-in-swirl
 variability-distribution-asymptotics
 variability
 variance-simulation-examples
@@ -18,7 +35,7 @@ variance-data-example
 poisson-distribution
 asymptotics-and-the-clt
 asymptotics-and-confidence-intervals
-practical-r-exercises-in-swirl
+practical-r-exercises-in-swirl-1
 quiz
 intervals-testing-pvalues
 independent-group-t-intervals
@@ -26,7 +43,7 @@ hypothesis-testing
 t-tests
 p-values
 knitr
-practical-r-exercises-in-swirl-1
+practical-r-exercises-in-swirl-2
 power-bootstrapping-permutation-tests
 calculating-power
 multiple-comparisons
