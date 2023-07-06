@@ -92,13 +92,13 @@ Interestingly, these simple rules encompass all the necessary principles to esta
 4. The probability of at least one of two or more mutually exclusive events, which cannot occur simultaneously, is the sum of their individual probabilities. This aligns with the definition we discussed earlier.
 5. Another consequence of probability calculus is that if event A implies the occurrence of event B, then the probability of event A is less than or equal to the probability of event B. Although this may sound complex when explained verbally, it becomes clearer when visualized using a Venn diagram. 
 
-fig xxx A inside B 
+![(\#fig:unnamed-chunk-1)Event A being sub section of B event](resources/images/week_01_files/figure-docx//1U1PiqeXG4XoKmg8hRFJqE1OFDOJfificBz1jLeDunHo_g256d730c400_0_1.png)
 
-In the diagram, event A is represented by a circle contained within event B. When we consider the probability of A, we assign a number to the area within circle A. Similarly, when discussing event B, we refer to the probability assigned to the entire circle, which includes the area of A. Therefore, it logically follows that the probability of B is larger than or equal to the probability of A. This concept is often intuitive and easily understood once visualized. For instance, the probability of rolling a 1 (set A) is less than the probability of rolling a 1 or a 2 (set B). 
+In the diagram, event A is represented by a circle contained within event B. When we consider the probability of A, we assign a number to the area within circle A. Similarly, when discussing event B, we refer to the probability assigned to the entire circle, which includes the area of A. Therefore, it logically follows that the probability of B is larger than or equal to the probability of A. This concept is often intuitive and easily understood once visualized. For instance, the probability of rolling a 1 (set A) is less than the probability of rolling a 1 or a 2 (set B).
 
-6. For any two events, the probability of at least one occurring is equal to the sum of their probabilities minus the probability of their intersection. 
+1. For any two events, the probability of at least one occurring is equal to the sum of their probabilities minus the probability of their intersection.
 
-fig xxx A and B intersection
+![(\#fig:unnamed-chunk-2)Events A and B with intersection](resources/images/week_01_files/figure-docx//1U1PiqeXG4XoKmg8hRFJqE1OFDOJfificBz1jLeDunHo_g25780f6af6f_0_0.png)
 
 Again, visualizing this with a Venn diagram helps in understanding it better. Consider set A and set B. When we add their individual probabilities, we are effectively adding the intersection region twice, once when considering A and once when considering B. Since we have counted the intersection twice, to obtain the probability of their union, we need to subtract the intersection once. This rule highlights that we cannot simply add probabilities if there exists a non-trivial intersection between the events.
 
@@ -141,19 +141,21 @@ This approach is particularly useful for modeling the prevalence of a certain co
 
 In contrast to the probability mass function, which assigns probabilities to specific values for discrete random variables, the probability density function (PDF) is associated with continuous random variables. Similar to the rules that the probability mass function follows, a valid probability density function must satisfy two specific rules: it must be greater than or equal to zero everywhere, and the total area under the function must be equal to one. The key concept of a probability density function is that areas under the curve correspond to probabilities for the random variable. For instance, if we state that intelligence quotients (IQ) are normally distributed with a mean of 100 and a standard deviation of 15, we are implying that the population follows a bell-shaped curve. In this case, the probability that a randomly selected individual from that population has an IQ between 100 and 115 is represented by the area under the curve within that range. It is important to note that the probability density function represents a statement about the population of IQs and not the data itself. The data will be used to assess and evaluate the assumptions made about the population's probability distribution. It is worth emphasizing that whenever the term "probability" is used, it refers to a population quantity.
 
-Fig xxx IQ bell curve
+![(\#fig:unnamed-chunk-3)Area between 100-115 IQ under normal distribution](resources/images/week_01_files/figure-docx//1U1PiqeXG4XoKmg8hRFJqE1OFDOJfificBz1jLeDunHo_g25780f6af6f_0_3.png)
 
 It is interesting to note that when we model continuous probabilities using probability density functions (PDFs) for continuous random variables, the probability of the variable taking any specific value is actually *zero*. This is due to the fact that the area under a line, which represents a single point, is zero. However, this does not pose a problem and is simply a quirk arising from modeling random variables with infinite precision. It does not affect the functioning of probability calculations.
 
 The bell-shaped curve, which represents a normal distribution, can be quite challenging to work with until you learn the appropriate techniques, which will be covered in a separate lecture. For now, let's consider a simpler density function that resembles a right triangle. We'll use the function $f(x) = 2x$ for x between 0 and 1, and 0 otherwise, as an example. Let's provide some context for this function: imagine it represents the proportion of help calls that are addressed in a random day by a helpline.
 
-Fig xxx right triangle
+![(\#fig:unnamed-chunk-4)Shape of the density function for f(x)=2x](resources/images/week_01_files/figure-docx//1U1PiqeXG4XoKmg8hRFJqE1OFDOJfificBz1jLeDunHo_g257d7b8e795_0_1.png)
 
 What does this density function imply? It means that the probability of the number of calls being addressed falling between 20% and 60% of the total calls for that day is given by the area under the curve in that range. Now, let's evaluate whether this function is a mathematically valid probability density function.
 
 Looking at the plot of the PDF, which resembles a right triangle, we can see that it is always greater than or equal to zero. Next, let's calculate the area under the curve. Since it is a right triangle, the area is equal to half the base (which is 1) multiplied by the height (which is 2). Thus, the area is 1. Therefore, this function satisfies the requirements of a valid probability density function, as it is always non-negative and the total area under the curve is equal to 1.
 
 Example: we want to find the probability that 75% or fewer calls get addressed in a randomly sampled day from this population. At the point (0.75, 1.5) on the density function, the height is 1.5 because the function is defined as 2 times x. The base value is 0.75. To calculate the probability, we divide the area, which is half the base times the height, by 2. So the probability turns out to be 56%, as shown in the example.
+
+![(\#fig:unnamed-chunk-5)Shape of the density function for f(x)=2x](resources/images/week_01_files/figure-docx//1U1PiqeXG4XoKmg8hRFJqE1OFDOJfificBz1jLeDunHo_g257d7b8e795_0_5.png)
 
 Interestingly, this density function is a special case of a well-known distribution called the $\beta$ distribution. I have provided the R code here for obtaining the probability directly from the $\beta$ distribution. Although in this simple case we don't need it because we are working with triangles, in more complex scenarios, we will require these functions. It's worth mentioning that in R language we can right this as `pbeta(0.75,2,1)` the `p` prefix before a function denotes the calculation of probabilities,  1 define the specific triangle we are using in this example, and you can test and see that it yields the same result of 56%. Certain areas of the density are so commonly used that they are given specific names. For instance, the cumulative distribution function (CDF) of a random variable X gives the probability that X is less than or equal to a given value x. 
 $$F(x) = P(X \leq x)$$
@@ -172,11 +174,11 @@ As we progress, we will encounter more complex density functions. However, the p
 ### Quantiles
 You're already familiar with sample quantiles, such as the 95th percentile, which represents the 0.95 quantile of a dataset. If you score at the 95th percentile on an exam, it means that 95% of the students scored worse than you while 5% scored better. Now, let's introduce the concept of population analogs for quantiles. In the case of the 95th percentile or the 0.95 quantile, you would order the observations from least to greatest and locate the point or exam score below which 95% of the observations lie. This point is denoted as $x_\alpha$, where alpha corresponds to the quantile. In other words, it satisfies the condition $F(x_\alpha) = \alpha$, where F is the distribution function. To better understand this concept, let's try to visualize it.
 
-fig xxx quantile
-
 Let's consider the distribution function $F(x)$, which represents the area below point x on a density plot. This area corresponds to the probability that a random variable from the population is less than or equal to x.  As an example let's imagine a population of test scores, an infinite population of students. The distribution function gives us the probability of obtaining a score equal to or lower than x for a randomly selected student from this population.
 
-Now, let's introduce the concept of the $\alpha^{th}$ quantile. We move a line along the distribution until we find the point $x_\alpha$, where exactly $\alpha$ proportion of the probability lies below it. This is similar to what we do with our data when finding an empirical quantile, where we locate the data point such that, for example, 95% of the test scores lie below it, which corresponds to the sample 95^{th} percentile. In the population distribution, we move the x point until we find the point where the probability of being below it is 95%. Percentiles are essentially quantiles with alpha expressed as a percentage rather than a proportion. The median, often the most well-known quantile, represents the 50th percentile.   
+Now, let's introduce the concept of the $\alpha^{th}$ quantile. We move a line along the distribution until we find the point $x_\alpha$, where exactly $\alpha$ proportion of the probability lies below it. This is similar to what we do with our data when finding an empirical quantile, where we locate the data point such that, for example, 95% of the test scores lie below it, which corresponds to the sample $95^{th}$ percentile. In the population distribution, we move the x point until we find the point where the probability of being below it is 95%. Percentiles are essentially quantiles with alpha expressed as a percentage rather than a proportion. The median, often the most well-known quantile, represents the 50th percentile.
+
+![(\#fig:unnamed-chunk-6)95 percentile of a distribution](resources/images/week_01_files/figure-docx//1U1PiqeXG4XoKmg8hRFJqE1OFDOJfificBz1jLeDunHo_g257d7b8e795_0_9.png)
 
 Quantiles are frequently used, particularly with the normal distribution. However, we rarely need to directly work with densities to calculate quantiles, as the distributions we commonly encounter have well-defined quantiles. In R, we can easily find quantiles using the `q` prefix before the density function name. For example, for the $\beta$ density we discussed earlier, the function `qbeta` gives us the relevant quantile. We can input 0.5 (`qbeta(0.5,2,1)`)to find the median, considering that R expects the quantile argument as a proportion rather than a percentage, i.e. 0.5 is acceptable and 50 for 50% is not acceptable. The parameters 2 and 1 are specific to the density we're working with, which you'll have to trust me on for now. When we calculate the quantile using `qbeta` with 0.5 as the argument, we obtain the same result as before, 0.7 or 0.71. 
 
@@ -246,22 +248,17 @@ The empirical average is a very intuitive idea; it's the middle of our data in a
 
 Now, we will discuss the process of drawing conclusions about populations based on noisy data obtained from them. We will assume that the populations and the randomness governing our samples are described by probability density functions and probability mass functions. Instead of focusing on the entire function, we will examine characteristics of these distributions that are reflected in the random variables drawn from them. The most valuable such characteristics are expected values, particularly the mean. The mean represents the center of a distribution. As the mean shifts, the distribution moves either to the left or right.
 
-fig xxx mean moving left and right
+![(\#fig:unnamed-chunk-7)Mean of a distribution](resources/images/week_01_files/figure-docx//1U1PiqeXG4XoKmg8hRFJqE1OFDOJfificBz1jLeDunHo_g257d7b8e795_0_16.png)
 
 Another important characteristic is variance, which measures the spread of a distribution. 
-fig xxx sample variance 
-
+![(\#fig:unnamed-chunk-8)Variance of a distribution](resources/images/week_01_files/figure-docx//1U1PiqeXG4XoKmg8hRFJqE1OFDOJfificBz1jLeDunHo_g257d7b8e795_0_19.png)
 Similar to how sample quantiles estimate population quantiles, sample expected values estimate population expected values. Therefore, the sample mean serves as an estimate of the population mean, the sample variance estimates the population variance, and the sample standard deviation approximates the population standard deviation.
 
 The expected value, or mean, of a random variable represents the center of its distribution. For a discrete random variable x with a probability mass function $p(x)$, the expected value is calculated by summing the possible values that x can take multiplied by their respective probabilities. 
 $$E[X]=\sum_{x} xp(x)$$
 Conceptually, the expected value draws inspiration from the idea of the physical center of mass, where the probabilities act as weights and x represents the location along an axis. To illustrate this notion of center of mass, consider the sample mean. Even though we are focusing on the population mean in this discussion, it is interesting to note that the sample mean can be seen as the center of mass if we treat each data point as equally likely. In other words, each data point $x_i$ is assigned a probability of $\frac{1}{N}$, where N is the sample size. Intuitively, we employ this center of mass idea when using the sample mean.
 
-To demonstrate this concept, I have provided some code that calculates the sample mean of a dataset and depicts it as the center of mass by generating a histogram. 
-
-fig xxx histogram with mean center of mass
-
-The example employs a dataset from R called "Galton," which consists of paired data representing the heights of parents and their children. 
+To demonstrate this concept, I have provided some code that calculates the sample mean of a dataset and depicts it as the center of mass by generating a histogram. The example employs a dataset from R called "Galton," which consists of paired data representing the heights of parents and their children. 
 
 
 ```r
@@ -276,7 +273,7 @@ g
 ```
 The histogram displays the child's height distribution, and a continuous density estimate is superimposed. 
 
-fig xxx histogram 
+![(\#fig:unnamed-chunk-10)Height distribution for Childran and Parents](resources/images/week_01_files/figure-docx//1U1PiqeXG4XoKmg8hRFJqE1OFDOJfificBz1jLeDunHo_g257d7b8e795_0_22.png)
 
 To further explore this concept, we can use the "manipulate" function available in RStudio. By manipulating the mean value, we can observe how it balances out the histogram.
 
@@ -299,35 +296,58 @@ myHist <- function(mu){
 }
 manipulate(myHist(mu), mu = slider(62, 74, step = 0.5))
 ```
+You can use the slider to move the mean value and observe how it affects the mean squared error.
+![(\#fig:unnamed-chunk-12)Height distribution for Childran](resources/images/week_01_files/figure-docx//1U1PiqeXG4XoKmg8hRFJqE1OFDOJfificBz1jLeDunHo_g257d7b8e795_0_25.png)
+
 The mean squared error is a measure of imbalance, indicating how stable or unsteady the histogram appears. As we move the mean closer to the center of the distribution, the mean value increases, while the mean squared error decreases, signifying a better balance. However, if we move the mean too far from the center, the mean squared error increases again, indicating increased imbalance. This demonstration illustrates that the empirical mean serves as the balancing point for the empirical distribution, and we will utilize this concept when discussing the population mean, which serves as the balancing point for the population distribution.
 
-Now, let's consider an example to understand how to obtain the expected value of a population. Suppose we flip a fair coin, and we assign the value 0 to tails and the value 1 to heads. What is the expected value of X? Again, the expected value represents a property of the population. By plugging the values into our formula, we calculate the expected value of X as follows: The probability of obtaining tails (0) is 0.5 multiplied by the value 0, plus the probability of obtaining heads (1) is also 0.5 multiplied by the value 1. When we compute this expression, we find that the expected value of X is 0.5. It's interesting to note that the expected value is a value that the coin itself cannot actually take.
+Example: Suppose we flip a fair coin, and we assign the value 0 to tails and the value 1 to heads. What is the expected value of X? 
+Again, the expected value represents a property of the population. By plugging the values into our formula, we calculate the expected value of X as follows:
+$$E[X]=\sum_{x} xp(x)=0*0.5+1*0.5=0.5$$
 
-However, from a geometric perspective, the answer becomes quite obvious. If we visualize the coin's values as two bars of equal height, one at 0 and the other at 1, we can easily determine the balancing point by placing our finger exactly at 0.5.
+When we compute this expression, we find that the expected value of X is 0.5. It's interesting to note that the expected value is a value that the coin itself cannot actually take. However, from a geometric perspective, the answer becomes quite obvious. If we visualize the coin's values as two bars of equal height, one at 0 and the other at 1, we can easily determine the balancing point by placing our finger exactly at 0.5.
 
-Now, let's consider a scenario where a random variable X represents the outcome of a biased coin flip. The probability of obtaining heads is denoted as p, while the probability of obtaining tails is 1 minus p. What is the expected value of X in this case? By directly applying the formula, we multiply the value 0 by the probability 1 minus p and add it to the value 1 multiplied by the probability p. The result simplifies to p. Therefore, the expected value of a coin flip, even when the coin is biased, corresponds to the true long-run proportion of obtaining heads in an infinite number of coin flips.
+![(\#fig:unnamed-chunk-13)Expected value of a coin flip](resources/images/week_01_files/figure-docx//1U1PiqeXG4XoKmg8hRFJqE1OFDOJfificBz1jLeDunHo_g257d7b8e795_0_28.png)
 
-Now, let's move on to a die. Suppose we roll a fair six-sided die, and X represents the number that appears face up. What is the expected value of X? Here, we take the values 1, 2, 3, 4, 5, and 6 and multiply each by the corresponding probability of the random variable X taking those values (each value has a probability of one-sixth). When we perform this calculation, we find that the expected value of X is 3.5. Once again, this is a value that the die itself cannot actually show.
+Example: A random variable X represents the outcome of a biased coin flip. The probability of obtaining heads is denoted as $p$, while the probability of obtaining tails is $1-p$. What is the expected value of X in this case? 
+By directly applying the formula, we multiply the value 0 by the probability $1-p$ and add it to the value 1 multiplied by the probability $p$. The result simplifies to $p$. Therefore, the expected value of a coin flip, even when the coin is biased, corresponds to the true long-run proportion of obtaining heads in an infinite number of coin flips.
 
-Similar to the coin example, the geometric argument makes it evident. We have six bars, each with a height of one-sixth, representing the possible outcomes of the die. If we were to balance them, it becomes clear that the balancing point would be at 3.5.
+Example: Suppose we roll a fair six-sided die, and X represents the number that appears face up. What is the expected value of X? 
+Here, we take the values 1, 2, 3, 4, 5, and 6 and multiply each by the corresponding probability of the random variable X taking those values (each value has a probability of $\frac{1}{6}$). When we perform this calculation, we find that the expected value of X is 3.5. Once again, this is a value that the die itself cannot actually show.
+
+![(\#fig:unnamed-chunk-14)Expected value of a die roll](resources/images/week_01_files/figure-docx//1U1PiqeXG4XoKmg8hRFJqE1OFDOJfificBz1jLeDunHo_g257d7b8e795_0_40.png)
+
+Similar to the coin example, the geometric argument makes it evident. We have six bars, each with a height of $\frac{1}{6}$, representing the possible outcomes of the die. If we were to balance them, it becomes clear that the balancing point would be at 3.5.
 ### Expected values for PDFs
-When dealing with continuous random variables, it can be helpful to imagine cutting out the probability density from, let's say, a piece of wood and determining where you would place your finger to balance it out. This concept aligns with the notion of the center of mass of a continuous body. In the case of probability mass functions, as the bars representing the probabilities become narrower and smaller, we can visualize their balancing point. To illustrate this, let's consider an example.
+When dealing with continuous random variables, it can be helpful to imagine cutting out the shape of probability density on a piece of wood and determining where you would place your finger to balance it out. This concept aligns with the notion of the center of mass of a continuous body. In the case of probability mass functions, as the bars representing the probabilities become narrower and smaller, we can visualize their balancing point.
 
-Suppose we have a density that ranges from zero to one, and the question arises: Is this a valid density? The answer is yes; it corresponds to a well-known density called the Uniform density. Now, what is its expected value? If we were to cut this density out of a piece of wood and balance it, the position where we would place our finger to achieve balance is precisely at 0.5. This aligns perfectly with the expected value of the uniform density. Now, let's delve into the topic of expected values and touch upon some important facts.
+Example: Suppose we have a density that ranges from zero to one, and the question arises: Is this a valid density?
+The answer is yes; it corresponds to a well-known density called the **Uniform density**. Now, what is its expected value? 
+If we were to cut this density out of a piece of wood and balance it, the position where we would place our finger to achieve balance is precisely at 0.5. This aligns perfectly with the expected value of the uniform density.
 
-First, it's crucial to understand that expected values represent properties of the distribution. They serve as the center of mass of a distribution. Additionally, it's important to note that the average of random variables is, in itself, a random variable. For example, if we roll six dice and calculate their average, the resulting value is a random variable. By repeatedly sampling from this average through multiple dice rolls, we generate a distribution that also possesses an expected value. The center of mass of this distribution coincides with the center of mass of the original distribution.
+![(\#fig:unnamed-chunk-15)Uniform density](resources/images/week_01_files/figure-docx//1U1PiqeXG4XoKmg8hRFJqE1OFDOJfificBz1jLeDunHo_g257d7b8e795_0_43.png)
 
-This topic becomes highly relevant to the field of inference, so let's explore some simulation examples to gain a better understanding. In the first example, the blue density represents the outcome of numerous simulations based on a standard normal distribution. Due to the large number of simulations, this density provides a reliable approximation of the true distribution. It shows that collecting ample data from a population allows us to approximate its originating distribution effectively. The center of mass of this distribution, which would achieve balance, is located at zero.
+It's crucial to understand that expected values represent properties of the distribution. They serve as the center of mass of a distribution. Additionally, it's important to note that the average of random variables is, in itself, a random variable. For example, if we roll six dice and calculate their average, the resulting value is a random variable. By repeatedly sampling from this average through multiple dice rolls, we generate a distribution that also possesses an expected value. The center of mass of this distribution coincides with the center of mass of the original distribution.
+
+This topic becomes highly relevant to the field of inference, so let's explore some simulation examples to gain a better understanding. 
+
+![(\#fig:unnamed-chunk-16)Simulation example](resources/images/week_01_files/figure-docx//1U1PiqeXG4XoKmg8hRFJqE1OFDOJfificBz1jLeDunHo_g257d7b8e795_0_46.png)
+
+In the first example, the blue density represents the outcome of numerous simulations based on a standard normal distribution. Due to the large number of simulations, this density provides a reliable approximation of the true distribution. It shows that collecting ample data from a population allows us to approximate its originating distribution effectively. The center of mass of this distribution, which would achieve balance, is located at zero.
 
 Now, let's shift our focus to simulating the average of ten standard normals. By repeatedly performing this process and plotting the resulting histogram or density estimate, we obtain a different distribution. It no longer represents the distribution of standard normals; rather, it illustrates the distribution of averages of ten standard normals. This new distribution, represented by the salmon-colored plot, exhibits interesting properties. Notably, it is concentrated around zero, and this aligns with our previous point. The distribution of averages from a population tends to be centered at the same location as the distribution of the original population itself.
 
-Although calculations and simulations can help us grasp these concepts conceptually, we can observe this phenomenon without explicitly performing them. Let's explore additional examples to solidify our understanding. Imagine rolling a die thousands of times and plotting a histogram of the results. In this case, approximately one-sixth of the rolls would occur for each number from one to six. As we increase the number of rolls, these bars would eventually balance out. The center of mass for this distribution, which would achieve balance, is 3.5 (not exactly, given the finite number of rolls, but in theory, it would converge to 3.5 with an infinite number of rolls).
+Although calculations and simulations can help us grasp these concepts conceptually, we can observe this phenomenon without explicitly performing them. Imagine rolling a die thousands of times and plotting a histogram of the results. In this case, approximately $\frac{1}{6}$ of the rolls would occur for each number from one to six. As we increase the number of rolls, these bars would eventually balance out. The center of mass for this distribution, which would achieve balance, is 3.5 (not exactly, given the finite number of rolls, but in theory, it would converge to 3.5 with an infinite number of rolls).
 
-Now, let's consider the scenario where we roll the die twice and calculate the average of the numbers obtained. If we repeat this process multiple times and create a distribution of these averages, we see a different pattern in the second panel. It appears more Gaussian in shape (we'll discuss this further later), and importantly, it is centered at the same location as before.
+![(\#fig:unnamed-chunk-17)Die roll simulation](resources/images/week_01_files/figure-docx//1U1PiqeXG4XoKmg8hRFJqE1OFDOJfificBz1jLeDunHo_g257d7b8e795_0_49.png)
+
+Consider the scenario where we roll the die twice and calculate the average of the numbers obtained. If we repeat this process multiple times and create a distribution of these averages, we see a different pattern in the second panel. It appears more Gaussian in shape (we'll discuss this further later), and importantly, it is centered at the same location as before.
+
+![(\#fig:unnamed-chunk-18)Coin toss average](resources/images/week_01_files/figure-docx//1U1PiqeXG4XoKmg8hRFJqE1OFDOJfificBz1jLeDunHo_g257d7b8e795_0_52.png)
 
 The population mean of averages of two die rolls is identical to the population mean of individual die rolls. This concept applies to other scenarios as well. For instance, if we were to flip a coin numerous times, we would expect approximately 50% of the outcomes to be zero (tails) and 50% to be one (heads). These proportions would converge to balance at around 0.5. When flipping the coin only a few times, the observed sample proportion may deviate from 0.5. However, as we increase the number of flips, the simulation variability becomes insignificant, and the proportion approaches 0.5.
 
-Now, let's consider the scenario where we flip the coin ten times, calculate the average, and repeat this process multiple times. This simulation provides insights into the distribution of averages of ten coin flips. We can extend this analysis to averages of 20 coin flips and averages of 30 coin flips. In each case, we observe that as the average incorporates more coin flips, the distribution becomes more concentrated around the mean. Nevertheless, regardless of the number of coin flips involved, the distribution of averages is consistently centered at 0.5.
+If we flip the coin ten times, calculate the average, and repeat this process multiple times. This simulation provides insights into the distribution of averages of ten coin flips. We can extend this analysis to averages of 20 coin flips and averages of 30 coin flips. In each case, we observe that as the average incorporates more coin flips, the distribution becomes more concentrated around the mean. Nevertheless, regardless of the number of coin flips involved, the distribution of averages is consistently centered at 0.5.
 
 To summarize the key points covered thus far: 
 
@@ -336,4 +356,54 @@ To summarize the key points covered thus far:
 - The population mean of the distribution of sample means precisely matches the population mean it aims to estimate. This understanding is vital as it allows us to estimate the population distribution accurately when collecting substantial amounts of data.
 - We must recognize that while we obtain only one sample mean from our data, knowing the properties associated with sample means is immensely valuable.
 - As more data contributes to the sample mean, the density mass function becomes more concentrated around the population mean. We also observe that, even in cases such as coin flipping and dice rolling, the distribution tends to exhibit Gaussian-like characteristics. We'll explore these concepts further in subsequent lectures.
+
 ## Practical R Exercises in swirl
+During this course we'll be using the [swirl](http://swirlstats.com/) software package for R in order to illustrate some key concepts. The swirl package turns the R console into an interactive learning environment. Using swirl will also give you the opportunity to construct and explore your own regression models. In this programming assignment, you'll have the opportunity to practice some key concepts from this course.
+
+Since swirl is an R package, you can easily install it by entering a single command from the R console:
+
+```r
+install.packages("swirl")
+```
+If you've installed swirl in the past make sure you have version 2.2.21 or later. You can check this with:
+
+```r
+packageVersion("swirl")
+```
+Every time you want to use swirl, you need to first load the package. From the R console:
+
+```r
+library(swirl)
+```
+Install the Statistical Inference course
+swirl offers a variety of interactive courses, but for our purposes, you want the one called Statistical Inference. Type the following from the R prompt to install this course:
+
+```r
+install_from_swirl("Statistical Inference")
+```
+Start swirl and complete the lessons
+Type the following from the R console to start swirl:
+
+```r
+swirl()
+```
+Then, follow the menus and select the Statistical Inference course when given the option. For the first part of this course you should complete the following lessons:
+
+- Introduction
+- Probability1
+- Probability2
+- ConditionalProbability
+- Expectations
+
+If you need help...
+
+- Visit the [Frequently Asked Questions](https://github.com/swirldev/swirl/wiki/Coursera-FAQ) (FAQ) page to see if you can answer your own question immediately.
+- Search the Discussion Forums this course.
+- If you still can't find an answer to your question, then create a new thread under the swirl Programming Assignment sub-forum and provide the following information:
+  - A descriptive title
+  - Any input/output from the console (copy & paste) or a screenshot
+  - The output from sessionInfo()
+
+Good luck and have fun!
+
+For more information on swirl, visit Swirlstats(https://swirlstats.com).
