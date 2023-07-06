@@ -1,11 +1,13 @@
-available-course-formats
 probability-expected-values
-syllabus
-course-book-statistical-inference-for-data-science
-homework-problems
 introduction
+course-book
+github-repository
+homework-problems
+differences-of-opinion
+data-science-specialization-community-site
 probability
 probability-mass-functions-and-probability-density-functions
+quantiles
 conditional-probability
 independence
 expected-values
