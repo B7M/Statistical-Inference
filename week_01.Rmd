@@ -277,9 +277,8 @@ g
 The histogram displays the child's height distribution, and a continuous density estimate is superimposed. To further explore this concept, we can use the "manipulate" function available in RStudio. By manipulating the mean value, we can observe how it balances out the histogram.
 
 ```{r, echo=T,eval=T}
-install.packages("manipulate","UsingR","ggplot2","reshape2")
+install.packages("manipulate","ggplot2","reshape2")
 library(manipulate)
-library(UsingR)
 data(galton)
 library(ggplot2)
 myHist <- function(mu){
