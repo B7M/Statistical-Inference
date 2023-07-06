@@ -1,7 +1,4 @@
-```{r setup, include = FALSE}
-ottrpal::set_knitr_image_path()
-knitr::opts_chunk$set(echo = FALSE)
-```
+
 # Probability & Expected Values
 In this module, we'll go over some information and resources to help you get started and succeed in the course. During this week, we'll focus on the fundamentals including probability, random variables, expectations.
 
@@ -266,7 +263,8 @@ fig xxx histogram with mean center of mass
 
 The example employs a dataset from R called "Galton," which consists of paired data representing the heights of parents and their children. 
 
-```{r, echo = TRUE, eval = FALSE}
+
+```r
 library(reshape2)
 library(UsingR)
 library(ggplot2)
@@ -276,65 +274,13 @@ g <- ggplot(longGalton, aes(x = value)) + geom_histogram(aes(y = ..density..,  f
 g <- g + facet_grid(. ~ variable)
 g
 ```
+
+<img src="resources/images/week_01_files/figure-html/unnamed-chunk-1-1.png" width="1152" style="display: block; margin: auto;" />
 The histogram displays the child's height distribution, and a continuous density estimate is superimposed. 
 
 fig xxx histogram 
 
 To further explore this concept, we can use the "manipulate" function available in RStudio. By manipulating the mean value, we can observe how it balances out the histogram.
 
-```{r, echo=T,eval=F}
-library(manipulate)
-library(UsingR)
-library(ggplot2)
-data(galton)
 
-myHist <- function(mu){
-    g <- ggplot(galton, aes(x = child))
-    g <- g + geom_histogram(fill = "salmon", 
-      binwidth=1, aes(y = ..density..), colour = "black")
-    g <- g + geom_density(size = 2)
-    g <- g + geom_vline(xintercept = mu, size = 2)
-    mse <- round(mean((galton$child - mu)^2), 3)  
-    g <- g + labs(title = paste('mu = ', mu, ' MSE = ', mse))
-    g
-}
-manipulate(myHist(mu), mu = slider(62, 74, step = 0.5))
-```
-The mean squared error is a measure of imbalance, indicating how stable or unsteady the histogram appears. As we move the mean closer to the center of the distribution, the mean value increases, while the mean squared error decreases, signifying a better balance. However, if we move the mean too far from the center, the mean squared error increases again, indicating increased imbalance. This demonstration illustrates that the empirical mean serves as the balancing point for the empirical distribution, and we will utilize this concept when discussing the population mean, which serves as the balancing point for the population distribution.
 
-Now, let's consider an example to understand how to obtain the expected value of a population. Suppose we flip a fair coin, and we assign the value 0 to tails and the value 1 to heads. What is the expected value of X? Again, the expected value represents a property of the population. By plugging the values into our formula, we calculate the expected value of X as follows: The probability of obtaining tails (0) is 0.5 multiplied by the value 0, plus the probability of obtaining heads (1) is also 0.5 multiplied by the value 1. When we compute this expression, we find that the expected value of X is 0.5. It's interesting to note that the expected value is a value that the coin itself cannot actually take.
-
-However, from a geometric perspective, the answer becomes quite obvious. If we visualize the coin's values as two bars of equal height, one at 0 and the other at 1, we can easily determine the balancing point by placing our finger exactly at 0.5.
-
-Now, let's consider a scenario where a random variable X represents the outcome of a biased coin flip. The probability of obtaining heads is denoted as p, while the probability of obtaining tails is 1 minus p. What is the expected value of X in this case? By directly applying the formula, we multiply the value 0 by the probability 1 minus p and add it to the value 1 multiplied by the probability p. The result simplifies to p. Therefore, the expected value of a coin flip, even when the coin is biased, corresponds to the true long-run proportion of obtaining heads in an infinite number of coin flips.
-
-Now, let's move on to a die. Suppose we roll a fair six-sided die, and X represents the number that appears face up. What is the expected value of X? Here, we take the values 1, 2, 3, 4, 5, and 6 and multiply each by the corresponding probability of the random variable X taking those values (each value has a probability of one-sixth). When we perform this calculation, we find that the expected value of X is 3.5. Once again, this is a value that the die itself cannot actually show.
-
-Similar to the coin example, the geometric argument makes it evident. We have six bars, each with a height of one-sixth, representing the possible outcomes of the die. If we were to balance them, it becomes clear that the balancing point would be at 3.5.
-### Expected values for PDFs
-When dealing with continuous random variables, it can be helpful to imagine cutting out the probability density from, let's say, a piece of wood and determining where you would place your finger to balance it out. This concept aligns with the notion of the center of mass of a continuous body. In the case of probability mass functions, as the bars representing the probabilities become narrower and smaller, we can visualize their balancing point. To illustrate this, let's consider an example.
-
-Suppose we have a density that ranges from zero to one, and the question arises: Is this a valid density? The answer is yes; it corresponds to a well-known density called the Uniform density. Now, what is its expected value? If we were to cut this density out of a piece of wood and balance it, the position where we would place our finger to achieve balance is precisely at 0.5. This aligns perfectly with the expected value of the uniform density. Now, let's delve into the topic of expected values and touch upon some important facts.
-
-First, it's crucial to understand that expected values represent properties of the distribution. They serve as the center of mass of a distribution. Additionally, it's important to note that the average of random variables is, in itself, a random variable. For example, if we roll six dice and calculate their average, the resulting value is a random variable. By repeatedly sampling from this average through multiple dice rolls, we generate a distribution that also possesses an expected value. The center of mass of this distribution coincides with the center of mass of the original distribution.
-
-This topic becomes highly relevant to the field of inference, so let's explore some simulation examples to gain a better understanding. In the first example, the blue density represents the outcome of numerous simulations based on a standard normal distribution. Due to the large number of simulations, this density provides a reliable approximation of the true distribution. It shows that collecting ample data from a population allows us to approximate its originating distribution effectively. The center of mass of this distribution, which would achieve balance, is located at zero.
-
-Now, let's shift our focus to simulating the average of ten standard normals. By repeatedly performing this process and plotting the resulting histogram or density estimate, we obtain a different distribution. It no longer represents the distribution of standard normals; rather, it illustrates the distribution of averages of ten standard normals. This new distribution, represented by the salmon-colored plot, exhibits interesting properties. Notably, it is concentrated around zero, and this aligns with our previous point. The distribution of averages from a population tends to be centered at the same location as the distribution of the original population itself.
-
-Although calculations and simulations can help us grasp these concepts conceptually, we can observe this phenomenon without explicitly performing them. Let's explore additional examples to solidify our understanding. Imagine rolling a die thousands of times and plotting a histogram of the results. In this case, approximately one-sixth of the rolls would occur for each number from one to six. As we increase the number of rolls, these bars would eventually balance out. The center of mass for this distribution, which would achieve balance, is 3.5 (not exactly, given the finite number of rolls, but in theory, it would converge to 3.5 with an infinite number of rolls).
-
-Now, let's consider the scenario where we roll the die twice and calculate the average of the numbers obtained. If we repeat this process multiple times and create a distribution of these averages, we see a different pattern in the second panel. It appears more Gaussian in shape (we'll discuss this further later), and importantly, it is centered at the same location as before.
-
-The population mean of averages of two die rolls is identical to the population mean of individual die rolls. This concept applies to other scenarios as well. For instance, if we were to flip a coin numerous times, we would expect approximately 50% of the outcomes to be zero (tails) and 50% to be one (heads). These proportions would converge to balance at around 0.5. When flipping the coin only a few times, the observed sample proportion may deviate from 0.5. However, as we increase the number of flips, the simulation variability becomes insignificant, and the proportion approaches 0.5.
-
-Now, let's consider the scenario where we flip the coin ten times, calculate the average, and repeat this process multiple times. This simulation provides insights into the distribution of averages of ten coin flips. We can extend this analysis to averages of 20 coin flips and averages of 30 coin flips. In each case, we observe that as the average incorporates more coin flips, the distribution becomes more concentrated around the mean. Nevertheless, regardless of the number of coin flips involved, the distribution of averages is consistently centered at 0.5.
-
-To summarize the key points covered thus far: 
-
-- Expected values are inherent properties of distributions. The population mean represents the center of mass of that population, and any movement in the mean would correspondingly shift the distribution.
-- The sample mean represents the center of mass of the observed data. It serves as an estimate of the population mean and is considered unbiased.
-- The population mean of the distribution of sample means precisely matches the population mean it aims to estimate. This understanding is vital as it allows us to estimate the population distribution accurately when collecting substantial amounts of data.
-- We must recognize that while we obtain only one sample mean from our data, knowing the properties associated with sample means is immensely valuable.
-- As more data contributes to the sample mean, the density mass function becomes more concentrated around the population mean. We also observe that, even in cases such as coin flipping and dice rolling, the distribution tends to exhibit Gaussian-like characteristics. We'll explore these concepts further in subsequent lectures.
-## Practical R Exercises in swirl
