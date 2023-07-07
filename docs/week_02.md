@@ -114,7 +114,7 @@ sd(apply(matrix(rnorm(nosim * n), nosim), 1, mean))
 ```
 
 ```
-## [1] 0.3033265
+## [1] 0.3083652
 ```
 
 ```r
@@ -248,130 +248,216 @@ Since 1020 is both the mean and the median of the specific normal distribution, 
 To calculate this quantile, we can use the `qnorm` function with the input value of 0.75, representing the 75th percentile. The mean is set to 1020, and the standard deviation is 50. When we execute this command, `qnorm(0.75, mean = 1020, sd = 50)`, we obtain a number between the previously mentioned range, approximately 1054.
 
 ### Poisson distribution
-If there were a competition to determine the most useful distribution, the normal distribution would unquestionably win by a wide margin. However, selecting the second most useful distribution would spark a lively debate, with the Poisson distribution being a strong contender. The Poisson distribution is commonly employed to model counts, and its probability mass function is given by λ^x * e^(-λ) / x!, where x represents non-negative integers (0, 1, 2, and so on). The mean of a Poisson random variable is equal to λ, and the variance also equals λ. It is worth noting that when modeling with Poisson data, the mean and variance must be equal—a condition that can be verified if one has repeated Poisson data.
+If there were a competition to determine the most useful distribution, the normal distribution would unquestionably win by a wide margin. However, selecting the second most useful distribution would spark a lively debate, with the Poisson distribution being a strong contender. The Poisson distribution is commonly employed to model counts, and its probability mass function is given by $$P(X = x; \lambda) = \frac{\lambda^x e^{-\lambda}}{x!}$$
+where x represents non-negative integers (0, 1, 2, and so on). 
+The mean of a Poisson random variable is equal to $\lambda$, and the variance also equals $\lambda$. When modeling with Poisson data, the mean and variance must be equal a condition that can be verified if one has repeated Poisson data.
+fig xxx poisson distribution 
 
-The Poisson distribution finds utility in various instances. Whenever count data needs to be modeled, especially when the counts are unbounded, the Poisson distribution is a suitable choice. Another prevalent application arises in the field of biostatistics, where event time or survival data is common. For example, in cancer trials, the time until the recurrence of symptoms is modeled using statistical techniques that account for censoring, and these techniques have a strong association with the Poisson distribution. Additionally, when classifying a sample of people based on certain characteristics, creating a contingency table—such as tabulating hair color by race—the Poisson distribution is the default choice for modeling such data. It is worth mentioning that the Poisson distribution is deeply connected to other models, including multinomials and binomials, which might be considered as alternatives.
+The Poisson distribution finds utility in various instances. Whenever count data needs to be modeled, especially when the counts are unbounded, the Poisson distribution is a suitable choice. Another prevalent application arises in the field of biostatistics, where event time or survival data is common. For example, in cancer trials, the time until the recurrence of symptoms is modeled using statistical techniques that account for censoring, and these techniques have a strong association with the Poisson distribution. Additionally, when classifying a sample of people based on certain characteristics, creating a contingency table—such as tabulating hair color by race—the Poisson distribution is the default choice for modeling such data. The Poisson distribution is deeply connected to other models, including multinomials and binomials, which might be considered as alternatives.
 
 Another prominent application of the Poisson distribution, though often overlooked due to its commonplace usage, is in cases where a binomial distribution is approximated by the Poisson distribution. This occurs when the sample size (n) is large, and the probability of success (p) is small. Epidemiology, for instance, frequently employs this approximation when dealing with situations where n is large (representing a population) and p is small (indicating the occurrence of rare events). By assuming a Poisson distribution, researchers can effectively model the occurrence rates of events, such as the number of new cases of respiratory diseases in a city as air pollution levels fluctuate. This practice is so prevalent that it is commonly understood within the field without explicit mention.
 
-To illustrate the usage of the Poisson distribution for modeling rates, let's consider an example. Suppose the number of people showing up at a bus stop follows a Poisson distribution with a mean of 2.5 people per hour. If we observe the bus stop for four hours, we can calculate the probability of three or fewer people showing up during that entire duration. To do this, we apply the Poisson probability formula to the values of three, two, one, and zero, using a rate of 2.5 events per hour multiplied by four hours. The resulting probability is approximately 1%.
+Example: The number of people showing up at a bus stop follows a Poisson distribution with a mean of 2.5 people per hour. If we observe the bus stop for four hours, we can calculate the probability of three or fewer people showing up during that entire duration. To do this, we apply the Poisson probability formula to the values of three, two, one, and zero, using a rate of 2.5 events per hour multiplied by four hours. The resulting probability is approximately 1%.
 
-Furthermore, we can discuss the Poisson approximation to the binomial distribution, specifically when the sample size (n) is large, and the probability of success (p) is small. In this scenario, the Poisson distribution can serve as a reasonably accurate approximation for the binomial distribution. To establish notation, let x represent a binomial distribution with parameters n and p, and define λ as the product of n and p. When n is large and p is small, it is proposed that the probability distribution governing x can be well approximated using Poisson probabilities, where the rate parameter λ is determined as n times p. As an example, let's consider flipping a coin with a success probability of 0.01 for a total of 500 times. We want to calculate the probability of obtaining two or fewer successes. Using the binomial distribution with size 500 and probability 
 
-0.01, we obtain approximately 12%. By employing the Poisson approximation with a rate of λ = 500 * 0.01, the result is around 12.5%, which is reasonably close to the binomial calculation.
+```r
+ppois(3, lambda = 2.5 * 4)
+```
+
+Furthermore, we can discuss the Poisson approximation to the binomial distribution, specifically when the sample size (n) is large, and the probability of success (p) is small. In this scenario, the Poisson distribution can serve as a reasonably accurate approximation for the binomial distribution. To establish notation, let x represent a binomial distribution with parameters n and p, and define $\lambda=n*p$. When n is large and p is small, it is proposed that the probability distribution governing x can be well approximated using Poisson probabilities, where the rate parameter λ is determined as n times p. 
+
+Example: In flipping a coin with a success probability of 0.01 for a total of 500 times, we want to calculate the probability of obtaining two or fewer successes. Using the binomial distribution with size 500 and probability 0.01, we obtain approximately 12%. By employing the Poisson approximation with a rate of λ = 500 * 0.01, the result is around 12.5%, which is reasonably close to the binomial calculation.
+
+```r
+pbinom(2, size = 500, prob = .01)
+ppois(2, lambda=500 * .01)
+```
+
 ## Asymptotics
-Asymptotics are an important topics in statistics.  Asymptotics refers to the behavior of estimators as the sample size goes to infinity. Our very notion of probability depends on the idea of asymptotics. For example, many people define probability as the proportion of times an event would occur in infinite repetitions. That is, the probability of a head on a coin is 50% because we believe that if we were to flip it infinitely many times, we would get exactly 50% heads. 
+Asymptotics are an important topics in statistics. Asymptotics refers to the behavior of estimators as the sample size goes to infinity. Our very notion of probability depends on the idea of asymptotics. For example, many people define probability as the proportion of times an event would occur in infinite repetitions. That is, the probability of a head on a coin is 50% because we believe that if we were to flip it infinitely many times, we would get exactly 50% heads.
 
-We can use asymptotics to help is figure out things about distributions without knowing much about them to begin with. A profound idea along these lines is the Central Limit Theorem. It states that the distribution of averages is often normal, even if the distribution that the data is being sampled from is very non-normal. This helps us create robust strategies for creating statistical inferences when we're not willing to assume much about the generating mechanism of our data. 
+We can use asymptotics to help is figure out things about distributions without knowing much about them to begin with. A profound idea along these lines is the **Central Limit Theorem**. It states that the distribution of averages is often normal, even if the distribution that the data is being sampled from is very non-normal. This helps us create robust strategies for creating statistical inferences when we're not willing to assume much about the generating mechanism of our data.
 ### Asymptotics and LLN
-Hello, I'm Brian Caffo, and welcome to the lecture on asymptotics as part of the statistical inference class in the Coursera data science specialization. This course is co-taught by my colleagues Jeff Leek and Roger Peng from the Johns Hopkins Bloomberg School of Public Health. Today, we'll be focusing on the behavior of statistics as the sample size or some other relevant quantity approaches infinity, which is known as asymptotics. Specifically, we will discuss the case where the sample size tends to infinity.
+Here we will explore the behavior of statistics as the sample size or some other relevant quantity approaches infinity, which is known as asymptotics. Specifically, we will discuss the case where the sample size tends to infinity.
 
-In the land of asymptopia, everything works out well because there is an infinite amount of data available. Asymptotics play a crucial role in simple statistical inference and approximations. They serve as a versatile tool, akin to a Swiss army knife, allowing us to investigate the statistical properties of various statistics without requiring extensive computations.
-
-Furthermore, asymptotics form the foundation for the frequency interpretation of probabilities. For instance, intuitively, we know that if we flip a coin and calculate the proportion of heads, it should approach 0.5 for a fair coin. This property is known as the law of large numbers, which we will explore shortly.
+In the land of asymptopia, everything works out well because there is an infinite amount of data available. Asymptotics play a crucial role in simple statistical inference and approximations. They serve as a versatile tool, akin to a Swiss army knife, allowing us to investigate the statistical properties of various statistics without requiring extensive computations. Asymptotics form the foundation for the frequency interpretation of probabilities. For instance, intuitively, we know that if we flip a coin and calculate the proportion of heads, it should approach 0.5 for a fair coin.
 
 Fortunately, we don't have to delve into the mathematical intricacies of the limits of random variables. Instead, we can rely on a set of powerful tools that enable us to discuss the behavior of sample means from a collection of independently and identically distributed (iid) observations in large samples. One of these tools is the law of large numbers, which states that the average of the observations converges to the population mean it is estimating. For example, if we repeatedly flip a fair coin, the sample proportion of heads will eventually converge to the true probability of a head.
 
-To illustrate the law of large numbers in action, let's consider an example. We'll generate a large number of random normal variables and calculate their cumulative means. Initially, there is considerable variability in the means, but as the number of simulations increases, the cumulative means converge towards the true population mean of zero.
+Example: We'll generate a large number of random normal variables and calculate their cumulative means. Initially, there is considerable variability in the means, but as the number of simulations increases, the cumulative means converge towards the true population mean of zero.
+
+![(\#fig:unnamed-chunk-20)Cumulative means of random normal variables](week_02_files/figure-docx//1U1PiqeXG4XoKmg8hRFJqE1OFDOJfificBz1jLeDunHo_g257d7b8e795_0_95.png)
+
+
+```r
+n <- 10000; means <- cumsum(rnorm(n)) / (1  : n); library(ggplot2)
+g <- ggplot(data.frame(x = 1 : n, y = means), aes(x = x, y = y)) 
+g <- g + geom_hline(yintercept = 0) + geom_line(size = 2) 
+g <- g + labs(x = "Number of obs", y = "Cumulative mean")
+g
+```
 
 Similarly, we can apply the law of large numbers to the case of coin flipping. By repeatedly flipping a coin and calculating the cumulative means, we observe that the sample proportion of heads converges to the true value of 0.5 as the number of coin flips increases.
+![(\#fig:unnamed-chunk-22)Cumulative means of coin flips](week_02_files/figure-docx//1U1PiqeXG4XoKmg8hRFJqE1OFDOJfificBz1jLeDunHo_g257d7b8e795_0_98.png)
 
-It's worth mentioning that an estimator is considered consistent if it converges to the parameter it aims to estimate. For instance, the sample proportion from iid coin flips is consistent for estimating the true success probability of a coin. As we collect more and more coin flip data, the sample proportion of heads approaches the actual probability of obtaining a head.
 
-Moreover, not only are sample means consistent estimators, but the sample variance and sample standard deviation of iid random variables are also consistent estimators.
+```r
+means <- cumsum(sample(0 : 1, n , replace = TRUE)) / (1  : n)
+g <- ggplot(data.frame(x = 1 : n, y = means), aes(x = x, y = y)) 
+g <- g + geom_hline(yintercept = 0.5) + geom_line(size = 2) 
+g <- g + labs(x = "Number of obs", y = "Cumulative mean")
+g
+```
 
-### Asymptotics and the CLT
-Welcome to the lecture on asymptotics as part of the statistical inference class in the Coursera data science specialization. I am Brian Caffo, one of the instructors, along with Jeff Leek and Roger Peng, from Johns Hopkins Bloomberg School of Public Health. Today, we will explore the concept of asymptotics, which refers to the behavior of statistics as the sample size or some other relevant quantity approaches infinity or zero. In this lecture, we will focus on the case where the sample size tends to infinity.
-
-Asymptopia, as I like to call it, is a land where everything works out well because there is an infinite amount of data. It is a place where asymptotics come into play, proving to be incredibly useful for simple statistical inference and approximations. Asymptotics can be likened to a versatile Swiss army knife that allows us to investigate the statistical properties of various statistics without requiring extensive computation.
-
-Moreover, asymptotics form the foundation for the frequency interpretation of probabilities. For instance, intuitively, we understand that flipping a fair coin repeatedly should converge to a proportion of heads close to 0.5. This property is known as the law of large numbers, which we will explore shortly. Fortunately, instead of delving into the mathematical intricacies of random variable limits, we have powerful tools at our disposal. These tools enable us to discuss the behavior of sample means for collections of independent and identically distributed (iid) observations.
-
-The first tool we will explore is the law of large numbers. It states that the average of iid samples converges to the population mean it estimates. To illustrate this concept, let's observe the law of large numbers in action. I will perform a simulation with 1000 iterations. First, I will generate 1000 random numbers from a standard normal distribution. Then, by taking the cumulative sum of these numbers and dividing by 1 to n, I obtain the cumulative means. When we plot these cumulative means against the index, we observe that initially, there is considerable variability. However, as the number of simulations increases, the cumulative means converge to the true population value of zero.
-
-Next, let's apply the law of large numbers to coin flips. Using the `sample` function in R, I will simulate 1000 coin flips. Each flip results in either 0 (tail) or 1 (head), with equal probability. Again, by taking the cumulative sum and dividing by 1 to n, we calculate the cumulative means. Plotting these cumulative means reveals a similar pattern as before. Initially, there is variability in the sample proportion of heads, but as the number of coin flips approaches infinity, it converges to the true probability of 0.5.
-
-Now, let's discuss the concept of consistency. An estimator is considered consistent if it converges to the quantity it aims to estimate. In the case of coin flips, the sample proportion of heads is consistent for the true success probability of a coin. As we flip a coin repeatedly, the sample proportion of heads converges to the actual probability of getting a head.
+Note: An estimator is considered **consistent** if it converges to the parameter it aims to estimate. For instance, the sample proportion from iid coin flips is consistent for estimating the true success probability of a coin. As we collect more and more coin flip data, the sample proportion of heads approaches the actual probability of obtaining a head. Moreover, not only are sample means consistent estimators, but the sample variance and sample standard deviation of iid random variables are also consistent estimators.
 
 The law of large numbers guarantees the consistency of sample means, but it also applies to sample variances and standard deviations of iid random variables. In other words, these estimators also converge to their respective population counterparts as the sample size increases.
 
-Moving on, we encounter the Central Limit Theorem, which is perhaps the most important theorem in statistics. It states that the distribution of averages of iid random variables becomes approximately standard normal as the sample size grows. The Central Limit Theorem is remarkably versatile, applying to a wide range of populations. Its loose requirements make it applicable in numerous settings.
+### Asymptotics and the CLT
+The Central Limit Theorem (CLT) is perhaps the most important theorem in statistics. It states that the distribution of averages of iid random variables becomes approximately standard normal as the sample size grows. The Central Limit Theorem is remarkably versatile, applying to a wide range of populations. Its loose requirements make it applicable in numerous settings.
 
-To understand the Central Limit Theorem, let's consider an estimate like the sample average (x-bar). If we subtract its population
+To understand the Central Limit Theorem, let's consider an estimate like the sample average $\bar X$. If we subtract its population mean and divide by its standard error the resulting random variable approaches a standard normal distribution as the sample size increases.
+$$\frac{\bar{X_n}-\mu}{\sigma/\sqrt{n}}=\frac{\sqrt{n}(\bar{X_n}-\mu)}{\sigma}=\frac{{Estimate} - {Mean\,of\,estimate}}{Std.\,Err.\,of\,estimate}$$
+Importantly, replacing the unknown population standard deviation with the known sample standard deviation does not affect the Central Limit Theorem.
 
- mean (mu) and divide by its standard error (sigma/sqrt(n)), the resulting random variable approaches a standard normal distribution as the sample size increases. Importantly, replacing the unknown population standard deviation with the known sample standard deviation does not affect the Central Limit Theorem.
+The most useful interpretation of the Central Limit Theorem is that the sample average is approximately normally distributed, with a mean equal to the population mean and a variance given by the standard error of the mean.
 
-The most useful interpretation of the Central Limit Theorem is that the sample average is approximately normally distributed, with a mean equal to the population mean and a variance given by the standard error of the mean. To illustrate this, let's simulate several examples. First, we will use a standard die. We know that the mean of the die rolls is 3.5, and its variance is 2.92. By rolling the die n times, calculating the sample mean, subtracting the population mean, and dividing by the standard error, we obtain a distribution that approximates a bell curve. As we increase the number of rolls, the approximation improves.
+Example: Using standard die with the mean of 3.5, and variance of 2.92. We simulate the die roll n times, calculate the sample mean, subtract the population mean, and dividing by the standard error.
+![(\#fig:unnamed-chunk-24)Distribution of averages of iid random variables in die roll](week_02_files/figure-docx//1U1PiqeXG4XoKmg8hRFJqE1OFDOJfificBz1jLeDunHo_g257d7b8e795_0_101.png)
 
-Next, let's consider coin flips. Taking the result of each flip (0 or 1) as an iid random variable, we calculate the sample proportion of heads (p-hat). Subtracting the population mean (0.5) and dividing by the standard error (sqrt(p(1-p)/n)), we again obtain a distribution that approximates a bell curve. Similar to the previous example, the approximation improves as the number of coin flips increases.
+
+```r
+nosim <- 1000
+cfunc <- function(x, n) sqrt(n) * (mean(x) - 3.5) / 1.71
+dat <- data.frame(
+  x = c(apply(matrix(sample(1 : 6, nosim * 10, replace = TRUE), 
+                     nosim), 1, cfunc, 10),
+        apply(matrix(sample(1 : 6, nosim * 20, replace = TRUE), 
+                     nosim), 1, cfunc, 20),
+        apply(matrix(sample(1 : 6, nosim * 30, replace = TRUE), 
+                     nosim), 1, cfunc, 30)
+        ),
+  size = factor(rep(c(10, 20, 30), rep(nosim, 3))))
+g <- ggplot(dat, aes(x = x, fill = size)) + geom_histogram(alpha = .20, binwidth=.3, colour = "black", aes(y = ..density..)) 
+g <- g + stat_function(fun = dnorm, size = 2)
+g + facet_grid(. ~ size)
+```
+The distribution approximates a bell curve. As we increase the number of rolls, the approximation improves.
+
+Example: Let $X_i$ be the $0$ or $1$ result of the $i^{th}$ flip of a possibly unfair coin. The sample proportion, say $\hat p$, is the average of the coin flips.
+$E[X_i] = p$ and $Var(X_i) = p(1-p)$
+Standard error of the mean is $\sqrt{p(1-p)/n}$ Then
+$$\frac{\hat p - p}{\sqrt{p(1-p)/n}}$$
+will be approximately normally distributed
+
+Flipping a fair coin $n$ times, taking the sample proportion of heads, subtracting off 0.5 and multiply the result by
+$2 \sqrt{n}$ divide by $1/(2 \sqrt{n})$ is displayed below. 
+
+![(\#fig:unnamed-chunk-26)Distribution of averages of iid random variables in coin flip](week_02_files/figure-docx//1U1PiqeXG4XoKmg8hRFJqE1OFDOJfificBz1jLeDunHo_g257d7b8e795_0_104.png)
+
+
+```r
+nosim <- 1000
+cfunc <- function(x, n) 2 * sqrt(n) * (mean(x) - 0.5) 
+dat <- data.frame(
+  x = c(apply(matrix(sample(0:1, nosim * 10, replace = TRUE), 
+                     nosim), 1, cfunc, 10),
+        apply(matrix(sample(0:1, nosim * 20, replace = TRUE), 
+                     nosim), 1, cfunc, 20),
+        apply(matrix(sample(0:1, nosim * 30, replace = TRUE), 
+                     nosim), 1, cfunc, 30)
+        ),
+  size = factor(rep(c(10, 20, 30), rep(nosim, 3))))
+g <- ggplot(dat, aes(x = x, fill = size)) + geom_histogram(binwidth=.3, colour = "black", aes(y = ..density..)) 
+g <- g + stat_function(fun = dnorm, size = 2)
+g + facet_grid(. ~ size)
+```
+
+Taking the result of each flip (0 or 1) as an iid random variable, we calculate the sample proportion of heads $\hat p$. We again obtain a distribution that approximates a bell curve. Similar to the previous example, the approximation improves as the number of coin flips increases.
 
 It's important to note that the speed at which the normalized coin flips converge to normality depends on the bias of the coin. If the coin is heavily biased, the approximation may not be perfect even with a large sample size. However, as the number of coin flips approaches infinity, the Central Limit Theorem guarantees an excellent approximation.
 
-As a fun aside, let's discuss Galton's quincunx. This machine, often found in science museums, visually demonstrates the Central Limit Theorem using a game resembling Pachinko. In Galton's quincunx, a ball falls through a series of pegs, bouncing left or right at each peg. Each bounce can be thought of as a coin flip or binomial experiment. The total number of successes (heads) follows an approximately normal distribution, as predicted by the Central Limit Theorem. At the museum, the balls collect in bins, forming a histogram that aligns with the expected normal distribution.
+As a fun example, let's discuss Galton's quincunx. This machine, often found in science museums, visually demonstrates the Central Limit Theorem using a game resembling Pachinko. [An image from Wikipedia showing Galton's quincunx](https://upload.wikimedia.org/wikipedia/commons/c/c1/Galton_box.jpg). In Galton's quincunx, a ball falls through a series of pegs, bouncing left or right at each peg. Each bounce can be thought of as a coin flip or binomial experiment. The total number of successes (heads) follows an approximately normal distribution, as predicted by the Central Limit Theorem. At the museum, the balls collect in bins, forming a histogram that aligns with the expected normal distribution.
 
 In summary, the Central Limit Theorem is a powerful tool that allows us to approximate the distribution of averages of iid random variables. It applies to various settings and provides valuable insights into statistical inference. The examples we explored, from dice rolls to coin flips to Galton's quincunx, illustrate the practical applications of the Central Limit Theorem and the convergence to a standard normal distribution as the sample size increases.
 
 ### Asymptotics and confidence intervals
-Let's discuss a practical application of the central limit theorem. The central limit theorem tells us that the sample mean follows an approximately normal distribution with a population mean of μ and a standard deviation of σ/√n. This distribution allows us to make inferences about the population mean based on sample data.
+The central limit theorem tells us that the sample mean follows an approximately normal distribution with a population mean of μ and a standard deviation of $\sigma/\sqrt{n}$. This distribution allows us to make inferences about the population mean based on sample data. When considering the distribution, we observe that $μ+2$ standard errors is quite far out in the tail, with only a 2.5% chance of a normal value being larger than two standard deviations in the tail. Similarly, $μ-2$ standard errors is far in the left tail, with only a 2.5% chance of a normal value being smaller than two standard deviations in the left tail. Therefore, the probability that the sample mean $\bar X$ is greater than $μ+2$ standard errors or smaller than $μ-2$ standard errors is 5%. Equivalently, the probability that μ is between these limits is 95%. By reversing the roles of $\bar X$ and μ, we can conclude that the interval $[\bar X - 2 \sigma /\sqrt{n}, \bar X + 2 \sigma /\sqrt{n}]$ contains μ with a probability of 95%.
 
-When considering the distribution, we observe that μ plus 2 standard errors is quite far out in the tail, with only a 2.5% chance of a normal value being larger than two standard deviations in the tail. Similarly, μ minus 2 standard errors is far in the left tail, with only a 2.5% chance of a normal value being smaller than two standard deviations in the left tail. Therefore, the probability that the sample mean (x-bar) is greater than μ plus 2 standard errors or smaller than μ minus 2 standard errors is 5%. Equivalently, the probability that μ is between these limits is 95%. By reversing the roles of x-bar and μ, we can conclude that the interval [x-bar - 2 standard errors, x-bar + 2 standard errors] contains μ with a probability of 95%.
+It's important to note that in this interpretation, we treat the interval $[\bar X - 2 \sigma /\sqrt{n}, \bar X + 2 \sigma /\sqrt{n}]$ as random, while μ is fixed. This allows us to discuss the probability that the interval contains μ. In practice, if we repeatedly obtain samples of size n from the population and construct a confidence interval in each case, about 95% of the intervals will contain μ, the parameter we are trying to estimate. If we want a 90% confidence interval, we need 5% in each tail, so we would use a different multiplier instead of 2 (e.g., 1.645).
 
-It's important to note that in this interpretation, we treat the interval [x-bar - 2 standard errors, x-bar + 2 standard errors] as random, while μ is fixed. This allows us to discuss the probability that the interval contains μ. In practice, if we repeatedly obtain samples of size n from the population and construct a confidence interval in each case, about 95% of the intervals will contain μ, the parameter we are trying to estimate. If we want a 90% confidence interval, we need 5% in each tail, so we would use a different multiplier instead of 2 (e.g., 1.645).
+Example: Using the father-son data from the "Using R" package we want to estimate the average height of sons $\bar X$. We can calculate the mean of the sample plus or minus the 0.975th normal quantile times the standard error of the mean. 
 
-To illustrate this, let's consider an example using the father-son data from the "Using R" package. We want to estimate the average height of sons (x-bar). We can calculate the mean of the sample (x) plus or minus the 0.975th normal quantile times the standard error of the mean (standard deviation of x divided by the square root of n). Dividing by 12 ensures that our confidence interval is in feet rather than inches. For instance, if we obtain a confidence interval of 5.710 to 5.738, we can say that if the sons in this data are a random sample from the population of interest, the confidence interval for the average height of the sons would be 5.71 to 5.74.
+```r
+library(UsingR);data(father.son); x <- father.son$sheight
+(mean(x) + c(-1, 1) * qnorm(.975) * sd(x) / sqrt(length(x))) / 12
+```
 
-Another application is when dealing with coin flips and estimating the success probability (p) of the coin. Each observation (xi) in this case is either 0 or 1, with a common success probability (p). The variance of a coin flip is p times (1 - p), where p is the true success probability of the coin. The standard error of the mean is then √(p(1 - p)/n). The confidence interval takes the form of p-hat plus or minus the normal quantile times √(p(1 - p)/n). Since we don't know the true value of p, we replace it with the estimated value p-hat. This type of confidence interval is known as the Wald confidence interval, named after the statistician Wald. When p equals 0.5, the variance p times (1 - p) is maximized, resulting in a standard error of 0.5. Multiplying it by 2 in the 95% interval cancels out, so for a 95% confidence interval, p-hat plus or minus 1/√n is a quick estimate for p.
+Dividing by 12 ensures that our confidence interval is in feet rather than inches. If we obtain a confidence interval of 5.710 to 5.738, we can say that if the sons' height in this data are a random sample from the population of interest, the confidence interval for the average height of the sons would be 5.71 to 5.74.
 
-For example, suppose
+Another application is when dealing with coin flips and estimating the success probability $p$ of the coin. Each observation $X_i$ in this case is either 0 or 1, with a common success probability $p$. The variance of a coin flip is $p * (1 - p)$, where p is the true success probability of the coin. The standard error of the mean is then:
+$$ \hat p \pm z_{1 - \alpha/2}  \sqrt{\frac{p(1 - p)}{n}}$$
 
- you are running for political office, and in a random sample of 100 likely voters, 56 intend to vote for you. To determine if you can relax or if you need to campaign more, you can use a quick calculation. Taking 1/√100 yields 0.1. This means the approximate 95% interval is 0.46 to 0.66. The confidence interval suggests that we cannot rule out possibilities below 0.5 with 95% confidence. Therefore, you shouldn't relax and should continue campaigning.
+Since we don't know the true value of $p$, we replace it with the estimated value $\hat p$. This type of confidence interval is known as the **Wald confidence interval**, named after the statistician Wald. When p equals 0.5, the variance $p(1 - p)$ is maximized, resulting in a standard error of 0.5. Multiplying it by 2 in the 95% interval cancels out, leaving the following expression for a 95% confidence interval, which is a quick estimate for p:
+$$\hat p \pm 1/\sqrt{n}$$
+
+Example: Imaging you are running for political office, and in a random sample of 100 likely voters, 56 intend to vote for you. To determine if you can relax or if you need to campaign more, you can use a quick calculation. 
+
+With the information from the sample you can with with probability of 0.56 taking $\frac{1}{\sqrt{100}}=0.1$ means the approximate 95% interval is 0.46 to 0.66. The confidence interval suggests that we cannot rule out possibilities below 0.5 with 95% confidence. Therefore, you shouldn't relax and should continue campaigning.
 
 As a general guideline, you typically need at least 100 observations for one decimal place in a binomial experiment, 10,000 for two decimal places, and a million for three decimal places. These numbers reflect the approximate sample sizes needed for accurate estimation.
 
 In summary, the central limit theorem provides us with a practical tool for constructing confidence intervals and making inferences about population parameters. It allows us to estimate the population mean using the sample mean and provides a measure of uncertainty through confidence intervals. The Wald confidence interval is a useful approximation for estimating the success probability in binomial experiments. Additionally, considering the sample size helps determine the level of precision and confidence in our estimates.
 
-Consider a simulation where I repeatedly flip a coin with a known success probability. The goal is to calculate the percentage of times that the confidence interval covers the true probability. In each simulation, I flip the coin 20 times and vary the true success probability between 0.1 and 0.9 in steps of 0.05. I conduct 1,000 simulations for each true success probability.
+Consider a simulation where we repeatedly flip a coin with a known success probability. The goal is to calculate the percentage of times that the confidence interval covers the true probability. In each simulation, we flip the coin 20 times and vary the true success probability between 0.1 and 0.9 in steps of 0.05. We conduct 1,000 simulations for each true success probability.
 
-For each true success probability, I generate 1,000 sets of 20 coin flips and calculate the sample proportion. Then, I compute the lower and upper limits of the confidence interval for each set of coin flips. Finally, I determine the proportion of times that the confidence interval covers the true value of the success probability. I store these proportions in a variable called "coverage."
 
-To visualize the results, I plot the coverage as a function of the true success probability used in the simulation. For example, if the true value of p is 0.5, I perform 1,000 simulations and calculate the coverage based on whether the confidence interval covers 0.5 or not. In this case, the coverage is over 95%, indicating that the confidence interval provides better than 95% coverage for a true success probability of 0.5. Although there is some Monte Carlo error due to the finite number of simulations, 1,000 simulations generally yield good accuracy.
+```r
+n <- 20; pvals <- seq(.1, .9, by = .05); nosim <- 1000
+coverage <- sapply(pvals, function(p){
+  phats <- rbinom(nosim, prob = p, size = n) / n
+  ll <- phats - qnorm(.975) * sqrt(phats * (1 - phats) / n)
+  ul <- phats + qnorm(.975) * sqrt(phats * (1 - phats) / n)
+  mean(ll < p & ul > p)
+})
+```
 
-However, for a true success probability around 12%, the coverage falls well below the expected 95%. The reason behind this discrepancy is that the central limit theorem is not accurate enough for this specific value of n (the number of coin flips) and the true probability.
+For each true success probability, we generate 1,000 sets of 20 coin flips and calculate the sample proportion. Then, we compute the lower and upper limits of the confidence interval for each set of coin flips. Finally, we determine the proportion of times that the confidence interval covers the true value of the success probability. we store these proportions in a variable called "coverage."
 
-To address this issue for smaller values of n, a quick fix is to add 2 to the number of successes and 2 to the number of failures. This adjustment modifies the sample proportion, making it x+2/(n+4). After applying this adjustment, the confidence interval procedure can be performed as usual. This modified interval is known as the Agresti/Coull interval and tends to perform better than the standard Wald interval.
+To visualize the results, we can plot the coverage as a function of the true success probability used in the simulation. For example, if the true value of p is 0.5, we perform 1,000 simulations and calculate the coverage based on whether the confidence interval covers 0.5 or not. In this case, the coverage is over 95%, indicating that the confidence interval provides better than 95% coverage for a true success probability of 0.5.
+![(\#fig:unnamed-chunk-30)Coverage of confidence intervals for coin flips, n=20](week_02_files/figure-docx//1U1PiqeXG4XoKmg8hRFJqE1OFDOJfificBz1jLeDunHo_g257d7b8e795_0_107.png)
 
-Before demonstrating the results for the adjusted intervals, it is important to note that larger values of n yield better performance. In a simulation where n is increased to 100, the coverage probability improves and remains close to the expected 95% across different values of p.
+Although there is some Monte Carlo error due to the finite number of simulations, 1,000 simulations generally yield good accuracy. For a true success probability around 12%, the coverage falls well below the expected 95%. The reason behind this discrepancy is that the central limit theorem is not accurate enough for this specific value of n (the number of coin flips) and the true probability. To address this issue for smaller values of n, a quick fix is to add 2 to the number of successes and 2 to the number of failures. This adjustment modifies the sample proportion, making it $\frac{X+2}{n+4}$. After applying this adjustment, the confidence interval procedure can be performed as usual. This modified interval is known as the **Agresti/Coull interval** and tends to perform better than the standard Wald interval. Before demonstrating the results for the adjusted intervals, it is important to note that larger values of n yield better performance. In a simulation where n is increased to 100, the coverage probability improves and remains close to the expected 95% across different values of p.
 
-Returning to the simulation with n=20, when using the add 2 successes and 2 failures interval, the coverage probability is higher than 95%, indicating an improvement compared to the poor coverage of the Wald interval for certain true probability values. However, it's important to balance coverage and interval width, as being too conservative can lead to overly wide intervals.
+![(\#fig:unnamed-chunk-31)Coverage of confidence intervals for coin flips, n=100](week_02_files/figure-docx//1U1PiqeXG4XoKmg8hRFJqE1OFDOJfificBz1jLeDunHo_g257d7b8e795_0_110.png)
 
-Based on these observations, I strongly recommend using the add 2 successes and 2 failures interval instead of the Wald interval in this specific scenario.
+Returning to the simulation with n=20, when using the add 2 successes and 2 failures interval, the coverage probability is higher than 95%, indicating an improvement compared to the poor coverage of the Wald interval for certain true probability values. However, it's important to balance coverage and interval width, as being too conservative can lead to overly wide intervals. Based on these observations, we strongly recommend using the add 2 successes and 2 failures interval instead of the Wald interval in this specific scenario.
 
-Let's create a Poisson interval using the formula that involves the estimate plus or minus the normal quantile standard error. Although the application of the central limit theorem in this case may be less clear, we will discuss it shortly. 
+![(\#fig:unnamed-chunk-32)Coverage of confidence intervals for coin flips, n=20, add 2 successes and 2 failures](week_02_files/figure-docx//1U1PiqeXG4XoKmg8hRFJqE1OFDOJfificBz1jLeDunHo_g257d7b8e795_0_81.png)
 
-Consider a nuclear pump that failed 5 times over a monitoring period of 94.32 days. We want to calculate a 95% confidence interval for the failure rate per day. Assuming the number of failures follows a Poisson distribution with a failure rate of lambda and the monitoring period is denoted as t, the estimate of the failure rate is the number of failures divided by the total monitoring time. The variance of this estimate is lambda/t. 
+Example: Create a Poisson interval using the formula that involves the estimate plus or minus the normal quantile standard error. 
+Although the application of the central limit theorem in this case may be less clear, we will discuss it shortly.Consider a nuclear pump that failed 5 times out of 94.32 days over a monitoring period. We want to calculate a 95% confidence interval for the failure rate per day. Assuming the number of failures follows a Poisson distribution with a failure rate of lambda and the monitoring period is denoted as t, the estimate of the failure rate is the number of failures divided by the total monitoring time. The variance of this estimate is $\lambda/t$.
 
-In the calculations performed in R, the number of events (x) is set to 5, and the monitoring time (t) is 94.32. The rate estimate (lambda hat) is computed as x/t, and the confidence interval estimate is obtained by adding or subtracting the relevant standard normal quantile multiplied by the standard error. The resulting interval is rounded to three decimal places.
 
-In addition to the large sample interval, we can also calculate an exact Poisson interval using the `poisson.test` function in R. This exact interval guarantees the specified coverage (e.g., 95%), but it may be conservative and result in wider intervals than necessary.
+```r
+x <- 5; t <- 94.32; lambda <- x / t
+round(lambda + c(-1, 1) * qnorm(.975) * sqrt(lambda / t), 3)
+poisson.test(x, T = 94.32)$conf
+```
 
-To examine how confidence intervals perform in repeated samplings, let's conduct a simulation similar to the one for the coin example, but for the Poisson coverage rate. We select a range of lambda values around those from our previous example and perform 1,000 simulations. The monitoring time is set to 100 for simplicity. We define coverage as the percentage of times the simulated interval contains the true lambda value used in the simulation. The simulation is repeated for various lambda values, and the resulting plot shows the lambda values on the x-axis and the estimated coverage on the y-axis.
+In the calculations performed in R, the number of events $x$ is set to 5, and the monitoring time $t$ is 94.32. The rate estimate $\hat \lambda$ is computed as $x/t$, and the confidence interval estimate is obtained by adding or subtracting the relevant standard normal quantile multiplied by the standard error. The resulting interval is rounded to three decimal places. In addition to the large sample interval, we can also calculate an exact Poisson interval using the `poisson.test` function in R. This exact interval guarantees the specified coverage (e.g., 95%), but it may be conservative and result in wider intervals than necessary.
 
-The plot reveals that as lambda values increase, the coverage approaches 95%. However, there is some Monte Carlo error due to the finite number of simulations. On the other hand, as the true lambda value becomes smaller, the coverage deteriorates significantly. For very small lambda values, the purported 95% interval may only provide 50% actual coverage.
+To examine how confidence intervals perform in repeated samplings, let's conduct a simulation similar to the one for the coin example, but for the Poisson coverage rate. We select a range of $\lambda$ values around those from our previous example and perform 1,000 simulations. The monitoring time is set to 100 for simplicity. We define coverage as the percentage of times the simulated interval contains the true $\lambda$ value used in the simulation. The simulation is repeated for various $\lambda$ values, and the resulting plot shows the $\lambda$ values on the x-axis and the estimated coverage on the y-axis.
 
-To address this issue, it is recommended not to rely on the asymptotic interval for small lambda values, especially when there are relatively few events during a large monitoring time. In such cases, the asymptotic interval does not align well with the Poisson distribution. Instead, an exact Poisson interval can be used as an alternative.
+![(\#fig:unnamed-chunk-34)Coverage of confidence intervals for Poisson data](week_02_files/figure-docx//1U1PiqeXG4XoKmg8hRFJqE1OFDOJfificBz1jLeDunHo_g257d7b8e795_0_84.png)
 
-Although the central limit theorem's application in the Poisson case may not be immediately clear, a simulation with a larger monitoring time (e.g., changing t from 100 to 1,000) demonstrates that as the monitoring time increases, the coverage improves and converges to 95% for most lambda values. However, some poor coverage may still occur for small lambda values, which we know the interval has trouble handling. In such cases, the exact Poisson interval remains a viable option.
+The plot reveals that as $\lambda$ values increase, the coverage approaches 95%. However, there is some Monte Carlo error due to the finite number of simulations. On the other hand, as the true $\lambda$ value becomes smaller, the coverage deteriorates significantly. For very small $\lambda$ values, the purported 95% interval may only provide 50% actual coverage. To address this issue, it is recommended not to rely on the asymptotic interval for small $\lambda$ values, especially when there are relatively few events during a large monitoring time. In such cases, the asymptotic interval does not align well with the Poisson distribution. Instead, an exact Poisson interval can be used as an alternative.
 
-Congratulations on making it through this extensive lecture. To summarize briefly, we covered the Law of Large Numbers, which states that averages of independent and identically distributed (IID) random variables converge to the quantities they are estimating. This applies to Poisson rates as well, although the convergence process may be less clear. As the monitoring time tends to infinity, for example, Poisson rates converge to their estimated values.
+Although the central limit theorem's application in the Poisson case may not be immediately clear, a simulation with a larger monitoring time (e.g., changing t from 100 to 1,000) demonstrates that as the monitoring time increases, the coverage improves and converges to 95% for most $\lambda$ values. However, some poor coverage may still occur for small $\lambda$ values, which we know the interval has trouble handling. In such cases, the exact Poisson interval remains a viable option.
 
-Next, we discussed the Central Limit Theorem, which states that averages are approximately normally distributed. These distributions are centered at the population mean, a concept we already knew without the theorem, with standard deviations equal to the standard error of the mean. However, the Central Limit Theorem does not guarantee that the sample size is large enough for this approximation to be accurate. We have observed instances where confidence intervals are very accurate and others where they are less accurate.
+![(\#fig:unnamed-chunk-35)Coverage of confidence intervals for Poisson data, t=1000](week_02_files/figure-docx//1U1PiqeXG4XoKmg8hRFJqE1OFDOJfificBz1jLeDunHo_g257d7b8e795_0_122.png)
 
-Speaking of confidence intervals, our default approach for constructing them is to take the mean estimate and add or subtract the relevant normal quantile times the standard error. This method, known as "walled intervals," is used not only in this context but also in regression analysis, general linear models, and other complex subjects. For a 95% confidence interval, the quantile value can be taken as 2 or, for more accuracy, 1.96.
-
-Confidence intervals become wider as the desired coverage increases within a specific technique. This is because wider intervals provide more certainty that the parameter lies within them. To illustrate, imagine an extreme scenario where your life depends on the confidence interval containing the true parameter. In this case, you would want to make the interval as wide as possible to ensure your safety. The mathematics behind confidence intervals follows the same principle.
-
+To summarize briefly, we covered the Law of Large Numbers, which states that averages of independent and identically distributed (iid) random variables converge to the quantities they are estimating. This applies to Poisson rates as well, although the convergence process may be less clear. As the monitoring time tends to infinity, for example, Poisson rates converge to their estimated values. We also discussed the Central Limit Theorem, which states that averages are approximately normally distributed. These distributions are centered at the population mean, a concept we already knew without the theorem, with standard deviations equal to the standard error of the mean. However, the Central Limit Theorem does not guarantee that the sample size is large enough for this approximation to be accurate. We have observed instances where confidence intervals are very accurate and others where they are less accurate. Speaking of confidence intervals, our default approach for constructing them is to take the mean estimate and add or subtract the relevant normal quantile times the standard error. This method, known as "walled intervals," is used not only in this context but also in regression analysis, general linear models, and other complex subjects. For a 95% confidence interval, the quantile value can be taken as 2 or, for more accuracy, 1.96. Confidence intervals become wider as the desired coverage increases within a specific technique. This is because wider intervals provide more certainty that the parameter lies within them. To illustrate, imagine an extreme scenario where your life depends on the confidence interval containing the true parameter. In this case, you would want to make the interval as wide as possible to ensure your safety. The mathematics behind confidence intervals follows the same principle.
 In the cases of Poisson and binomial distributions, which are discrete, the Central Limit Theorem may not accurately approximate their distributions. However, exact procedures exist for these cases. We also learned a simple fix for constructing confidence intervals in the binomial case by adding two successes and two failures, which provides a better interval without requiring complex computations. This method can be easily done by hand or mentally, even without access to a computer.
 
 ## Practical R Exercises in swirl
-
-## Quiz
