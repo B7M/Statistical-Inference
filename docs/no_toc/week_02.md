@@ -1,107 +1,266 @@
 # Variability, Distribution, & Asymptotics
 
 ## Variability
-An important characterization of a population is how spread out it is. One of the key measures of spread is variability. We measure population variability with the sample variance, or more often we consider the square root of both, called the standard deviation. The reason for taking the standard deviation is because that measure has the same units as the population. So if our population is a length measurement in meters, the standard deviation is in meters (whereas the variance is in meters squared). 
-
-Variability has many important uses in statistics. First, the population variance is itself an intrinsically interesting quantity that we want to estimate. Secondly, variability in our estimates is what makes them not imprecise. An important aspect of statistics is quantifying the variability in our estimates. 
+An important characterization of a population is how spread out it is. One of the key measures of spread is variability. We measure population variability with the sample variance, or more often we consider the square root of it, called the standard deviation. The reason for taking the standard deviation is because that measure has the same units as the population. So if our population is a length measurement in meters, the standard deviation is in meters (whereas the variance is in meters squared). Variability has many important uses in statistics. First, the population variance is itself an intrinsically interesting quantity that we want to estimate. Secondly, variability in our estimates is what makes them not imprecise. An important aspect of statistics is quantifying the variability in our estimates.
 
 In the previous lecture, we discussed the population mean as a measure of the center of a distribution. Now, let's explore another important property called variance, which describes the spread or concentration of the density around the mean. If we imagine a bell curve, the probability density function will shift to the left or right as the mean changes. Variance quantifies how widely or narrowly the density is distributed around the mean.
+<div class="figure" style="text-align: center">
+<img src="week_02_files/figure-html//1U1PiqeXG4XoKmg8hRFJqE1OFDOJfificBz1jLeDunHo_g257d7b8e795_0_19.png" alt="Alternative text" width="480" />
+<p class="caption">(\#fig:unnamed-chunk-1)Variance of a distribution</p>
+</div>
 
-For a random variable X with a mean μ, the variance is precisely the expected squared distance between the random variable and the mean. I provide the formula here, but there's also a useful shortcut: the expected value of X squared minus the square of the expected value of X. Densities with higher variance are more spread out compared to those with lower variances. The square root of variance is known as the standard deviation, which is expressed in the same units as X.
 
-In this class, we won't spend much time manually calculating expected values or variances for populations. However, let's go through one such calculation. In the previous lecture, we found that the expected value of X, when rolling a die, is 3.5. To calculate the expected value of X squared, we square each number (1, 2, 3, 4, 5) and multiply them by their associated probabilities. Summing these values gives us 15.17. By subtracting (15.17 - 3.5) squared, we find the variance of a die roll to be 2.92.
+```r
+library(ggplot2)
+x <- seq(-4, 4, length.out = 1000)
+mean <- 0
 
-Now, let's move on to another example. Consider tossing a coin with a probability of heads, p. From the previous lecture, we know that the expected value of a coin toss is p. When calculating the expected value of X squared, 0 squared is 0, and 1 squared is 1. Thus, the expected value of X squared is p. Plugging these values into our formula, we get p - p squared, which simplifies to p(1 - p). This formula is widely recognized and it's advisable to memorize it.
+# Standard deviations
+sds <- c(0.5, 1, 1.5, 2)
 
-I'm providing examples of population densities with varying variances. The salmon-colored density represents a standard normal distribution with a variance of 1. As the variance increases, the density becomes flatter and spreads more into the tails. Consequently, if someone is from a normal distribution with a variance of 4, they are more likely to have a value beyond 5 compared to someone from a normal distribution with a variance of 3.
+# Create the plot
+plot(x, dnorm(x, mean = mean, sd = sds[1]), type = "l", lwd = 3, xlab = "x", ylab = "",yaxt="n")
 
-Similar to the relationship between population mean and sample mean, the population variance and sample variance are directly analogous. The population mean represents the center of mass of the population, while the sample mean represents the center of mass of the observed data. Similarly, the population variance quantifies the expected squared distance of a random variable from the population mean, while the sample variance measures the average squared distance of the observed data points from the sample mean. Note that in the denominator of the sample variance formula, we divide by (n - 1) instead of n, and I will explain why in a moment.
+# Add lines for the other distributions with different colors
+colors <- c("blue", "green", "orange", "purple")
+for (i in 1:length(sds)) {
+  lines(x, dnorm(x, mean = mean, sd = sds[i]), col = colors[i], lwd = 3)
+}
 
-I want to address a conceptually challenging point, which is the variance of the sample variance. Recall that the sample variance is a function of the data, making it a random variable with its own population distribution. The expected value of this distribution corresponds to the population variance being estimated by the sample variance. As we gather more data, the distribution of the sample variance becomes increasingly concentrated around the population variance it seeks to estimate.
+# Add legend
+legend("topright", legend = paste("sd=", sds), col = colors, lwd = 2,box.lwd = 0, box.col = "white")
+```
 
-Lastly, I'd like to remind you that the square root of the sample variance is the sample standard deviation, which provides a measure of dispersion that is more interpretable since it is in the same units as X.
+The blue-colored density represents a standard normal distribution with a standard deviation of 0.5. As the standard deviation increases, the density becomes flatter and spreads more into the tails. Consequently, if a variable is from a normal distribution with a standard deviation of 1.5, they are more likely to have a value beyond 2 compared to a variable from a normal distribution with a standard deviation of 1.
+
+For a random variable X with a mean μ, the variance is precisely the expected squared distance between the random variable and the mean. 
+$$ Var(X)=E[(X-\mu)^2]$$
+There's also a useful shortcut: 
+$$ Var(X)=E[X^2]-E[X]^2$$
+
+Densities with higher variance are more spread out compared to those with lower variances. The square root of variance is known as the standard deviation, which is expressed in the same units as X.
+
+Example: In the previous lecture, we found that the expected value of X, when rolling a die, is 3.5. 
+$$ Var(X)=E[X^2]-E[X]^2$$
+To calculate the expected value of X squared, we square each number (1, 2, 3, 4, 5) and multiply them by their associated probabilities. Summing these values gives us 15.17.
+$Var(X)=15.17 - 3.5^2= 2.92$
+
+Example: Consider tossing a coin with a probability of heads, $p$. From the previous lecture, we know that the expected value of a coin toss is $p$. When calculating the expected value of X squared, 0 squared is 0, and 1 squared is 1. Thus, the expected value of X squared is $p$. Plugging these values into our formula, we get $Var(X)=p - p^2$, which simplifies to $p(1 - p)$. This formula is widely recognized and we suggest you memorize it.
+
+Similar to the relationship between population mean and sample mean, the population variance and sample variance are directly analogous. The population mean represents the center of mass of the population, while the sample mean represents the center of mass of the observed data. Similarly, the population variance quantifies the expected squared distance of a random variable from the population mean, while the sample variance measures the average squared distance of the observed data points from the sample mean. 
+$$ S^2=\frac{\Sigma_{i=1}(X_i-\bar X)^2}{n-1}$$
+Note that in the denominator of the sample variance formula, we divide by $n- 1$ instead of $n$.
+
+Recall that the sample variance is a function of the data, making it a random variable with its own population distribution. The expected value of this distribution corresponds to the population variance being estimated by the sample variance. As we gather more data, the distribution of the sample variance becomes increasingly concentrated around the population variance it seeks to estimate.
 
 ### Variance simulation examples
-Let's consider the following scenario. Suppose I simulate ten standard normal random variables and calculate their sample variance. If I repeat this process many times, I will obtain a distribution of sample variances. This distribution, represented by the salmon-colored density, emerges from repeating the process thousands of times. What I mentioned earlier, and what Rissotto discussed in the previous slide, is that if I sample enough data points, the center of mass of this distribution will precisely match the variance of the original population I was sampling from—the standard normal distribution with a variance of one.
+Suppose we simulate ten standard normal random variables and calculate their sample variance. If we repeat this process many times, we will obtain a distribution of sample variances. This distribution, represented by the salmon-colored density, emerges from repeating the process thousands of times. If we sample enough data points, the center of mass of this distribution will precisely match the variance of the original population we were sampling from—the standard normal distribution with a variance of one.
 
-The same holds true when I consider sample variances based on 20 observations from the standard normal distribution. I repeat the process of sampling 20 standard normals, calculating the sample variance, and obtaining a distribution of sample variances. This distribution, depicted in a more aqua color, is also centered at one.
+<div class="figure" style="text-align: center">
+<img src="week_02_files/figure-html//1U1PiqeXG4XoKmg8hRFJqE1OFDOJfificBz1jLeDunHo_g257d7b8e795_0_69.png" alt="Alternative text" width="480" />
+<p class="caption">(\#fig:unnamed-chunk-3)Variance of a distribution of die roll</p>
+</div>
 
-The pattern continues when I examine sample variances based on 30 observations. However, what's interesting to note is that as the sample size increases, the variance of the population distribution of the sample variances becomes more concentrated. In simpler terms, collecting more data leads to a better and more tightly focused estimate of what the sample variance is trying to estimate. In this case, all the sample variances are estimating a population variance of one because they are sampled from a population with a variance of one.
 
-In an earlier lecture, we found that the variance of a die roll was 2.92. Now, imagine if I were to roll ten dice and calculate the sample variance of the numbers on the sides facing up. By repeating this process numerous times, I can obtain a reliable understanding of the population distribution of the variance of ten die rolls. Although it requires a large number of repetitions, with the help of a computer, I can simulate this process thousands of times, as demonstrated here. Notice that the distribution of the variance of ten die rolls is precisely centered around 2.92, which is the variance of a single die roll. As I increase the number of dice to 20 and 30, the center of the distribution remains the same, but it becomes more concentrated around the true population variance. This indicates that the sample variance provides a good estimate of the population variance. As we collect more data, the distribution of the sample variance becomes increasingly concentrated around the true value it aims to estimate, demonstrating its unbiasedness.
+```r
+library(ggplot2)
+nosim <- 10000; 
+dat <- data.frame(
+    x = c(apply(matrix(rnorm(nosim * 10), nosim), 1, var),
+          apply(matrix(rnorm(nosim * 20), nosim), 1, var),
+          apply(matrix(rnorm(nosim * 30), nosim), 1, var)),
+    n = factor(rep(c("10", "20", "30"), c(nosim, nosim, nosim))) 
+    )
+ggplot(dat, aes(x = x, fill = n)) + geom_density(size = 2, alpha = .2) + geom_vline(xintercept = 1, size = 2) 
+```
 
-The reason we divide by (n - 1) instead of n in the denominator of the sample variance formula is to ensure its unbiasedness.
+The same holds true when we consider sample variances based on 20 observations from the standard normal distribution. we repeat the process of sampling 20 standard normals, calculating the sample variance, and obtaining a distribution of sample variances. This distribution, depicted in a more aqua color, is also centered at one. The pattern continues when we examine sample variances based on 30 observations. However, what's interesting to note is that as the sample size increases, the variance of the population distribution of the sample variances becomes more concentrated. In simpler terms, collecting more data leads to a better and more tightly focused estimate of what the sample variance is trying to estimate. In this case, all the sample variances are estimating a population variance of one because they are sampled from a population with a variance of one.
+
+Before we found that the variance of a die roll was $2.92$. Now, imagine if we were to roll ten dice and calculate the sample variance of the numbers on the sides facing up. By repeating this process numerous times, we can obtain a reliable understanding of the population distribution of the variance of ten die rolls. Although it requires a large number of repetitions, with the help of a computer, we can simulate this process thousands of times, as demonstrated here. 
+<div class="figure" style="text-align: center">
+<img src="week_02_files/figure-html//1U1PiqeXG4XoKmg8hRFJqE1OFDOJfificBz1jLeDunHo_g257d7b8e795_0_72.png" alt="Alternative text" width="480" />
+<p class="caption">(\#fig:unnamed-chunk-5)Variance of a distribution of coin toss</p>
+</div>
+
+
+```r
+dat <- data.frame(
+  x = c(apply(matrix(sample(1 : 6, nosim * 10, replace = TRUE), 
+                     nosim), 1, var),
+        apply(matrix(sample(1 : 6, nosim * 20, replace = TRUE), 
+                     nosim), 1, var),
+        apply(matrix(sample(1 : 6, nosim * 30, replace = TRUE), 
+                     nosim), 1, var)
+        ),
+  size = factor(rep(c(10, 20, 30), rep(nosim, 3))))
+g <- ggplot(dat, aes(x = x, fill = size)) + geom_histogram(alpha = .20, binwidth=.3, colour = "black") 
+g <- g + geom_vline(xintercept = 2.92, size = 2)
+g + facet_grid(. ~ size)
+```
+Notice that the distribution of the variance of ten die rolls is precisely centered around 2.92, which is the variance of a single die roll. As I increase the number of dice to 20 and 30, the center of the distribution remains the same, but it becomes more concentrated around the true population variance. This indicates that the sample variance provides a good estimate of the population variance. As we collect more data, the distribution of the sample variance becomes increasingly concentrated around the true value it aims to estimate, demonstrating its unbiasedness.
+
+The reason we divide by $n - 1$ instead of $n$ in the denominator of the sample variance formula is to ensure its unbiasedness.
 ### Standard error of the mean
-Now that we have extensively discussed variances and briefly touched upon the distribution of sample variances, let's revisit the distribution of sample means. It is important to remember that the average of numbers sampled from a population is a random variable with its own population mean and population variance. The population mean remains the same as the original population, while the variance of the sample mean can be related to the variance of the original population. Specifically, the variance of the sample mean decreases to zero as more data is accumulated. This means that the sample mean becomes more concentrated around the population mean it is trying to estimate, which is a valuable characteristic since we usually only have one sample mean in a given dataset.
+Now that we have extensively discussed variances and briefly touched upon the distribution of sample variances, let's revisit the distribution of sample means. It is important to remember that the average of numbers sampled from a population is a random variable with its own population mean and population variance. The population mean remains the same as the original population, while the variance of the sample mean can be related to the variance of the original population. Specifically, the variance of the sample mean decreases to zero as more data is accumulated. 
+$$ Var(\bar X)=\frac{\sigma^2}{n}$$
+This means that the sample mean becomes more concentrated around the population mean it is trying to estimate, which is a valuable characteristic since we usually only have one sample mean in a given dataset.
 
-Although we do not have multiple repeated sample means to investigate their variability like we do in simulation experiments, we can still estimate the population variance, denoted as sigma squared, using the available data. With knowledge of sigma squared and the sample size (denoted as n), we can gather valuable information about the distribution of the sample mean. The square root of the statistic, sigma over square root n, is referred to as the standard error of the mean, denoted as the standard deviation of the distribution of a statistic. The term "standard error" is used to represent the variability of means, while the standard error of a regression coefficient describes the variability in regression coefficients.
+Although we do not have multiple repeated sample means to investigate their variability like we do in simulation experiments, we can still estimate the population variance, denoted as $\sigma^2$, using the available data. With knowledge of $\sigma^2$ and the sample size (denoted as n), we can gather valuable information about the distribution of the sample mean. The square root of the statistic, sigma over square root n, is referred to as the standard error of the mean, denoted as the standard deviation of the distribution of a statistic. The term "standard error" is used to represent the variability of means, while the standard error of a regression coefficient describes the variability in regression coefficients.
 
-In summary, considering a population with a mean (mew) and variance (sigma squared), when we draw a random sample from that population and calculate the variance, it serves as an estimate of sigma squared. Similarly, when we calculate the mean, it estimates mu (population mean). However, s squared (sample variance) is also a random variable with its own distribution centered around sigma squared, becoming more concentrated around it as more observations contribute to the squared value. Additionally, the distribution of sample means from that population is centered at mu and becomes more concentrated around mu as more observations are included. Moreover, we precisely know the variance of the distribution of sample means, which is sigma squared divided by n.
+In summary, considering a population with a mean $\mu$ and variance $\sigma^2$, when we draw a random sample from that population and calculate the variance $S^2$, it serves as an estimate of $\sigma^2$. Similarly, when we calculate the mean, it estimates $\mu$ (population mean). However, $S^2$ (sample variance) is also a random variable with its own distribution centered around $\sigma^2$, becoming more concentrated around it as more observations contribute to the squared value. Additionally, the distribution of sample means from that population is centered at $\mu$ and becomes more concentrated around $\mu$ as more observations are included. Moreover, we precisely know the variance of the distribution of sample means, which is $\sigma^2$ divided by n.
 
-Since we lack repeated sample means in a given dataset, we estimate the sample variance of the mean as s squared divided by n and the logical estimate of the standard error as s over square root n. The standard error of the mean (or the sample standard error of the mean) is defined as s over square root n. The standard deviation (s) is an estimate of the variability of the population, while the standard error (s over square root n) represents the variability of averages of random samples of size n from the population.
+Since we lack repeated sample means in a given dataset, we estimate the sample variance of the mean as $S^2$ divided by n and the logical estimate of the standard error as $\frac{S}{\sqrt{n}}$. The standard error of the mean (or the sample standard error of the mean) is defined as $\frac{S}{\sqrt{n}}$. The standard deviation (S) is an estimate of the variability of the population, while the standard error ($\frac{S}{\sqrt{n}}$) represents the variability of averages of random samples of size n from the population.
 
-To illustrate these concepts, let's consider some simulation examples. If we take standard normals (with a variance of one), the standard deviation of means of n standard normals is expected to be one over square root n. By simulating multiple draws of ten standard normals and calculating their mean, followed by taking the standard deviation of these averages, we should obtain an approximate value of one over square root n. Similar simulations can be performed for standard uniforms (variance of 1/12), Poisson distributions (variance of 4), and coin flips (variance of p times 1 minus p, assuming p is a half). The results of these simulations should align with the theoretical values predicted by our rule.
+Example: If we take standard normals (with a variance of one), the standard deviation of means of n standard normals is expected to be one over $\frac{1}{\sqrt{n}}$. By simulating multiple draws of ten standard normals and calculating their mean, followed by taking the standard deviation of these averages, we should obtain an approximate value of $\frac{1}{\sqrt{n}}$. 
 
-In conclusion, understanding the standard error of the mean is crucial in determining the variability of sample means. Simulation experiments can help illustrate these concepts, especially when investigating the distribution of sample means and estimating their standard error.
+You can explore this using the following code snippet in R:
 
-### Variance data example
-Now, let's dive into a practical example using the father-son data from our dataset. We will focus on the height of the sons, with "n" representing the number of observations as usual. If we plot a histogram of the son's height and overlay it with a continuous density estimate, we observe a distribution that closely resembles a Gaussian curve. This density estimate provides an approximation of the population density, given the finite amount of data we have collected. The histogram's variability, which the sample variance calculates, serves as an estimate of the variability in son's height from the population this data was drawn from, assuming it was a random sample.
 
-Now, let's go through some calculated values. By calculating the variance of x, variance of x divided by n, standard deviation of x, and standard deviation of x divided by square root n, and rounding them to two decimal places, we obtain 7.92 and 2.81 as the variance of x and the standard deviation of x, respectively. These numbers represent the variability in son's heights from the dataset and act as estimates of the population variability of son's heights if we assume these sons are a random sample from a meaningful population. In this case, I prefer the value 2.81 over 7.92 since 7.92 is expressed in inches squared, while 2.81 is expressed in inches. Working with the actual units is more intuitive.
+```r
+nosim <- 1000
+n <- 10
+sd(apply(matrix(rnorm(nosim * n), nosim), 1, mean))
+```
 
+```
+## [1] 0.3183157
+```
+
+```r
+1 / sqrt(n)
+```
+
+```
+## [1] 0.3162278
+```
+
+Similar simulations can be performed for standard uniforms (variance of $\frac{1}{12}$), Poisson(4)  distributions (variance of 4), and coin flips (variance of $p*(1-p)$, assuming p=0.5 then $Var(X)=0.25$). The results of these simulations should align with the theoretical values predicted by our rule.
+
+Understanding the standard error of the mean is crucial in determining the variability of sample means. Simulation experiments can help illustrate these concepts, especially when investigating the distribution of sample means and estimating their standard error.
+
+
+Example: Consider the father-son data from UsingR library. We will focus on the height of the sons, with "n" representing the number of observations as usual. If we plot a histogram of the son's height and overlay it with a continuous density estimate, we observe a distribution that closely resembles a Gaussian curve. 
+<div class="figure" style="text-align: center">
+<img src="week_02_files/figure-html//1U1PiqeXG4XoKmg8hRFJqE1OFDOJfificBz1jLeDunHo_g257d7b8e795_0_75.png" alt="Alternative text" width="480" />
+<p class="caption">(\#fig:unnamed-chunk-9)Histogram of son heights</p>
+</div>
+
+
+```r
+library(UsingR); data(father.son); 
+x <- father.son$sheight
+n<-length(x)
+g <- ggplot(data = father.son, aes(x = sheight)) 
+g <- g + geom_histogram(aes(y = ..density..), fill = "lightblue", binwidth=1, colour = "black")
+g <- g + geom_density(size = 2, colour = "black")
+g
+```
+
+This density estimate provides an approximation of the population density, given the finite amount of data we have collected. The histogram's variability, which the sample variance calculates, serves as an estimate of the variability in son's height from the population this data was drawn from, assuming it was a random sample.
+
+By calculating the variance of x, variance of x divided by n, standard deviation of x, and standard deviation of $\frac{x}{\sqrt{n}}$, and rounding them to two decimal places, we obtain 7.92 and 2.81 as the variance of x and the standard deviation of x, respectively. 
+
+```r
+library(UsingR); data(father.son); 
+x <- father.son$sheight
+n<-length(x)
+round(c(var(x), var(x) / n, sd(x), sd(x) / sqrt(n)),2)
+```
+These numbers represent the variability in son's heights from the dataset and act as estimates of the population variability of son's heights if we assume these sons are a random sample from a meaningful population. In this case, we prefer the value 2.81 over 7.92 since 7.92 is expressed in inches squared, while 2.81 is expressed in inches. Working with the actual units is more intuitive.
 Moving on to 0.01 and 0.09, these values no longer reflect the variability in children's heights. Instead, they represent the variability in averages of ten children's heights. The value 0.09 is particularly meaningful as it represents the standard error or the standard deviation in the distribution of averages of n children's heights. While it's an estimate based on the available data, it's the best estimate we can derive from the dataset.
 
-To summarize what we have learned, this lecture covered several complex topics, but at its core, understanding variability is the key to understanding statistics. In fact, grasping the concept of variability might be the most crucial aspect of statistics. Here's a summary of our findings: the sample variance provides an estimate of the population variance, and the distribution of the sample variance is centered around the value it is estimating, indicating an unbiased estimation. Moreover, as more data is collected, the distribution becomes more concentrated around the estimated value, leading to a better estimate. We have also gained insights into the distribution of sample means. In addition to knowing its center, as discussed in the previous lecture, we now understand that the variance of the sample mean is the population variance divided by n, and its square root, sigma divided by the square root of n, is known as the standard error. These quantities capture the variability of averages drawn from the population, and surprisingly, even though we only have access to one sample mean in a given dataset, we can make substantial inferences about the distribution of averages from random samples. This knowledge provides us with a solid foundation for various statistical analyses and methodologies.
+In this section we covered several complex topics, but at its core, understanding variability is the key to understanding statistics. In fact, grasping the concept of variability might be the most crucial aspect of statistics. Here's a summary of our findings: the sample variance provides an estimate of the population variance, and the distribution of the sample variance is centered around the value it is estimating, indicating an unbiased estimation. Moreover, as more data is collected, the distribution becomes more concentrated around the estimated value, leading to a better estimate. We have also gained insights into the distribution of sample means. In addition to knowing its center, as discussed in the previous lecture, we now understand that the variance of the sample mean is the population variance divided by n, and its square root, $\frac{\sigma}{\sqrt{n}}$ is known as the standard error. These quantities capture the variability of averages drawn from the population, and surprisingly, even though we only have access to one sample mean in a given dataset, we can make substantial inferences about the distribution of averages from random samples. This knowledge provides us with a solid foundation for various statistical analyses and methodologies.
 ## Distributions
-Some probability distributions are so important that we need to internalize their characteristics. In these lectures we cover the most important probability distributions. 
+Some probability distributions are so important that we need to internalize their characteristics. Here we will cover the most important probability distributions.
 ### Binomial distribution
-Let's begin with the simplest distribution, known as the Bernoulli distribution, named after Jacob Bernoulli, a renowned mathematician from a distinguished family of mathematicians. If you're interested, you can explore the Bernoulli family further through their Wikipedia pages. The Bernoulli distribution originates from a coin flip, where a "0" represents tails and a "1" represents heads. We can consider a potentially biased coin with a probability "p" for heads and "1 - p" for tails. The Bernoulli probability mass function is typically denoted as "p^x * (1 - p)^(1 - x)." As we have seen before, the mean of a Bernoulli random variable is "p," and the variance is "p * (1 - p)."
+Perhaps the simplest distribution is known as the Bernoulli distribution, named after Jacob Bernoulli, a renowned mathematician from a distinguished family of mathematicians. If you're interested, you can explore the Bernoulli family further through their Wikipedia pages. The Bernoulli distribution originates from a coin flip, where a "0" represents tails and a "1" represents heads. We can consider a potentially biased coin with a probability "p" for heads and "1 - p" for tails. The Bernoulli probability mass function is typically denoted as:
+$$P(X=x)=p^x * (1 - p)^(1 - x)$$ 
+As we have seen before, the mean of a Bernoulli random variable is $p$, and the variance is $p* (1 - p)$. In the context of a Bernoulli random variable, we often refer to "x = 1" as a success, irrespective of the specific definition of success in a given scenario, and "x = 0" as a failure.
 
-In the context of a Bernoulli random variable, we often refer to "x = 1" as a success, irrespective of the specific definition of success in a given scenario, and "x = 0" as a failure. Now, let's move on to discussing the binomial distribution. A binomial random variable is obtained by summing up a series of independent and identically distributed (iid) Bernoulli random variables. Essentially, a binomial random variable represents the total number of heads obtained in a series of coin flips with a potentially biased coin. Mathematically, if we let "x1" to "xn" be iid Bernoulli variables with parameter "p," then the sum of these variables, denoted as "x," is a binomial random variable.
+A binomial random variable is obtained by summing up a series of independent and identically distributed (iid) Bernoulli random variables. Essentially, a binomial random variable represents the total number of heads obtained in a series of coin flips with a potentially biased coin. Mathematically, if we let $X_1$ to $X_n$ be iid Bernoulli variables with parameter $p$, then the sum of these variables, denoted as $X$, is a binomial random variable.
+$$X=\Sigma_{i=1}^n X_i$$
+$$P(X=x)=\left(\begin{array}{c}  n \\ x \end{array}\right)p^x(1 - p)^{n-x}=\frac{n!}{x!(n-x)!}p^x(1-p)^{n-x}$$
+The binomial probability mass function closely resembles the Bernoulli mass function, but with the inclusion of "n choose x" in front. The notation "n choose x" represents the binomial coefficient, calculated as $\frac{n!}{x!(n-x)!}$. It is worth noting that "n choose 0" $\left(\begin{array}{c}  n \\ 0 \end{array}\right)$ and "n choose n" $\left(\begin{array}{c}  n \\ n \end{array}\right)$ both equal 1. This coefficient helps solve a common combinatorial problem, counting the number of ways to select "x" items out of "n" without replacement while disregarding the ordering of the items.
 
-The binomial probability mass function closely resembles the Bernoulli mass function, but with the inclusion of "n choose x" in front. The notation "n choose x" represents the binomial coefficient, calculated as "n factorial / (x factorial * (n - x) factorial)." It is worth noting that "n choose 0" and "n choose n" both equal 1. This coefficient helps solve a common combinatorial problem, counting the number of ways to select "x" items out of "n" without replacement while disregarding the ordering of the items.
+Example: Suppose your friend has eight children, with seven of them being girls (and no twins). Assuming each gender has an independent 50% probability for each birth, what is the probability of having seven or more girls out of eight births?
+We can apply the binomial formula to calculate this probability: 
+$$P(X\geq7) = \left(\begin{array}{c}  8 \\ 7 \end{array}\right) * 0.5^7 * (1 - 0.5)^1 + \left(\begin{array}{c}  8 \\ 8 \end{array}\right) * 0.5^8 * (1 - 0.5)^0≈0.04$$
 
-To illustrate a binomial calculation, let's consider an example. Suppose your friend has eight children, with seven of them being girls (and no twins). Assuming each gender has an independent 50% probability for each birth, what is the probability of having seven or more girls out of eight births? We can apply the binomial formula to calculate this probability: "P(seven or more girls) = (8 choose 7) * 0.5^7 * (1 - 0.5)^1 + (8 choose 8) * 0.5^8 * (1 - 0.5)^0." The result turns out to be a 4% chance.
+In the provided R code, you can find the implementation of this calculation. Furthermore, for most common distributions, including the binomial distribution, there are built-in functions in R. For example, the `pbinom` function can be used to obtain these probabilities conveniently.
 
-In the provided R code, you can find the implementation of this calculation. Furthermore, for most common distributions, including the binomial distribution, there are built-in functions in R. For example, the "pbinom" function can be used to obtain these probabilities conveniently.
+```r
+choose(8, 7) * .5 ^ 8 + choose(8, 8) * .5 ^ 8 
+pbinom(6, size = 8, prob = .5, lower.tail = FALSE)
+```
 ### Normal distribution
 Probabilities play a crucial role in statistics, and among all the distributions, the normal distribution stands out as the most important one. In the upcoming lecture, we will explore why it holds such significance. In fact, if all distributions were to gather and elect a leader, the normal distribution would undoubtedly take the crown.
 
-Let's start by understanding a random variable that follows a normal (Gaussian) distribution with a mean of μ and a variance of σ squared. This distribution is characterized by a density function that resembles a bell curve, as we will illustrate shortly. If we have a random variable X with this density, its expected value is μ, and its variance is σ squared. We can express this concisely as X ~ N(μ, σ^2), denoting a normal distribution with mean μ and variance σ squared. When μ equals 0 and σ equals 1, the resulting distribution is known as the standard normal distribution. Standard normal random variables are often denoted by the letter z. Here, we depict the standard normal density function, which represents the famous bell curve you have likely encountered before. It is important to note that for the standard normal distribution, the mean is 0, and the standard deviation (and variance) is 1. In the diagram, we illustrate one standard deviation above and below the mean, two standard deviations above and below the mean, and three standard deviations above and below the mean. The units on the standard normal distribution can be interpreted as standard deviation units. For example, moving one unit in either direction corresponds to one standard deviation. Additionally, it is worth mentioning that statisticians often find it convenient to revert to the standard normal distribution when discussing normal probabilities, even when dealing with non-standard normal distributions. Therefore, if you want to calculate the probability that a non-standard normal lies between μ + 1σ and μ - 1σ (where μ and σ are specific to its distribution), the probability area is equivalent to that between -1 and +1 on the standard normal distribution. In essence, all normal distributions have the same underlying shape, with the only difference being the units along the axis. By reverting to standard deviations from the mean, all probabilities and calculations can be transformed back to those associated with the standard normal distribution. We will explore some examples to solidify this concept.
+A random variable that follows a normal (Gaussian) distribution with a mean of $\mu$ and a variance of $\sigma^2$. This distribution is characterized by a density function that resembles a bell curve. If we have a random variable X with this density, its expected value is μ, and its variance is $\sigma^2$. We can express this concisely as $X \sim N(\mu,\sigma^2)$, denoting a normal distribution with mean μ and variance $\sigma^2$. When μ=0 and σ=1, the resulting distribution is known as the **standard normal distribution**. Standard normal random variables are often denoted by the letter $z$. Here, we depict the standard normal density function, which represents the famous bell curve you have likely encountered before.
 
-Now, let's discuss some fundamental reference probabilities related to the standard normal distribution and use visual aids to help us remember them. First, consider one standard deviation from the mean in the standard normal distribution (or any normal distribution). Approximately 34% of the distribution lies on each side, resulting in a total area of 68% within one standard deviation. Moving on to two standard deviations, denoted by the magenta area in the diagram, around 95% of the distribution falls within this range for any normal distribution. This leaves 2.5% in each tail, and we often utilize this information when calculating confidence intervals. Lastly, when considering three standard deviations from the mean, the area encompasses approximately 99% of the distribution's mass, although it may be difficult to discern from the diagram. These reference probabilities are essential to commit to memory.
+```r
+x <- seq(-3, 3, length = 1000)
+library(ggplot2)
+g <- ggplot(data.frame(x = x, y = dnorm(x)), 
+            aes(x = x, y = y)) + geom_line(size = 2)
+g <- g + geom_vline(xintercept = -3 : 3, size = 2)
+g
+```
 
-In summary, probabilities are a fundamental concept, and the normal distribution holds a special place in statistics. Understanding its properties and the relationship to the standard normal distribution allows us to solve problems effectively. All normal distributions share the same essential shape, differing only in their units along the axis. By leveraging the standard normal distribution and converting to standard deviations from the mean, we can simplify calculations and derive consistent results.
+<div class="figure" style="text-align: center">
+<img src="week_02_files/figure-html//1U1PiqeXG4XoKmg8hRFJqE1OFDOJfificBz1jLeDunHo_g257d7b8e795_0_78.png" alt="Alternative text" width="480" />
+<p class="caption">(\#fig:unnamed-chunk-14)Standard normal distribution</p>
+</div>
 
-The primary difference between different normal distributions lies in the units along the axis. When discussing normal probabilities and converting to standard deviations from the mean, all probabilities and calculations revert back to those associated with the standard normal distribution. To illustrate this concept, let's consider some basic reference probabilities on the standard normal distribution, which can aid our understanding. 
+It is important to note that for the standard normal distribution, the mean is 0, and the standard deviation (and variance) is 1. In the diagram, we illustrate one standard deviation above and below the mean, two standard deviations above and below the mean, and three standard deviations above and below the mean. The units on the standard normal distribution can be interpreted as standard deviation units. Additionally, it is worth mentioning that statisticians often find it convenient to revert to the standard normal distribution when discussing normal probabilities, even when dealing with non-standard normal distributions. Therefore, if you want to calculate the probability that a non-standard normal lies between $μ + 1σ$ and $μ - 1σ$ (where μ and σ are specific to its distribution), the probability area is equivalent to that between -1 and +1 on the standard normal distribution. In essence, all normal distributions have the same underlying shape, with the only difference being the units along the axis. By reverting to standard deviations from the mean, all probabilities and calculations can be transformed back to those associated with the standard normal distribution.
 
-First, let's focus on one standard deviation from the mean in the standard normal distribution (or any normal distribution). Roughly 34% of the distribution lies on each side, resulting in a total area of 68% within one standard deviation. Moving on to two standard deviations, represented by the magenta area, approximately 95% of the distribution falls within this range for any normal distribution. This leaves 2.5% in each tail, and we often utilize this information when calculating confidence intervals. Lastly, considering three standard deviations from the mean, the area encompasses approximately 99% of the distribution's mass. Although it may be challenging to read from the diagram, this region represents about 99% of the total probability. These reference probabilities should be committed to memory for future calculations.
+Some fundamental reference probabilities related to the standard normal distribution can be easily explained using the graph above as visual aids. First, consider one standard deviation from the mean in the standard normal distribution (or any normal distribution). Approximately 34% of the distribution lies on each side, resulting in a total area of 68% within one standard deviation. Moving on to two standard deviations, denoted by the magenta area in the diagram, around 95% of the distribution falls within this range for any normal distribution. This leaves 2.5% in each tail, and we often utilize this information when calculating confidence intervals. Lastly, when considering three standard deviations from the mean, the area encompasses approximately 99% of the distribution's mass, although it may be difficult to discern from the diagram. _These reference probabilities are essential to commit to memory._
 
-Let's now discuss some simple rules for converting between standard and non-standard normal distributions. If we have a random variable X that follows a normal distribution with a mean of μ and variance of σ squared, we can convert the units of X to standard deviations from the mean by subtracting the mean μ and dividing by the standard deviation σ. The resulting random variable Z will follow a standard normal distribution. Conversely, if we start with a standard normal random variable Z and want to convert back to the units of the original data, we multiply Z by σ and add μ. The resulting random variable X will then follow a non-standard normal distribution with a mean of μ and variance of σ squared. We have already covered the first bullet point, which indicates that 68%, 95%, and 99% of a normal distribution lie within 1, 2, and 3 standard deviations from the mean, respectively.
+Probabilities are a fundamental concept, and the normal distribution holds a special place in statistics. Understanding its properties and the relationship to the standard normal distribution allows us to solve problems effectively. All normal distributions share the same essential shape, differing only in their units along the axis. By leveraging the standard normal distribution and converting the non standard normals to standard normals, we can simplify calculations and derive consistent results. The primary difference between different normal distributions lies in the units along the axis. When discussing normal probabilities and converting to standard deviations from the mean, all probabilities and calculations revert back to those associated with the standard normal distribution.
 
-Let's also discuss some standard normal quantiles that are important to remember. In the diagram, we have plotted a normal distribution, and we can identify specific points. For instance, -1.28 is a quantile such that 10% of the density lies below it, and 90% lies above it. For a potentially non-standard normal distribution, this point would be μ - 1.28σ. By symmetry, 1.28 on the standard normal distribution represents the quantile at which 10% lies above it. For a potentially non-standard normal distribution, this point would be μ + 1.28σ. Another crucial quantile is 1.96 (often approximated as 2), where -1.96 represents the point below which 2.5% of the mass of the normal distribution lies, and +1.96 represents the point above which 2.5% of the mass lies. This implies that 95% of the distribution lies between these two points. For a potentially non-standard normal distribution, these points would be μ - 1.96σ and μ + 1.96σ, respectively. It is worth noting that when μ equals 0 and σ equals 1 for the standard normal distribution, the calculation of 1.96 directly yields the correct value.
+Rules for converting between standard and non-standard normal distributions. If we have a random variable X that follows a normal distribution with a mean of μ and variance of σ squared, we can convert the units of X to standard deviations from the mean by subtracting the mean μ and dividing by the standard deviation σ. If $X \sim N(\mu,\sigma^2)$ then:
+$$Z = \frac{X -\mu}{\sigma} \sim N(0, 1)$$
+The resulting random variable Z will follow a standard normal distribution. Conversely, if we start with a standard normal random variable Z and want to convert back to the units of the original data, we multiply Z by σ and add μ.
+If $Z$ is standard normal $$X = \mu + \sigma Z \sim N(\mu, \sigma^2)$$
+The resulting random variable X will then follow a non-standard normal distribution with a mean of μ and variance of $\sigma^2$. 
 
-Now, let's move on to some example calculations of increasing difficulty. First, let's determine the 95th percentile of a normal distribution with mean μ and variance σ squared. In other words, we seek the value X.95 such that 95% of the distribution lies below it. This value represents the threshold if we were to draw samples from this population.
+Standard normal quantiles that are important to remember -1.28 is a quantile such that 10% of the density lies below it, and 90% lies above it. By symmetry, 1.28 on the standard normal distribution represents the quantile at which 10% lies above it. For a potentially non-standard normal distribution, this point would be $μ + 1.28σ$. Another crucial quantile is 1.96 (often approximated as 2), where -1.96 represents the point below which 2.5% of the mass of the normal distribution lies, and +1.96 represents the point above which 2.5% of the mass lies. This implies that 95% of the distribution lies between these two points. For a potentially non-standard normal distribution, these points would be $μ - 1.96σ$ and $μ + 1.96σ$, respectively. It is worth noting that when μ equals 0 and σ equals 1 for the standard normal distribution, the calculation of 1.96 directly yields the correct value.
 
-We can find the point X.95, which represents the 95th percentile of a normal distribution, by utilizing the q qualifier for the density in R. In this case, we can use the function qnorm with the desired quantile 0.95. It's crucial to input the mean μ and the standard deviation σ (not the variance) into the function. By using qnorm with the specified parameters, we can directly obtain the desired value. Another approach to solving this is by leveraging our memorized standard normal quartiles. Since we know that 1.645 standard deviations from the mean corresponds to a quantile with 95% lying below it and 5% lying above it for the standard normal distribution (centered at 0 with standard deviation units from the mean), we can apply this concept to a non-standard normal distribution as well. To calculate the desired point, we can simply compute μ + σ * 1.645. This will give us the answer we are looking for.
+Example: Determine the $95^{th}$ percentile of a normal distribution with mean μ and variance σ squared. 
+In other words, we seek the value $X_{0.95}$ such that 95% of the distribution lies below it. This value represents the threshold if we were to draw samples from this population.
 
-Now, let's address a more general question, which will help set the context for subsequent questions. The question is: What is the probability that a non-standard normal distribution with mean μ and variance σ squared is larger than x? To answer this question in R, we can use the pnorm function with the specified values of x, mean (mu), and standard deviation (sigma). It's important to remember to input the sigma value rather than the squared sigma value to avoid incorrect results. Additionally, we set the argument lower.tail = FALSE to indicate that we are interested in the upper tail of the distribution. Alternatively, we can omit this argument and calculate 1 minus the probability obtained from pnorm to achieve the same result.
+We can find the point $X_{0.95}$, which represents the $95^{th}$ percentile of a normal distribution, by utilizing the q qualifier for the density in R. In this case, we can use the function `qnorm` with the desired quantile 0.95. 
 
-A conceptually easy way to estimate this probability, which allows us to quickly assess probabilities mentally, is to convert the value x into the number of standard deviations it is from the mean. To achieve this, we subtract the mean μ from x and divide the result by the standard deviation σ. The resulting number represents x expressed in terms of how many standard deviations it is from the mean. For example, if the calculated value is approximately two standard deviations from the mean, we can estimate that the probability associated with it is around 2.5%. 
+```r
+qnorm(0.95, mean = mu, sd = sd)
+```
 
-To provide a concrete example and illustrate the application of these concepts, let's consider the scenario where the number of daily ad clicks for companies follows an approximately normal distribution with a mean of 1,020 clicks per day and a standard deviation of 50 clicks per day.
+It's crucial to input the mean μ and the standard deviation σ (not the variance) into the function. By using `qnorm` with the specified parameters, we can directly obtain the desired value. Another approach to solving this is by leveraging our memorized standard normal quartiles. Since we know that 1.645 standard deviations from the mean corresponds to a quantile with 95% lying below it and 5% lying above it for the standard normal distribution (centered at 0 with standard deviation units from the mean), we can apply this concept to a non-standard normal distribution as well. To calculate the desired point, we can simply compute $μ + σ * 1.64$.
 
-Let's consider a scenario where the number of daily ad clicks for a company follows an approximately normal distribution with a mean of 1,020 and a standard deviation of 50. We want to determine the probability of getting more than 1,060 clicks on a given day.
+Example: What is the probability that a non-standard normal distribution $N(\mu,\sigma^2)$ is larger than x? To answer this question in R, we can use the `pnorm` function with the specified values of $x$, $mean(\mu)$, and standard deviation ($\sigma$). It's important to remember to input the sigma value rather than the $\sigma^2$ value to avoid incorrect results. Additionally, we set the argument `lower.tail = FALSE` to indicate that we are interested in the upper tail of the distribution. Alternatively, we can omit this argument and calculate $1 -pnorm(x,mean=\mu,sd=\sigma)$ to achieve the same result.
 
-Since 1,060 clicks is 2.8 standard deviations from the mean, we can infer that this probability will be relatively low. This is because it is nearly 3 standard deviations away from the mean, and we know that such values are located in the tail of the normal distribution. To calculate this probability, we can use the pnorm function with the input values of 1,160 for the clicks, a mean of 1,020, and a standard deviation of 50. By setting the argument lower.tail = FALSE, we ensure that we obtain the probability of the value being larger than 1,060. The result we obtain is approximately 0.003.
+A conceptually easy way to estimate this probability, which allows us to quickly assess probabilities mentally, is to convert the value x into the number of standard deviations it is from the mean. To achieve this, we compute $(μ -x)/ σ$. The resulting number represents x expressed in terms of how many standard deviations it is from the mean. For example, if the calculated value is approximately two standard deviations from the mean, we can estimate that the probability associated with it is around 2.5%. 
 
-Alternatively, we can directly calculate this probability using the standard normal distribution. By expressing 1,160 as the number of standard deviations it is away from the mean, which is 2.8, we can plug this value into the pnorm function with lower.tail = FALSE and obtain the same result.
+Example: The number of daily ad clicks for companies follows an approximately normal distribution with a mean of 1020 clicks per day and a standard deviation of 50 clicks per day. We want to determine the probability of getting more than 1160 clicks on a given day.
 
-Now let's move on to a similar quantile calculation. Assuming the number of daily ad clicks for the company follows an approximately normal distribution with a mean of 1,020 and a standard deviation of 50, we want to find the number of daily ad clicks that represents the point where 75% of the days have fewer clicks.
+Since $(1160-1020)/50=2.8$ which means 2.8 standard deviation away from the mean, we can infer that this probability will be relatively low. This is because it is nearly 3 standard deviations away from the mean, and we know that such values are located in the tail of the normal distribution. To calculate this probability, we can use the `pnorm` function with the input values of 1,160 for the clicks, a mean of 1,020, and a standard deviation of 50. 
 
-Before performing the calculation in R, let's analyze the situation intuitively. Since 1,020 is both the mean and the median of the specific normal distribution, we know that about 50% of the days lie below this point. Therefore, the desired number of clicks should be greater than 1,020. Additionally, let's consider one standard deviation above the mean, which corresponds to 1,070. Within this range, we know that 68% of the days lie, leaving 32% outside of it, and 16% in each tail due to the symmetry of the normal distribution. Hence, the desired number of clicks should be around 84% of the distribution, lying between 1,020 and 1,070.
+```r
+pnorm(1160, mean = 1020, sd = 50, lower.tail = FALSE)
+pnorm(2.8, lower.tail = FALSE)
+```
+By setting the argument `lower.tail = FALSE`, we ensure that we obtain the probability of the value being larger than 1,060. The result we obtain is approximately 0.003.
 
-To calculate this quantile, we can use the qnorm function with the input value of 0.75, representing the 75th percentile. The mean is set to 1,020, and the standard deviation is 50. When we execute this command, qnorm(0.75, mean = 1,020, sd = 50), we obtain a number between the previously mentioned range, approximately 1,054.
+Alternatively, we can directly calculate this probability using the standard normal distribution. By expressing 1,160 as the number of standard deviations it is away from the mean, which is 2.8, we can plug this value into the `pnorm` function with `lower.tail = FALSE` and obtain the same result.
+
+```r
+pnorm(2.8, lower.tail = FALSE)
+```
+
+Example: Assuming the number of daily ad clicks for the company follows an approximately normal distribution with a mean of 1020 and a standard deviation of 50, we want to find the number of daily ad clicks that represents the point where 75% of the days have fewer clicks.
+
+Since 1020 is both the mean and the median of the specific normal distribution, we know that about 50% of the days lie below this point. Therefore, the desired number of clicks should be greater than 1020. Additionally, one standard deviation above the mean, which corresponds to 1,070. Within this range, we know that 68% of the days lie, leaving 32% outside of it, and 16% in each tail due to the symmetry of the normal distribution. Hence, the desired number of clicks should be around 84% of the distribution, lying between 1,020 and 1,070.
+
+To calculate this quantile, we can use the `qnorm` function with the input value of 0.75, representing the 75th percentile. The mean is set to 1020, and the standard deviation is 50. When we execute this command, `qnorm(0.75, mean = 1020, sd = 50)`, we obtain a number between the previously mentioned range, approximately 1054.
 
 ### Poisson distribution
 If there were a competition to determine the most useful distribution, the normal distribution would unquestionably win by a wide margin. However, selecting the second most useful distribution would spark a lively debate, with the Poisson distribution being a strong contender. The Poisson distribution is commonly employed to model counts, and its probability mass function is given by λ^x * e^(-λ) / x!, where x represents non-negative integers (0, 1, 2, and so on). The mean of a Poisson random variable is equal to λ, and the variance also equals λ. It is worth noting that when modeling with Poisson data, the mean and variance must be equal—a condition that can be verified if one has repeated Poisson data.
