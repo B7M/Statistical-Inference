@@ -35,7 +35,7 @@ Example: Suppose someone wants to conduct a study to test whether the mean ($\mu
 
 We can plug in these values and calculate the power. When we set $\mu = \mu_0 =30$, the power is 5%. However, when we set $\mu = \mu_a=32$, the power increases to 64%. 
 
-```{r, echo=TRUE,eval=TRUE}
+```{r, echo=TRUE,eval=False}
 mu0 = 30; mua = 32; sigma = 4; n = 16
 z = qnorm(1 - alpha)
 pnorm(mu0 + z * sigma / sqrt(n), mean = mu0, sd = sigma / sqrt(n), 
