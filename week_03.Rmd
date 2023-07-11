@@ -377,3 +377,8 @@ If you want to view the HTML document, you can find it in the working directory.
 That's the basic process of using Knitr in a nutshell. Feel free to explore the additional options and customization features to create dynamic and interactive documents.
 
 ## Practical R Exercises in swirl
+During this week of the course you should complete the following lessons in the Statistical Inference swirl course:
+1. T Confidence Intervals
+2. Hypothesis Testing
+3. P Values
+
