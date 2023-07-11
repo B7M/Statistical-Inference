@@ -123,7 +123,7 @@ sd(apply(matrix(rnorm(nosim * n), nosim), 1, mean))
 ```
 
 ```
-## [1] 0.3081028
+## [1] 0.3186576
 ```
 
 ```r
@@ -501,5 +501,23 @@ Although the central limit theorem's application in the Poisson case may not be 
 
 To summarize briefly, we covered the Law of Large Numbers, which states that averages of independent and identically distributed (iid) random variables converge to the quantities they are estimating. This applies to Poisson rates as well, although the convergence process may be less clear. As the monitoring time tends to infinity, for example, Poisson rates converge to their estimated values. We also discussed the Central Limit Theorem, which states that averages are approximately normally distributed. These distributions are centered at the population mean, a concept we already knew without the theorem, with standard deviations equal to the standard error of the mean. However, the Central Limit Theorem does not guarantee that the sample size is large enough for this approximation to be accurate. We have observed instances where confidence intervals are very accurate and others where they are less accurate. Speaking of confidence intervals, our default approach for constructing them is to take the mean estimate and add or subtract the relevant normal quantile times the standard error. This method, known as "walled intervals," is used not only in this context but also in regression analysis, general linear models, and other complex subjects. For a 95% confidence interval, the quantile value can be taken as 2 or, for more accuracy, 1.96. Confidence intervals become wider as the desired coverage increases within a specific technique. This is because wider intervals provide more certainty that the parameter lies within them. To illustrate, imagine an extreme scenario where your life depends on the confidence interval containing the true parameter. In this case, you would want to make the interval as wide as possible to ensure your safety. The mathematics behind confidence intervals follows the same principle.
 In the cases of Poisson and binomial distributions, which are discrete, the Central Limit Theorem may not accurately approximate their distributions. However, exact procedures exist for these cases. We also learned a simple fix for constructing confidence intervals in the binomial case by adding two successes and two failures, which provides a better interval without requiring complex computations. This method can be easily done by hand or mentally, even without access to a computer.
+
+- The LLN states that averages of iid samples 
+converge to the population means that they are estimating
+- The CLT states that averages are approximately normal, with
+distributions
+  - centered at the population mean 
+  - with standard deviation equal to the standard error of the mean
+  - CLT gives no guarantee that $n$ is large enough
+- Taking the mean and adding and subtracting the relevant
+normal quantile times the SE yields a confidence interval for the mean
+  - Adding and subtracting 2 SEs works for 95% intervals
+- Confidence intervals get wider as the coverage increases
+(why?)
+- Confidence intervals get narrower with less variability or
+larger sample sizes
+- The Poisson and binomial case have exact intervals that
+don't require the CLT
+  - But a quick fix for small sample size binomial calculations is to add 2 successes and failures
 
 ## Practical R Exercises in swirl
