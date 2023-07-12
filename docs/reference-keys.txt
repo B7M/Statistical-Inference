@@ -18,7 +18,6 @@ fig:unnamed-chunk-9
 fig:unnamed-chunk-20
 fig:unnamed-chunk-22
 fig:unnamed-chunk-24
-fig:unnamed-chunk-26
 fig:unnamed-chunk-19
 fig:unnamed-chunk-21
 probability-expected-values
@@ -43,7 +42,6 @@ poisson-distribution
 asymptotics
 asymptotics-and-lln
 asymptotics-and-the-clt
-asymptotics-and-confidence-intervals
 intervals-testing-pvalues
 confidence-intervals
 independent-group-t-intervals

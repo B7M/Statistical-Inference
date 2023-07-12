@@ -109,7 +109,7 @@ You can explore this using the following code snippet in R:
 
 
 ```
-## [1] 0.3174965
+## [1] 0.3203876
 ```
 
 ```
@@ -346,47 +346,3 @@ g <- ggplot(dat, aes(x = x, fill = size)) + geom_histogram(alpha = .20, binwidth
 g <- g + stat_function(fun = dnorm, size = 2)
 g + facet_grid(. ~ size)
 ```
-
-The distribution approximates a bell curve. As we increase the number of rolls, the approximation improves.
-
-Example: Let $X_i$ be the $0$ or $1$ result of the $i^{th}$ flip of a possibly unfair coin. The sample proportion, say $\hat p$, is the average of the coin flips.
-$E[X_i] = p$ and $Var(X_i) = p(1-p)$ Standard error of the mean is $\sqrt{p(1-p)/n}$ Then
-$$\frac{\hat p - p}{\sqrt{p(1-p)/n}}$$
-will be approximately normally distributed
-
-Flipping a fair coin $n$ times, taking the sample proportion of heads, subtracting off 0.5 and multiply the result by
-$2 \sqrt{n}$ divide by $1/(2 \sqrt{n})$ is displayed below.
-
-![(\#fig:unnamed-chunk-26)Distribution of averages of iid random variables in coin flip](resources/images/week_02_files/figure-docx//1U1PiqeXG4XoKmg8hRFJqE1OFDOJfificBz1jLeDunHo_g257d7b8e795_0_104.png)
-
-
-```r
-nosim <- 1000
-cfunc <- function(x, n) 2 * sqrt(n) * (mean(x) - 0.5) 
-dat <- data.frame(
-  x = c(apply(matrix(sample(0:1, nosim * 10, replace = TRUE), 
-                     nosim), 1, cfunc, 10),
-        apply(matrix(sample(0:1, nosim * 20, replace = TRUE), 
-                     nosim), 1, cfunc, 20),
-        apply(matrix(sample(0:1, nosim * 30, replace = TRUE), 
-                     nosim), 1, cfunc, 30)
-        ),
-  size = factor(rep(c(10, 20, 30), rep(nosim, 3))))
-g <- ggplot(dat, aes(x = x, fill = size)) + geom_histogram(binwidth=.3, colour = "black", aes(y = ..density..)) 
-g <- g + stat_function(fun = dnorm, size = 2)
-g + facet_grid(. ~ size)
-```
-
-Taking the result of each flip (0 or 1) as an iid random variable, we calculate the sample proportion of heads $\hat p$. We again obtain a distribution that approximates a bell curve. Similar to the previous example, the approximation improves as the number of coin flips increases.
-
-It's important to note that the speed at which the normalized coin flips converge to normality depends on the bias of the coin. If the coin is heavily biased, the approximation may not be perfect even with a large sample size. However, as the number of coin flips approaches infinity, the Central Limit Theorem guarantees an excellent approximation.
-
-As a fun example, let's discuss Galton's quincunx. This machine, often found in science museums, visually demonstrates the Central Limit Theorem using a game resembling Pachinko. [An image from Wikipedia showing Galton's quincunx](https://upload.wikimedia.org/wikipedia/commons/c/c1/Galton_box.jpg). In Galton's quincunx, a ball falls through a series of pegs, bouncing left or right at each peg. Each bounce can be thought of as a coin flip or binomial experiment. The total number of successes (heads) follows an approximately normal distribution, as predicted by the Central Limit Theorem. At the museum, the balls collect in bins, forming a histogram that aligns with the expected normal distribution.
-
-In summary, the Central Limit Theorem is a powerful tool that allows us to approximate the distribution of averages of iid random variables. It applies to various settings and provides valuable insights into statistical inference. The examples we explored, from dice rolls to coin flips to Galton's quincunx, illustrate the practical applications of the Central Limit Theorem and the convergence to a standard normal distribution as the sample size increases.
-
-### Asymptotics and confidence intervals
-
-The central limit theorem tells us that the sample mean follows an approximately normal distribution with a population mean of μ and a standard deviation of $\sigma/ \sqrt{n}$. This distribution allows us to make inferences about the population mean based on sample data. When considering the distribution, we observe that $μ+2$ standard errors is quite far out in the tail, with only a 2.5% chance of a normal value being larger than two standard deviations in the tail.
-Similarly, $μ-2$ standard errors is far in the left tail, with only a 2.5% chance of a normal value being smaller than two standard deviations in the left tail. Therefore, the probability that the sample mean $\bar X$ is greater than $μ+2$ standard errors or smaller than $μ-2$ standard errors is 5%. Equivalently, the probability that μ is between these limits is 95%. By reversing the roles of $\bar X$ and μ, we can conclude that the interval $[\bar X - 2 \sigma /\sqrt{n}, \bar X + 2 \sigma /\sqrt{n}]$ contains μ with a probability of 95%.
-
