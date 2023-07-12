@@ -311,8 +311,3 @@ g <- g + geom_hline(yintercept = 0.5) + geom_line(size = 2)
 g <- g + labs(x = "Number of obs", y = "Cumulative mean")
 g
 ```
-
-Note: An estimator is considered *consistent* if it converges to the parameter it aims to estimate. For instance, the sample proportion from iid coin flips is consistent for estimating the true success probability of a coin. As we collect more and more coin flip data, the sample proportion of heads approaches the actual probability of obtaining a head. Moreover, not only are sample means consistent estimators, but the sample variance and sample standard deviation of iid random variables are also consistent estimators.
-
-The law of large numbers guarantees the consistency of sample means, but it also applies to sample variances and standard deviations of iid random variables. In other words, these estimators also converge to their respective population counterparts as the sample size increases.
-
