@@ -1,4 +1,5 @@
 1-Probability-&-Expected-Values.md
-2-References.md
+2-Variability,-Distribution,-&-Asymptotics.md
+3-References.md
 About-this-Course.md
 About-the-Authors.md
