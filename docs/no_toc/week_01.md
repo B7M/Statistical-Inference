@@ -1,4 +1,5 @@
 
+
 # Probability & Expected Values
 In this module, we'll go over some information and resources to help you get started and succeed in the course. During this week, we'll focus on the fundamentals including probability, random variables, expectations.
 
