@@ -41,7 +41,6 @@ normal-distribution
 poisson-distribution
 asymptotics
 asymptotics-and-lln
-asymptotics-and-the-clt
 intervals-testing-pvalues
 confidence-intervals
 independent-group-t-intervals
