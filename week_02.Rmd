@@ -256,10 +256,3 @@ Example: The number of people showing up at a bus stop follows a Poisson distrib
 ppois(3, lambda = 2.5 * 4)
 ```
 
-Furthermore, we can discuss the Poisson approximation to the binomial distribution, specifically when the sample size (n) is large, and the probability of success (p) is small. In this scenario, the Poisson distribution can serve as a reasonably accurate approximation for the binomial distribution. To establish notation, let x represent a binomial distribution with parameters n and p, and define $\lambda=n*p$. When n is large and p is small, it is proposed that the probability distribution governing x can be well approximated using Poisson probabilities, where the rate parameter λ is determined as n times p. 
-
-Example: In flipping a coin with a success probability of 0.01 for a total of 500 times, we want to calculate the probability of obtaining two or fewer successes. Using the binomial distribution with size 500 and probability 0.01, we obtain approximately 12%. By employing the Poisson approximation with a rate of λ = 500 * 0.01, the result is around 12.5%, which is reasonably close to the binomial calculation.
-```{r, eval=FALSE,echo=T}
-pbinom(2, size = 500, prob = .01)
-ppois(2, lambda=500 * .01)
-```
