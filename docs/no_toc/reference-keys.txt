@@ -47,13 +47,4 @@ asymptotics
 asymptotics-and-the-clt
 asymptotics-and-confidence-intervals
 practical-r-exercises-in-swirl-1
-intervals-testing-pvalues
-confidence-intervals
-independent-group-t-intervals
-a-note-on-unequal-variance
-hypothesis-testing
-t-tests
-p-values
-knitr
-practical-r-exercises-in-swirl-2
 references
