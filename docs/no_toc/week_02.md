@@ -118,7 +118,7 @@ You can explore this using the following code snippet in R:
 
 
 ```
-## [1] 0.3180515
+## [1] 0.3109452
 ```
 
 ```
