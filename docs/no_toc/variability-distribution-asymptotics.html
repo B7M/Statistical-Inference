@@ -187,20 +187,8 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.4" data-path="intervals-testing-pvalues.html"><a href="intervals-testing-pvalues.html#knitr"><i class="fa fa-check"></i><b>3.4</b> Knitr</a></li>
 <li class="chapter" data-level="3.5" data-path="intervals-testing-pvalues.html"><a href="intervals-testing-pvalues.html#practical-r-exercises-in-swirl-2"><i class="fa fa-check"></i><b>3.5</b> Practical R Exercises in swirl</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="power-bootstrapping-permutation-tests.html"><a href="power-bootstrapping-permutation-tests.html"><i class="fa fa-check"></i><b>4</b> Power, Bootstrapping, &amp; Permutation Tests</a>
-<ul>
-<li class="chapter" data-level="4.1" data-path="power-bootstrapping-permutation-tests.html"><a href="power-bootstrapping-permutation-tests.html#power"><i class="fa fa-check"></i><b>4.1</b> Power</a>
-<ul>
-<li class="chapter" data-level="4.1.1" data-path="power-bootstrapping-permutation-tests.html"><a href="power-bootstrapping-permutation-tests.html#calculating-power"><i class="fa fa-check"></i><b>4.1.1</b> Calculating Power</a></li>
-</ul></li>
-<li class="chapter" data-level="4.2" data-path="power-bootstrapping-permutation-tests.html"><a href="power-bootstrapping-permutation-tests.html#multiple-comparisons"><i class="fa fa-check"></i><b>4.2</b> Multiple Comparisons</a>
-<ul>
-<li class="chapter" data-level="4.2.1" data-path="power-bootstrapping-permutation-tests.html"><a href="power-bootstrapping-permutation-tests.html#notes-on-the-bootstrap"><i class="fa fa-check"></i><b>4.2.1</b> Notes on the bootstrap</a></li>
-<li class="chapter" data-level="4.2.2" data-path="power-bootstrapping-permutation-tests.html"><a href="power-bootstrapping-permutation-tests.html#permutation-tests"><i class="fa fa-check"></i><b>4.2.2</b> Permutation tests</a></li>
-</ul></li>
-</ul></li>
 <li class="chapter" data-level="" data-path="about-the-authors.html"><a href="about-the-authors.html"><i class="fa fa-check"></i>About the Authors</a></li>
-<li class="chapter" data-level="5" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>5</b> References</a></li>
+<li class="chapter" data-level="4" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>4</b> References</a></li>
 <li class="divider"></li>
 <p style="text-align:center;"> <a href="https://github.com/jhudsl/OTTR_Template" target="blank" > This content was published with</a> <a href="https://bookdown.org/" target="blank"> bookdown by:</a> </p>
 <p style="text-align:center;"> <a href="http://jhudatascience.org/"> The Johns Hopkins Data Science Lab </a></p>
@@ -331,7 +319,7 @@ This means that the sample mean becomes more concentrated around the population 
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="variability-distribution-asymptotics.html#cb11-1" aria-hidden="true" tabindex="-1"></a>nosim <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
 <span id="cb11-2"><a href="variability-distribution-asymptotics.html#cb11-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">10</span></span>
 <span id="cb11-3"><a href="variability-distribution-asymptotics.html#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(<span class="fu">apply</span>(<span class="fu">matrix</span>(<span class="fu">rnorm</span>(nosim <span class="sc">*</span> n), nosim), <span class="dv">1</span>, mean))</span></code></pre></div>
-<pre><code>## [1] 0.3135341</code></pre>
+<pre><code>## [1] 0.31256</code></pre>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="variability-distribution-asymptotics.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">/</span> <span class="fu">sqrt</span>(n)</span></code></pre></div>
 <pre><code>## [1] 0.3162278</code></pre>
 <p>Similar simulations can be performed for standard uniforms (variance of <span class="math inline">\(\frac{1}{12}\)</span>), Poisson(4) distributions (variance of 4), and coin flips (variance of <span class="math inline">\(p*(1-p)\)</span>, assuming p=0.5 then <span class="math inline">\(Var(X)=0.25\)</span>). The results of these simulations should align with the theoretical values predicted by our rule.</p>
