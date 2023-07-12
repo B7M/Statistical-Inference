@@ -1,6 +1,7 @@
 1-Probability-&-Expected-Values.md
 2-Variability,-Distribution,-&-Asymptotics.md
 3-Intervals,-Testing,-&-Pvalues.md
-4-References.md
+4-Power,-Bootstrapping,-&-Permutation-Tests.md
+5-References.md
 About-this-Course.md
 About-the-Authors.md
