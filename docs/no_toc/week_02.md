@@ -118,7 +118,7 @@ You can explore this using the following code snippet in R:
 
 
 ```
-## [1] 0.3155276
+## [1] 0.3096928
 ```
 
 ```
@@ -269,5 +269,58 @@ Example: The number of people showing up at a bus stop follows a Poisson distrib
 
 ```r
 ppois(3, lambda = 2.5 * 4)
+```
+
+Furthermore, we can discuss the Poisson approximation to the binomial distribution, specifically when the sample size (n) is large, and the probability of success (p) is small. In this scenario, the Poisson distribution can serve as a reasonably accurate approximation for the binomial distribution. To establish notation, let x represent a binomial distribution with parameters n and p, and define $\lambda=n*p$. When n is large and p is small, it is proposed that the probability distribution governing x can be well approximated using Poisson probabilities, where the rate parameter λ is determined as n times p.
+
+Example: In flipping a coin with a success probability of 0.01 for a total of 500 times, we want to calculate the probability of obtaining two or fewer successes. Using the binomial distribution with size 500 and probability 0.01, we obtain approximately 12%. By employing the Poisson approximation with a rate of λ = 500 * 0.01, the result is around 12.5%, which is reasonably close to the binomial calculation.
+
+
+```r
+pbinom(2, size = 500, prob = .01)
+ppois(2, lambda=500 * .01)
+```
+
+## Asymptotics
+Asymptotics are an important topics in statistics. Asymptotics refers to the behavior of estimators as the sample size goes to infinity. Our very notion of probability depends on the idea of asymptotics. For example, many people define probability as the proportion of times an event would occur in infinite repetitions. That is, the probability of a head on a coin is 50% because we believe that if we were to flip it infinitely many times, we would get exactly 50% heads.
+
+We can use asymptotics to help is figure out things about distributions without knowing much about them to begin with. A profound idea along these lines is the **Central Limit Theorem**. It states that the distribution of averages is often normal, even if the distribution that the data is being sampled from is very non-normal. This helps us create robust strategies for creating statistical inferences when we're not willing to assume much about the generating mechanism of our data.
+### Asymptotics and LLN
+Here we will explore the behavior of statistics as the sample size or some other relevant quantity approaches infinity, which is known as asymptotics. Specifically, we will discuss the case where the sample size tends to infinity.
+
+In the land of asymptopia, everything works out well because there is an infinite amount of data available. Asymptotics play a crucial role in simple statistical inference and approximations. They serve as a versatile tool, akin to a Swiss army knife, allowing us to investigate the statistical properties of various statistics without requiring extensive computations. Asymptotics form the foundation for the frequency interpretation of probabilities. For instance, intuitively, we know that if we flip a coin and calculate the proportion of heads, it should approach 0.5 for a fair coin.
+
+Fortunately, we don't have to delve into the mathematical intricacies of the limits of random variables. Instead, we can rely on a set of powerful tools that enable us to discuss the behavior of sample means from a collection of independently and identically distributed (iid) observations in large samples. One of these tools is the law of large numbers, which states that the average of the observations converges to the population mean it is estimating. For example, if we repeatedly flip a fair coin, the sample proportion of heads will eventually converge to the true probability of a head.
+
+Example: We'll generate a large number of random normal variables and calculate their cumulative means. Initially, there is considerable variability in the means, but as the number of simulations increases, the cumulative means converge towards the true population mean of zero.
+
+<div class="figure" style="text-align: center">
+<img src="resources/images/week_02_files/figure-html//1U1PiqeXG4XoKmg8hRFJqE1OFDOJfificBz1jLeDunHo_g257d7b8e795_0_95.png" alt="Cumulative means of random normal variables" width="480" />
+<p class="caption">(\#fig:unnamed-chunk-20)Cumulative means of random normal variables</p>
+</div>
+
+
+```r
+n <- 10000; means <- cumsum(rnorm(n)) / (1  : n); library(ggplot2)
+g <- ggplot(data.frame(x = 1 : n, y = means), aes(x = x, y = y)) 
+g <- g + geom_hline(yintercept = 0) + geom_line(size = 2) 
+g <- g + labs(x = "Number of obs", y = "Cumulative mean")
+g
+```
+
+Similarly, we can apply the law of large numbers to the case of coin flipping. By repeatedly flipping a coin and calculating the cumulative means, we observe that the sample proportion of heads converges to the true value of 0.5 as the number of coin flips increases.
+
+<div class="figure" style="text-align: center">
+<img src="resources/images/week_02_files/figure-html//1U1PiqeXG4XoKmg8hRFJqE1OFDOJfificBz1jLeDunHo_g257d7b8e795_0_98.png" alt="Cumulative means of coin flips" width="480" />
+<p class="caption">(\#fig:unnamed-chunk-22)Cumulative means of coin flips</p>
+</div>
+
+
+```r
+means <- cumsum(sample(0 : 1, n , replace = TRUE)) / (1  : n)
+g <- ggplot(data.frame(x = 1 : n, y = means), aes(x = x, y = y)) 
+g <- g + geom_hline(yintercept = 0.5) + geom_line(size = 2) 
+g <- g + labs(x = "Number of obs", y = "Cumulative mean")
+g
 ```
 
