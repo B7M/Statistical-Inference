@@ -249,7 +249,6 @@ If there were a competition to determine the most useful distribution, the norma
 $$P(X = x; \lambda) = \frac{\lambda^x e^{-\lambda}}{x!}$$
 where x represents non-negative integers (0, 1, 2, and so on).
 The mean of a Poisson random variable is equal to $\lambda$, and the variance also equals $\lambda$. When modeling with Poisson data, the mean and variance must be equal a condition that can be verified if one has repeated Poisson data.
-fig xxx poisson distribution
 
 The Poisson distribution finds utility in various instances. Whenever count data needs to be modeled, especially when the counts are unbounded, the Poisson distribution is a suitable choice. Another prevalent application arises in the field of biostatistics, where event time or survival data is common. For example, in cancer trials, the time until the recurrence of symptoms is modeled using statistical techniques that account for censoring, and these techniques have a strong association with the Poisson distribution. Additionally, when classifying a sample of people based on certain characteristics, creating a contingency table—such as tabulating hair color by race—the Poisson distribution is the default choice for modeling such data. The Poisson distribution is deeply connected to other models, including multinomials and binomials, which might be considered as alternatives.
 
