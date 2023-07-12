@@ -109,7 +109,7 @@ You can explore this using the following code snippet in R:
 
 
 ```
-## [1] 0.3137194
+## [1] 0.3088177
 ```
 
 ```
@@ -174,7 +174,7 @@ pbinom(6, size = 8, prob = .5, lower.tail = FALSE)
 ### Normal distribution
 Probabilities play a crucial role in statistics, and among all the distributions, the normal distribution stands out as the most important one. In the upcoming lecture, we will explore why it holds such significance. In fact, if all distributions were to gather and elect a leader, the normal distribution would undoubtedly take the crown.
 
-A random variable that follows a normal (Gaussian) distribution with a mean of $\mu$ and a variance of $\sigma^2$. This distribution is characterized by a density function that resembles a bell curve. If we have a random variable X with this density, its expected value is μ, and its variance is $\sigma^2$. We can express this concisely as $X \sim N(\mu,\sigma^2)$, denoting a normal distribution with mean μ and variance $\sigma^2$. When μ=0 and σ=1, the resulting distribution is known as the **standard normal distribution**. Standard normal random variables are often denoted by the letter $z$. Here, we depict the standard normal density function, which represents the famous bell curve you have likely encountered before.
+A random variable that follows a normal (Gaussian) distribution with a mean of $\mu$ and a variance of $\sigma^2$. This distribution is characterized by a density function that resembles a bell curve. If we have a random variable X with this density, its expected value is μ, and its variance is $\sigma^2$. We can express this concisely as $X \sim N(\mu,\sigma^2)$, denoting a normal distribution with mean μ and variance $\sigma^2$. When μ=0 and σ=1, the resulting distribution is known as the *standard normal distribution*. Standard normal random variables are often denoted by the letter $z$. Here, we depict the standard normal density function, which represents the famous bell curve you have likely encountered before.
 
 ```r
 x <- seq(-3, 3, length = 1000)
@@ -189,7 +189,7 @@ g
 
 It is important to note that for the standard normal distribution, the mean is 0, and the standard deviation (and variance) is 1. In the diagram, we illustrate one standard deviation above and below the mean, two standard deviations above and below the mean, and three standard deviations above and below the mean. The units on the standard normal distribution can be interpreted as standard deviation units. Additionally, it is worth mentioning that statisticians often find it convenient to revert to the standard normal distribution when discussing normal probabilities, even when dealing with non-standard normal distributions. Therefore, if you want to calculate the probability that a non-standard normal lies between $μ + 1σ$ and $μ - 1σ$ (where μ and σ are specific to its distribution), the probability area is equivalent to that between -1 and +1 on the standard normal distribution. In essence, all normal distributions have the same underlying shape, with the only difference being the units along the axis. By reverting to standard deviations from the mean, all probabilities and calculations can be transformed back to those associated with the standard normal distribution.
 
-Some fundamental reference probabilities related to the standard normal distribution can be easily explained using the graph above as visual aids. First, consider one standard deviation from the mean in the standard normal distribution (or any normal distribution). Approximately 34% of the distribution lies on each side, resulting in a total area of 68% within one standard deviation. Moving on to two standard deviations, denoted by the magenta area in the diagram, around 95% of the distribution falls within this range for any normal distribution. This leaves 2.5% in each tail, and we often utilize this information when calculating confidence intervals. Lastly, when considering three standard deviations from the mean, the area encompasses approximately 99% of the distribution's mass, although it may be difficult to discern from the diagram. _These reference probabilities are essential to commit to memory._
+Some fundamental reference probabilities related to the standard normal distribution can be easily explained using the graph above as visual aids. First, consider one standard deviation from the mean in the standard normal distribution (or any normal distribution). Approximately 34% of the distribution lies on each side, resulting in a total area of 68% within one standard deviation. Moving on to two standard deviations, denoted by the magenta area in the diagram, around 95% of the distribution falls within this range for any normal distribution. This leaves 2.5% in each tail, and we often utilize this information when calculating confidence intervals. Lastly, when considering three standard deviations from the mean, the area encompasses approximately 99% of the distribution's mass, although it may be difficult to discern from the diagram. *These reference probabilities are essential to commit to memory.*
 
 Probabilities are a fundamental concept, and the normal distribution holds a special place in statistics. Understanding its properties and the relationship to the standard normal distribution allows us to solve problems effectively. All normal distributions share the same essential shape, differing only in their units along the axis. By leveraging the standard normal distribution and converting the non standard normals to standard normals, we can simplify calculations and derive consistent results. The primary difference between different normal distributions lies in the units along the axis. When discussing normal probabilities and converting to standard deviations from the mean, all probabilities and calculations revert back to those associated with the standard normal distribution.
 
@@ -204,7 +204,8 @@ Standard normal quantiles that are important to remember -1.28 is a quantile suc
 Example: Determine the $95^{th}$ percentile of a normal distribution with mean μ and variance σ squared. 
 In other words, we seek the value $X_{0.95}$ such that 95% of the distribution lies below it. This value represents the threshold if we were to draw samples from this population.
 
-We can find the point $X_{0.95}$, which represents the $95^{th}$ percentile of a normal distribution, by utilizing the q qualifier for the density in R. In this case, we can use the function `qnorm` with the desired quantile 0.95. 
+We can find the point $X_{0.95}$, which represents the $95^{th}$ percentile of a normal distribution, by utilizing the q qualifier for the density in R. In this case, we can use the function `qnorm` with the desired quantile 0.95.
+
 
 ```r
 qnorm(0.95, mean = mu, sd = sd)
@@ -212,13 +213,15 @@ qnorm(0.95, mean = mu, sd = sd)
 
 It's crucial to input the mean μ and the standard deviation σ (not the variance) into the function. By using `qnorm` with the specified parameters, we can directly obtain the desired value. Another approach to solving this is by leveraging our memorized standard normal quartiles. Since we know that 1.645 standard deviations from the mean corresponds to a quantile with 95% lying below it and 5% lying above it for the standard normal distribution (centered at 0 with standard deviation units from the mean), we can apply this concept to a non-standard normal distribution as well. To calculate the desired point, we can simply compute $μ + σ * 1.64$.
 
-Example: What is the probability that a non-standard normal distribution $N(\mu,\sigma^2)$ is larger than x? To answer this question in R, we can use the `pnorm` function with the specified values of $x$, $mean(\mu)$, and standard deviation ($\sigma$). It's important to remember to input the sigma value rather than the $\sigma^2$ value to avoid incorrect results. Additionally, we set the argument `lower.tail = FALSE` to indicate that we are interested in the upper tail of the distribution. Alternatively, we can omit this argument and calculate $1 -pnorm(x,mean=\mu,sd=\sigma)$ to achieve the same result.
+Example: What is the probability that a non-standard normal distribution $N(\mu,\sigma^2)$ is larger than $x$?
+To answer this question in R, we can use the `pnorm` function with the specified values of $x$, $mean(\mu)$, and standard deviation $(\sigma)$. It's important to remember to input the sigma value rather than the $\sigma^2$ value to avoid incorrect results. Additionally, we set the argument `lower.tail = FALSE` to indicate that we are interested in the upper tail of the distribution. Alternatively, we can omit this argument and calculate $1 -pnorm(x,mean=\mu,sd=\sigma)$ to achieve the same result.
 
 A conceptually easy way to estimate this probability, which allows us to quickly assess probabilities mentally, is to convert the value x into the number of standard deviations it is from the mean. To achieve this, we compute $(μ -x)/ σ$. The resulting number represents x expressed in terms of how many standard deviations it is from the mean. For example, if the calculated value is approximately two standard deviations from the mean, we can estimate that the probability associated with it is around 2.5%. 
 
 Example: The number of daily ad clicks for companies follows an approximately normal distribution with a mean of 1020 clicks per day and a standard deviation of 50 clicks per day. We want to determine the probability of getting more than 1160 clicks on a given day.
 
-Since $(1160-1020)/50=2.8$ which means 2.8 standard deviation away from the mean, we can infer that this probability will be relatively low. This is because it is nearly 3 standard deviations away from the mean, and we know that such values are located in the tail of the normal distribution. To calculate this probability, we can use the `pnorm` function with the input values of 1,160 for the clicks, a mean of 1,020, and a standard deviation of 50. 
+Since $(1160-1020)/50=2.8$ which means 2.8 standard deviation away from the mean, we can infer that this probability will be relatively low. This is because it is nearly 3 standard deviations away from the mean, and we know that such values are located in the tail of the normal distribution. To calculate this probability, we can use the `pnorm` function with the input values of 1,160 for the clicks, a mean of 1,020, and a standard deviation of 50.
+
 
 ```r
 pnorm(1160, mean = 1020, sd = 50, lower.tail = FALSE)
@@ -227,6 +230,7 @@ pnorm(2.8, lower.tail = FALSE)
 By setting the argument `lower.tail = FALSE`, we ensure that we obtain the probability of the value being larger than 1,060. The result we obtain is approximately 0.003.
 
 Alternatively, we can directly calculate this probability using the standard normal distribution. By expressing 1,160 as the number of standard deviations it is away from the mean, which is 2.8, we can plug this value into the `pnorm` function with `lower.tail = FALSE` and obtain the same result.
+
 
 ```r
 pnorm(2.8, lower.tail = FALSE)
@@ -269,7 +273,7 @@ ppois(2, lambda=500 * .01)
 ## Asymptotics
 Asymptotics are an important topics in statistics. Asymptotics refers to the behavior of estimators as the sample size goes to infinity. Our very notion of probability depends on the idea of asymptotics. For example, many people define probability as the proportion of times an event would occur in infinite repetitions. That is, the probability of a head on a coin is 50% because we believe that if we were to flip it infinitely many times, we would get exactly 50% heads.
 
-We can use asymptotics to help is figure out things about distributions without knowing much about them to begin with. A profound idea along these lines is the **Central Limit Theorem**. It states that the distribution of averages is often normal, even if the distribution that the data is being sampled from is very non-normal. This helps us create robust strategies for creating statistical inferences when we're not willing to assume much about the generating mechanism of our data.
+We can use asymptotics to help is figure out things about distributions without knowing much about them to begin with. A profound idea along these lines is the *Central Limit Theorem*. It states that the distribution of averages is often normal, even if the distribution that the data is being sampled from is very non-normal. This helps us create robust strategies for creating statistical inferences when we're not willing to assume much about the generating mechanism of our data.
 ### Asymptotics and LLN
 Here we will explore the behavior of statistics as the sample size or some other relevant quantity approaches infinity, which is known as asymptotics. Specifically, we will discuss the case where the sample size tends to infinity.
 
@@ -312,7 +316,7 @@ The law of large numbers guarantees the consistency of sample means, but it also
 The Central Limit Theorem (CLT) is perhaps the most important theorem in statistics. It states that the distribution of averages of iid random variables becomes approximately standard normal as the sample size grows. The Central Limit Theorem is remarkably versatile, applying to a wide range of populations. Its loose requirements make it applicable in numerous settings.
 
 To understand the Central Limit Theorem, let's consider an estimate like the sample average $\bar X$. If we subtract its population mean and divide by its standard error the resulting random variable approaches a standard normal distribution as the sample size increases.
-$$\frac{\bar{X_n}-\mu}{\sigma/\sqrt{n}}=\frac{\sqrt{n}(\bar{X_n}-\mu)}{\sigma}=\frac{{Estimate} - {Mean\,of\,estimate}}{Std.\,Err.\,of\,estimate}$$
+$$\frac{\bar{X_n}-\mu}{\sigma/\sqrt{n}}=\frac{\sqrt{n}(\bar{X_n}-\mu)}{\sigma}=\frac{{Estimate} - {Mean\space of\space estimate}}{Std.\space Err.\space of\space estimate}$$
 Importantly, replacing the unknown population standard deviation with the known sample standard deviation does not affect the Central Limit Theorem.
 
 The most useful interpretation of the Central Limit Theorem is that the sample average is approximately normally distributed, with a mean equal to the population mean and a variance given by the standard error of the mean.
@@ -342,8 +346,7 @@ g + facet_grid(. ~ size)
 The distribution approximates a bell curve. As we increase the number of rolls, the approximation improves.
 
 Example: Let $X_i$ be the $0$ or $1$ result of the $i^{th}$ flip of a possibly unfair coin. The sample proportion, say $\hat p$, is the average of the coin flips.
-$E[X_i] = p$ and $Var(X_i) = p(1-p)$
-Standard error of the mean is $\sqrt{p(1-p)/n}$ Then
+$E[X_i] = p$ and $Var(X_i) = p(1-p)$ Standard error of the mean is $\sqrt{p(1-p)/n}$ Then
 $$\frac{\hat p - p}{\sqrt{p(1-p)/n}}$$
 will be approximately normally distributed
 
@@ -380,7 +383,7 @@ In summary, the Central Limit Theorem is a powerful tool that allows us to appro
 
 ### Asymptotics and confidence intervals
 
-The central limit theorem tells us that the sample mean follows an approximately normal distribution with a population mean of μ and a standard deviation of $\sigma/\sqrt{n}$. This distribution allows us to make inferences about the population mean based on sample data. When considering the distribution, we observe that $μ+2$ standard errors is quite far out in the tail, with only a 2.5% chance of a normal value being larger than two standard deviations in the tail. Similarly, $μ-2$ standard errors is far in the left tail, with only a 2.5% chance of a normal value being smaller than two standard deviations in the left tail. Therefore, the probability that the sample mean $\bar X$ is greater than $μ+2$ standard errors or smaller than $μ-2$ standard errors is 5%. Equivalently, the probability that μ is between these limits is 95%. By reversing the roles of $\bar X$ and μ, we can conclude that the interval $[\bar X - 2 \sigma /\sqrt{n}, \bar X + 2 \sigma /\sqrt{n}]$ contains μ with a probability of 95%.
+The central limit theorem tells us that the sample mean follows an approximately normal distribution with a population mean of μ and a standard deviation of $\sigma/ \sqrt{n}$. This distribution allows us to make inferences about the population mean based on sample data. When considering the distribution, we observe that $μ+2$ standard errors is quite far out in the tail, with only a 2.5% chance of a normal value being larger than two standard deviations in the tail. Similarly, $μ-2$ standard errors is far in the left tail, with only a 2.5% chance of a normal value being smaller than two standard deviations in the left tail. Therefore, the probability that the sample mean $\bar X$ is greater than $μ+2$ standard errors or smaller than $μ-2$ standard errors is 5%. Equivalently, the probability that μ is between these limits is 95%. By reversing the roles of $\bar X$ and μ, we can conclude that the interval $[\bar X - 2 \sigma /\sqrt{n}, \bar X + 2 \sigma /\sqrt{n}]$ contains μ with a probability of 95%.
 
 It's important to note that in this interpretation, we treat the interval $[\bar X - 2 \sigma /\sqrt{n}, \bar X + 2 \sigma /\sqrt{n}]$ as random, while μ is fixed. This allows us to discuss the probability that the interval contains μ. In practice, if we repeatedly obtain samples of size n from the population and construct a confidence interval in each case, about 95% of the intervals will contain μ, the parameter we are trying to estimate. If we want a 90% confidence interval, we need 5% in each tail, so we would use a different multiplier instead of 2 (e.g., 1.645).
 
@@ -397,7 +400,7 @@ Dividing by 12 ensures that our confidence interval is in feet rather than inche
 Another application is when dealing with coin flips and estimating the success probability $p$ of the coin. Each observation $X_i$ in this case is either 0 or 1, with a common success probability $p$. The variance of a coin flip is $p * (1 - p)$, where p is the true success probability of the coin. The standard error of the mean is then:
 $$ \hat p \pm z_{1 - \alpha/2}  \sqrt{\frac{p(1 - p)}{n}}$$
 
-Since we don't know the true value of $p$, we replace it with the estimated value $\hat p$. This type of confidence interval is known as the **Wald confidence interval**, named after the statistician Wald. When p equals 0.5, the variance $p(1 - p)$ is maximized, resulting in a standard error of 0.5. Multiplying it by 2 in the 95% interval cancels out, leaving the following expression for a 95% confidence interval, which is a quick estimate for p:
+Since we don't know the true value of $p$, we replace it with the estimated value $\hat p$. This type of confidence interval is known as the *Wald confidence interval*, named after the statistician Wald. When p equals 0.5, the variance $p(1 - p)$ is maximized, resulting in a standard error of 0.5. Multiplying it by 2 in the 95% interval cancels out, leaving the following expression for a 95% confidence interval, which is a quick estimate for p:
 $$\hat p \pm 1/\sqrt{n}$$
 
 Example: Imaging you are running for political office, and in a random sample of 100 likely voters, 56 intend to vote for you. To determine if you can relax or if you need to campaign more, you can use a quick calculation. 
@@ -420,43 +423,4 @@ coverage <- sapply(pvals, function(p){
   mean(ll < p & ul > p)
 })
 ```
-
-For each true success probability, we generate 1,000 sets of 20 coin flips and calculate the sample proportion. Then, we compute the lower and upper limits of the confidence interval for each set of coin flips. Finally, we determine the proportion of times that the confidence interval covers the true value of the success probability. we store these proportions in a variable called "coverage."
-
-To visualize the results, we can plot the coverage as a function of the true success probability used in the simulation. For example, if the true value of p is 0.5, we perform 1,000 simulations and calculate the coverage based on whether the confidence interval covers 0.5 or not. In this case, the coverage is over 95%, indicating that the confidence interval provides better than 95% coverage for a true success probability of 0.5.
-
-![(\#fig:unnamed-chunk-30)Coverage of confidence intervals for coin flips, n=20](resources/images/week_02_files/figure-docx//1U1PiqeXG4XoKmg8hRFJqE1OFDOJfificBz1jLeDunHo_g257d7b8e795_0_107.png)
-
-Although there is some Monte Carlo error due to the finite number of simulations, 1,000 simulations generally yield good accuracy. For a true success probability around 12%, the coverage falls well below the expected 95%. The reason behind this discrepancy is that the central limit theorem is not accurate enough for this specific value of n (the number of coin flips) and the true probability. To address this issue for smaller values of n, a quick fix is to add 2 to the number of successes and 2 to the number of failures. This adjustment modifies the sample proportion, making it $\frac{X+2}{n+4}$. After applying this adjustment, the confidence interval procedure can be performed as usual. This modified interval is known as the **Agresti/Coull interval** and tends to perform better than the standard Wald interval. Before demonstrating the results for the adjusted intervals, it is important to note that larger values of n yield better performance. In a simulation where n is increased to 100, the coverage probability improves and remains close to the expected 95% across different values of p.
-
-![(\#fig:unnamed-chunk-31)Coverage of confidence intervals for coin flips, n=100](resources/images/week_02_files/figure-docx//1U1PiqeXG4XoKmg8hRFJqE1OFDOJfificBz1jLeDunHo_g257d7b8e795_0_110.png)
-
-Returning to the simulation with n=20, when using the add 2 successes and 2 failures interval, the coverage probability is higher than 95%, indicating an improvement compared to the poor coverage of the Wald interval for certain true probability values. However, it's important to balance coverage and interval width, as being too conservative can lead to overly wide intervals. Based on these observations, we strongly recommend using the add 2 successes and 2 failures interval instead of the Wald interval in this specific scenario.
-
-![(\#fig:unnamed-chunk-32)Coverage of confidence intervals for coin flips, n=20, add 2 successes and 2 failures](resources/images/week_02_files/figure-docx//1U1PiqeXG4XoKmg8hRFJqE1OFDOJfificBz1jLeDunHo_g257d7b8e795_0_81.png)
-
-Example: Create a Poisson interval using the formula that involves the estimate plus or minus the normal quantile standard error. 
-Although the application of the central limit theorem in this case may be less clear, we will discuss it shortly.Consider a nuclear pump that failed 5 times out of 94.32 days over a monitoring period. We want to calculate a 95% confidence interval for the failure rate per day. Assuming the number of failures follows a Poisson distribution with a failure rate of lambda and the monitoring period is denoted as t, the estimate of the failure rate is the number of failures divided by the total monitoring time. The variance of this estimate is $\lambda/t$.
-
-
-```r
-x <- 5; t <- 94.32; lambda <- x / t
-round(lambda + c(-1, 1) * qnorm(.975) * sqrt(lambda / t), 3)
-poisson.test(x, T = 94.32)$conf
-```
-
-In the calculations performed in R, the number of events $x$ is set to 5, and the monitoring time $t$ is 94.32. The rate estimate $\hat \lambda$ is computed as $x/t$, and the confidence interval estimate is obtained by adding or subtracting the relevant standard normal quantile multiplied by the standard error. The resulting interval is rounded to three decimal places. In addition to the large sample interval, we can also calculate an exact Poisson interval using the `poisson.test` function in R. This exact interval guarantees the specified coverage (e.g., 95%), but it may be conservative and result in wider intervals than necessary.
-
-To examine how confidence intervals perform in repeated samplings, let's conduct a simulation similar to the one for the coin example, but for the Poisson coverage rate. We select a range of $\lambda$ values around those from our previous example and perform 1,000 simulations. The monitoring time is set to 100 for simplicity. We define coverage as the percentage of times the simulated interval contains the true $\lambda$ value used in the simulation. The simulation is repeated for various $\lambda$ values, and the resulting plot shows the $\lambda$ values on the x-axis and the estimated coverage on the y-axis.
-
-![(\#fig:unnamed-chunk-34)Coverage of confidence intervals for Poisson data](resources/images/week_02_files/figure-docx//1U1PiqeXG4XoKmg8hRFJqE1OFDOJfificBz1jLeDunHo_g257d7b8e795_0_84.png)
-
-The plot reveals that as $\lambda$ values increase, the coverage approaches 95%. However, there is some Monte Carlo error due to the finite number of simulations. On the other hand, as the true $\lambda$ value becomes smaller, the coverage deteriorates significantly. For very small $\lambda$ values, the purported 95% interval may only provide 50% actual coverage. To address this issue, it is recommended not to rely on the asymptotic interval for small $\lambda$ values, especially when there are relatively few events during a large monitoring time. In such cases, the asymptotic interval does not align well with the Poisson distribution. Instead, an exact Poisson interval can be used as an alternative.
-
-Although the central limit theorem's application in the Poisson case may not be immediately clear, a simulation with a larger monitoring time (e.g., changing t from 100 to 1,000) demonstrates that as the monitoring time increases, the coverage improves and converges to 95% for most $\lambda$ values. However, some poor coverage may still occur for small $\lambda$ values, which we know the interval has trouble handling. In such cases, the exact Poisson interval remains a viable option.
-
-![(\#fig:unnamed-chunk-35)Coverage of confidence intervals for Poisson data, t=1000](resources/images/week_02_files/figure-docx//1U1PiqeXG4XoKmg8hRFJqE1OFDOJfificBz1jLeDunHo_g257d7b8e795_0_122.png)
-
-To summarize briefly, we covered the Law of Large Numbers, which states that averages of independent and identically distributed (iid) random variables converge to the quantities they are estimating. This applies to Poisson rates as well, although the convergence process may be less clear. As the monitoring time tends to infinity, for example, Poisson rates converge to their estimated values. We also discussed the Central Limit Theorem, which states that averages are approximately normally distributed. These distributions are centered at the population mean, a concept we already knew without the theorem, with standard deviations equal to the standard error of the mean. However, the Central Limit Theorem does not guarantee that the sample size is large enough for this approximation to be accurate. We have observed instances where confidence intervals are very accurate and others where they are less accurate. Speaking of confidence intervals, our default approach for constructing them is to take the mean estimate and add or subtract the relevant normal quantile times the standard error. This method, known as "walled intervals," is used not only in this context but also in regression analysis, general linear models, and other complex subjects. For a 95% confidence interval, the quantile value can be taken as 2 or, for more accuracy, 1.96. Confidence intervals become wider as the desired coverage increases within a specific technique. This is because wider intervals provide more certainty that the parameter lies within them. To illustrate, imagine an extreme scenario where your life depends on the confidence interval containing the true parameter. In this case, you would want to make the interval as wide as possible to ensure your safety. The mathematics behind confidence intervals follows the same principle.
-In the cases of Poisson and binomial distributions, which are discrete, the Central Limit Theorem may not accurately approximate their distributions. However, exact procedures exist for these cases. We also learned a simple fix for constructing confidence intervals in the binomial case by adding two successes and two failures, which provides a better interval without requiring complex computations. This method can be easily done by hand or mentally, even without access to a computer.
 
