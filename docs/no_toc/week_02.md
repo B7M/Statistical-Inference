@@ -118,7 +118,7 @@ You can explore this using the following code snippet in R:
 
 
 ```
-## [1] 0.3220704
+## [1] 0.3214185
 ```
 
 ```
@@ -341,5 +341,5 @@ The law of large numbers guarantees the consistency of sample means, but it also
 The Central Limit Theorem (CLT) is perhaps the most important theorem in statistics. It states that the distribution of averages of iid random variables becomes approximately standard normal as the sample size grows. The Central Limit Theorem is remarkably versatile, applying to a wide range of populations. Its loose requirements make it applicable in numerous settings.
 
 To understand the Central Limit Theorem, let's consider an estimate like the sample average $\bar X$. If we subtract its population mean and divide by its standard error the resulting random variable approaches a standard normal distribution as the sample size increases.
-$$\frac{\bar{X_n}-\mu}{\sigma/\sqrt{n}}=\frac{\sqrt{n}(\bar{X_n}-\mu)}{\sigma}=\frac{{Estimate} - {Mean\space of\space estimate}}{Std.\space Err.\space of\space estimate}$$
+$$\frac{\bar{X_n}-\mu}{\sigma/\sqrt{n}}=\frac{\sqrt{n}(\bar{X_n}-\mu)}{\sigma}$$
 
