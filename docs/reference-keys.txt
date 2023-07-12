@@ -41,6 +41,7 @@ variance-simulation-examples
 normal-distribution
 poisson-distribution
 asymptotics
+asymptotics-and-lln
 asymptotics-and-the-clt
 asymptotics-and-confidence-intervals
 intervals-testing-pvalues
