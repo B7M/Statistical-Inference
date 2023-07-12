@@ -168,7 +168,6 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.2" data-path="variability-distribution-asymptotics.html"><a href="variability-distribution-asymptotics.html#asymptotics"><i class="fa fa-check"></i><b>2.2</b> Asymptotics</a>
 <ul>
 <li class="chapter" data-level="2.2.1" data-path="variability-distribution-asymptotics.html"><a href="variability-distribution-asymptotics.html#asymptotics-and-lln"><i class="fa fa-check"></i><b>2.2.1</b> Asymptotics and LLN</a></li>
-<li class="chapter" data-level="2.2.2" data-path="variability-distribution-asymptotics.html"><a href="variability-distribution-asymptotics.html#asymptotics-and-the-clt"><i class="fa fa-check"></i><b>2.2.2</b> Asymptotics and the CLT</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="intervals-testing-pvalues.html"><a href="intervals-testing-pvalues.html"><i class="fa fa-check"></i><b>3</b> Intervals, Testing, &amp; Pvalues</a>
@@ -327,7 +326,7 @@ This means that the sample mean becomes more concentrated around the population 
 <p>Since we lack repeated sample means in a given dataset, we estimate the sample variance of the mean as <span class="math inline">\(S^2\)</span> divided by n and the logical estimate of the standard error as <span class="math inline">\(\frac{S}{\sqrt{n}}\)</span>. The standard error of the mean (or the sample standard error of the mean) is defined as <span class="math inline">\(\frac{S}{\sqrt{n}}\)</span>. The standard deviation (S) is an estimate of the variability of the population, while the standard error (<span class="math inline">\(\frac{S}{\sqrt{n}}\)</span>) represents the variability of averages of random samples of size n from the population.</p>
 <p>Example: If we take standard normals (with a variance of one), the standard deviation of means of n standard normals is expected to be one over <span class="math inline">\(\frac{1}{\sqrt{n}}\)</span>. By simulating multiple draws of ten standard normals and calculating their mean, followed by taking the standard deviation of these averages, we should obtain an approximate value of <span class="math inline">\(\frac{1}{\sqrt{n}}\)</span>.</p>
 <p>You can explore this using the following code snippet in R:</p>
-<pre><code>## [1] 0.3094506</code></pre>
+<pre><code>## [1] 0.3154489</code></pre>
 <pre><code>## [1] 0.3162278</code></pre>
 <p>Similar simulations can be performed for standard uniforms (variance of <span class="math inline">\(\frac{1}{12}\)</span>), Poisson(4) distributions (variance of 4), and coin flips (variance of <span class="math inline">\(p*(1-p)\)</span>, assuming p=0.5 then <span class="math inline">\(Var(X)=0.25\)</span>). The results of these simulations should align with the theoretical values predicted by our rule.</p>
 <p>Understanding the standard error of the mean is crucial in determining the variability of sample means. Simulation experiments can help illustrate these concepts, especially when investigating the distribution of sample means and estimating their standard error.</p>
@@ -467,21 +466,6 @@ Figure 2.3: Cumulative means of coin flips
 <span id="cb23-5"><a href="variability-distribution-asymptotics.html#cb23-5" aria-hidden="true" tabindex="-1"></a>g</span></code></pre></div>
 <p>Note: An estimator is considered <em>consistent</em> if it converges to the parameter it aims to estimate. For instance, the sample proportion from iid coin flips is consistent for estimating the true success probability of a coin. As we collect more and more coin flip data, the sample proportion of heads approaches the actual probability of obtaining a head. Moreover, not only are sample means consistent estimators, but the sample variance and sample standard deviation of iid random variables are also consistent estimators.</p>
 <p>The law of large numbers guarantees the consistency of sample means, but it also applies to sample variances and standard deviations of iid random variables. In other words, these estimators also converge to their respective population counterparts as the sample size increases.</p>
-</div>
-<div id="asymptotics-and-the-clt" class="section level3" number="2.2.2">
-<h3><span class="header-section-number">2.2.2</span> Asymptotics and the CLT</h3>
-<p>The Central Limit Theorem (CLT) is perhaps the most important theorem in statistics. It states that the distribution of averages of iid random variables becomes approximately standard normal as the sample size grows. The Central Limit Theorem is remarkably versatile, applying to a wide range of populations. Its loose requirements make it applicable in numerous settings.</p>
-<p>To understand the Central Limit Theorem, let’s consider an estimate like the sample average <span class="math inline">\(\bar X\)</span>. If we subtract its population mean and divide by its standard error the resulting random variable approaches a standard normal distribution as the sample size increases.
-<span class="math display">\[\frac{\bar{X_n}-\mu}{\sigma/\sqrt{n}}=\frac{\sqrt{n}(\bar{X_n}-\mu)}{\sigma}=\frac{{Estimate} - {Mean\space of\space estimate}}{Std.\space Err.\space of\space estimate}\]</span>
-Importantly, replacing the unknown population standard deviation with the known sample standard deviation does not affect the Central Limit Theorem.</p>
-<p>The most useful interpretation of the Central Limit Theorem is that the sample average is approximately normally distributed, with a mean equal to the population mean and a variance given by the standard error of the mean.</p>
-<p>Example: Using standard die with the mean of 3.5, and variance of 2.92. We simulate the die roll n times, calculate the sample mean, subtract the population mean, and dividing by the standard error.</p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-24"></span>
-<img src="resources/images/week_02_files/figure-html/1U1PiqeXG4XoKmg8hRFJqE1OFDOJfificBz1jLeDunHo_g257d7b8e795_0_101.png" alt="Distribution of averages of iid random variables in die roll" width="480" />
-<p class="caption">
-Figure 2.4: Distribution of averages of iid random variables in die roll
-</p>
-</div>
 
 </div>
 </div>
