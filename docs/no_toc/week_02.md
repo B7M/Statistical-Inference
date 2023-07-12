@@ -1,6 +1,6 @@
 
 
-# Variability, Distribution, & Asymptotics
+g# Variability, Distribution, & Asymptotics
 
 ## Variability
 An important characterization of a population is how spread out it is. One of the key measures of spread is variability. We measure population variability with the sample variance, or more often we consider the square root of it, called the standard deviation. The reason for taking the standard deviation is because that measure has the same units as the population. So if our population is a length measurement in meters, the standard deviation is in meters (whereas the variance is in meters squared). Variability has many important uses in statistics. First, the population variance is itself an intrinsically interesting quantity that we want to estimate. Secondly, variability in our estimates is what makes them not imprecise. An important aspect of statistics is quantifying the variability in our estimates.
@@ -119,7 +119,7 @@ You can explore this using the following code snippet in R:
 
 
 ```
-## [1] 0.3112209
+## [1] 0.3238693
 ```
 
 ```
