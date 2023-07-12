@@ -109,7 +109,7 @@ You can explore this using the following code snippet in R:
 
 
 ```
-## [1] 0.3163899
+## [1] 0.3214197
 ```
 
 ```
@@ -314,18 +314,4 @@ g
 Note: An estimator is considered *consistent* if it converges to the parameter it aims to estimate. For instance, the sample proportion from iid coin flips is consistent for estimating the true success probability of a coin. As we collect more and more coin flip data, the sample proportion of heads approaches the actual probability of obtaining a head. Moreover, not only are sample means consistent estimators, but the sample variance and sample standard deviation of iid random variables are also consistent estimators.
 
 The law of large numbers guarantees the consistency of sample means, but it also applies to sample variances and standard deviations of iid random variables. In other words, these estimators also converge to their respective population counterparts as the sample size increases.
-
-### Asymptotics and the CLT
-
-The Central Limit Theorem (CLT) is perhaps the most important theorem in statistics. It states that the distribution of averages of iid random variables becomes approximately standard normal as the sample size grows. The Central Limit Theorem is remarkably versatile, applying to a wide range of populations. Its loose requirements make it applicable in numerous settings.
-
-To understand the Central Limit Theorem, let's consider an estimate like the sample average $\bar X$. If we subtract its population mean and divide by its standard error the resulting random variable approaches a standard normal distribution as the sample size increases.
-$$\frac{\bar{X_n}-\mu}{\sigma/\sqrt{n}}=\frac{\sqrt{n}(\bar{X_n}-\mu)}{\sigma}=\frac{{Estimate} - {Mean\space of\space estimate}}{Std.\space Err.\space of\space estimate}$$
-Importantly, replacing the unknown population standard deviation with the known sample standard deviation does not affect the Central Limit Theorem.
-
-The most useful interpretation of the Central Limit Theorem is that the sample average is approximately normally distributed, with a mean equal to the population mean and a variance given by the standard error of the mean.
-
-Example: Using standard die with the mean of 3.5, and variance of 2.92. We simulate the die roll n times, calculate the sample mean, subtract the population mean, and dividing by the standard error.
-
-![(\#fig:unnamed-chunk-24)Distribution of averages of iid random variables in die roll](resources/images/week_02_files/figure-docx//1U1PiqeXG4XoKmg8hRFJqE1OFDOJfificBz1jLeDunHo_g257d7b8e795_0_101.png)
 
