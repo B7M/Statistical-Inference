@@ -118,7 +118,7 @@ You can explore this using the following code snippet in R:
 
 
 ```
-## [1] 0.3191613
+## [1] 0.3129282
 ```
 
 ```
@@ -258,6 +258,7 @@ Since 1020 is both the mean and the median of the specific normal distribution, 
 To calculate this quantile, we can use the `qnorm` function with the input value of 0.75, representing the 75th percentile. The mean is set to 1020, and the standard deviation is 50. When we execute this command, `qnorm(0.75, mean = 1020, sd = 50)`, we obtain a number between the previously mentioned range, approximately 1054.
 
 ### Poisson distribution
+
 If there were a competition to determine the most useful distribution, the normal distribution would unquestionably win by a wide margin. However, selecting the second most useful distribution would spark a lively debate, with the Poisson distribution being a strong contender. The Poisson distribution is commonly employed to model counts, and its probability mass function is given by 
 $$P(X = x; \lambda) = \frac{\lambda^x e^{-\lambda}}{x!}$$
 where x represents non-negative integers (0, 1, 2, and so on).
@@ -286,10 +287,13 @@ ppois(2, lambda=500 * .01)
 ```
 
 ## Asymptotics
+
 Asymptotics are an important topics in statistics. Asymptotics refers to the behavior of estimators as the sample size goes to infinity. Our very notion of probability depends on the idea of asymptotics. For example, many people define probability as the proportion of times an event would occur in infinite repetitions. That is, the probability of a head on a coin is 50% because we believe that if we were to flip it infinitely many times, we would get exactly 50% heads.
 
 We can use asymptotics to help is figure out things about distributions without knowing much about them to begin with. A profound idea along these lines is the *Central Limit Theorem*. It states that the distribution of averages is often normal, even if the distribution that the data is being sampled from is very non-normal. This helps us create robust strategies for creating statistical inferences when we're not willing to assume much about the generating mechanism of our data.
+
 ### Asymptotics and LLN
+
 Here we will explore the behavior of statistics as the sample size or some other relevant quantity approaches infinity, which is known as asymptotics. Specifically, we will discuss the case where the sample size tends to infinity.
 
 In the land of asymptopia, everything works out well because there is an infinite amount of data available. Asymptotics play a crucial role in simple statistical inference and approximations. They serve as a versatile tool, akin to a Swiss army knife, allowing us to investigate the statistical properties of various statistics without requiring extensive computations. Asymptotics form the foundation for the frequency interpretation of probabilities. For instance, intuitively, we know that if we flip a coin and calculate the proportion of heads, it should approach 0.5 for a fair coin.
@@ -412,30 +416,4 @@ In summary, the Central Limit Theorem is a powerful tool that allows us to appro
 
 The central limit theorem tells us that the sample mean follows an approximately normal distribution with a population mean of μ and a standard deviation of $\sigma/ \sqrt{n}$. This distribution allows us to make inferences about the population mean based on sample data. When considering the distribution, we observe that $μ+2$ standard errors is quite far out in the tail, with only a 2.5% chance of a normal value being larger than two standard deviations in the tail.
 Similarly, $μ-2$ standard errors is far in the left tail, with only a 2.5% chance of a normal value being smaller than two standard deviations in the left tail. Therefore, the probability that the sample mean $\bar X$ is greater than $μ+2$ standard errors or smaller than $μ-2$ standard errors is 5%. Equivalently, the probability that μ is between these limits is 95%. By reversing the roles of $\bar X$ and μ, we can conclude that the interval $[\bar X - 2 \sigma /\sqrt{n}, \bar X + 2 \sigma /\sqrt{n}]$ contains μ with a probability of 95%.
-
-It's important to note that in this interpretation, we treat the interval $[\bar X - 2 \sigma /\sqrt{n}, \bar X + 2 \sigma /\sqrt{n}]$ as random, while μ is fixed. This allows us to discuss the probability that the interval contains μ. In practice, if we repeatedly obtain samples of size n from the population and construct a confidence interval in each case, about 95% of the intervals will contain μ, the parameter we are trying to estimate. If we want a 90% confidence interval, we need 5% in each tail, so we would use a different multiplier instead of 2 (e.g., 1.645).
-
-Example: Using the father-son data from the "Using R" package we want to estimate the average height of sons $\bar X$. We can calculate the mean of the sample plus or minus the 0.975th normal quantile times the standard error of the mean.
-
-
-```r
-library(UsingR);data(father.son); x <- father.son$sheight
-(mean(x) + c(-1, 1) * qnorm(.975) * sd(x) / sqrt(length(x))) / 12
-```
-
-Dividing by 12 ensures that our confidence interval is in feet rather than inches. If we obtain a confidence interval of 5.710 to 5.738, we can say that if the sons' height in this data are a random sample from the population of interest, the confidence interval for the average height of the sons would be 5.71 to 5.74.
-
-Another application is when dealing with coin flips and estimating the success probability $p$ of the coin. Each observation $X_i$ in this case is either 0 or 1, with a common success probability $p$. The variance of a coin flip is $p * (1 - p)$, where p is the true success probability of the coin. The standard error of the mean is then:
-$$ \hat p \pm z_{1 - \alpha/2}  \sqrt{\frac{p(1 - p)}{n}}$$
-
-Since we don't know the true value of $p$, we replace it with the estimated value $\hat p$. This type of confidence interval is known as the *Wald confidence interval*, named after the statistician Wald. When p equals 0.5, the variance $p(1 - p)$ is maximized, resulting in a standard error of 0.5. Multiplying it by 2 in the 95% interval cancels out, leaving the following expression for a 95% confidence interval, which is a quick estimate for p:
-$$\hat p \pm 1/\sqrt{n}$$
-
-Example: Imaging you are running for political office, and in a random sample of 100 likely voters, 56 intend to vote for you. To determine if you can relax or if you need to campaign more, you can use a quick calculation. 
-
-With the information from the sample you can with with probability of 0.56 taking $\frac{1}{\sqrt{100}}=0.1$ means the approximate 95% interval is 0.46 to 0.66. The confidence interval suggests that we cannot rule out possibilities below 0.5 with 95% confidence. Therefore, you shouldn't relax and should continue campaigning.
-
-As a general guideline, you typically need at least 100 observations for one decimal place in a binomial experiment, 10,000 for two decimal places, and a million for three decimal places. These numbers reflect the approximate sample sizes needed for accurate estimation.
-
-In summary, the central limit theorem provides us with a practical tool for constructing confidence intervals and making inferences about population parameters. It allows us to estimate the population mean using the sample mean and provides a measure of uncertainty through confidence intervals. The Wald confidence interval is a useful approximation for estimating the success probability in binomial experiments. Additionally, considering the sample size helps determine the level of precision and confidence in our estimates.
 
