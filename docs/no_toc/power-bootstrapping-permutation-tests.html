@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 4 Power, Bootstrapping, &amp; Permutation Tests | Statistical Inference</title>
+  <meta name="description" content="Description about Course/Book." />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 4 Power, Bootstrapping, &amp; Permutation Tests | Statistical Inference" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Description about Course/Book." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 4 Power, Bootstrapping, &amp; Permutation Tests | Statistical Inference" />
+  
+  <meta name="twitter:description" content="Description about Course/Book." />
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  <link rel="shortcut icon" href="assets/dasl_favicon.ico" type="image/x-icon" />
+<link rel="prev" href="intervals-testing-pvalues.html"/>
+<link rel="next" href="about-the-authors.html"/>
+<script src="libs/header-attrs-2.10/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="assets/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<a href="http://jhudatascience.org/"><img src="https://jhudatascience.org/images/dasl.png" style=" width: 80%; padding-left: 40px; padding-top: 8px; vertical-align: top "</a>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>About this Course</a></li>
+<li class="chapter" data-level="1" data-path="probability-expected-values.html"><a href="probability-expected-values.html"><i class="fa fa-check"></i><b>1</b> Probability &amp; Expected Values</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="probability-expected-values.html"><a href="probability-expected-values.html#introduction"><i class="fa fa-check"></i><b>1.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="probability-expected-values.html"><a href="probability-expected-values.html#course-book"><i class="fa fa-check"></i><b>1.1.1</b> Course Book:</a></li>
+<li class="chapter" data-level="1.1.2" data-path="probability-expected-values.html"><a href="probability-expected-values.html#github-repository"><i class="fa fa-check"></i><b>1.1.2</b> Github repository</a></li>
+<li class="chapter" data-level="1.1.3" data-path="probability-expected-values.html"><a href="probability-expected-values.html#homework-problems"><i class="fa fa-check"></i><b>1.1.3</b> Homework Problems</a></li>
+<li class="chapter" data-level="1.1.4" data-path="probability-expected-values.html"><a href="probability-expected-values.html#differences-of-opinion"><i class="fa fa-check"></i><b>1.1.4</b> Differences of opinion</a></li>
+<li class="chapter" data-level="1.1.5" data-path="probability-expected-values.html"><a href="probability-expected-values.html#data-science-specialization-community-site"><i class="fa fa-check"></i><b>1.1.5</b> Data Science Specialization Community Site</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="probability-expected-values.html"><a href="probability-expected-values.html#probability"><i class="fa fa-check"></i><b>1.2</b> Probability</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="probability-expected-values.html"><a href="probability-expected-values.html#probability-mass-functions-and-probability-density-functions"><i class="fa fa-check"></i><b>1.2.1</b> Probability mass functions and probability density functions</a></li>
+<li class="chapter" data-level="1.2.2" data-path="probability-expected-values.html"><a href="probability-expected-values.html#quantiles"><i class="fa fa-check"></i><b>1.2.2</b> Quantiles</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="probability-expected-values.html"><a href="probability-expected-values.html#conditional-probability"><i class="fa fa-check"></i><b>1.3</b> Conditional probability</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="probability-expected-values.html"><a href="probability-expected-values.html#independence"><i class="fa fa-check"></i><b>1.3.1</b> Independence</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="probability-expected-values.html"><a href="probability-expected-values.html#expected-values"><i class="fa fa-check"></i><b>1.4</b> Expected values</a></li>
+<li class="chapter" data-level="1.5" data-path="probability-expected-values.html"><a href="probability-expected-values.html#practical-r-exercises-in-swirl"><i class="fa fa-check"></i><b>1.5</b> Practical R Exercises in swirl</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="variability-distribution-asymptotics.html"><a href="variability-distribution-asymptotics.html"><i class="fa fa-check"></i><b>2</b> Variability, Distribution, &amp; Asymptotics</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="variability-distribution-asymptotics.html"><a href="variability-distribution-asymptotics.html#variability"><i class="fa fa-check"></i><b>2.1</b> Variability</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="variability-distribution-asymptotics.html"><a href="variability-distribution-asymptotics.html#variance-simulation-examples"><i class="fa fa-check"></i><b>2.1.1</b> Variance simulation examples</a></li>
+<li class="chapter" data-level="2.1.2" data-path="variability-distribution-asymptotics.html"><a href="variability-distribution-asymptotics.html#normal-distribution"><i class="fa fa-check"></i><b>2.1.2</b> Normal distribution</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="intervals-testing-pvalues.html"><a href="intervals-testing-pvalues.html"><i class="fa fa-check"></i><b>3</b> Intervals, Testing, &amp; Pvalues</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="intervals-testing-pvalues.html"><a href="intervals-testing-pvalues.html#confidence-intervals"><i class="fa fa-check"></i><b>3.1</b> Confidence intervals</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="intervals-testing-pvalues.html"><a href="intervals-testing-pvalues.html#independent-group-t-intervals"><i class="fa fa-check"></i><b>3.1.1</b> Independent group T intervals</a></li>
+<li class="chapter" data-level="3.1.2" data-path="intervals-testing-pvalues.html"><a href="intervals-testing-pvalues.html#a-note-on-unequal-variance"><i class="fa fa-check"></i><b>3.1.2</b> A note on unequal variance</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="intervals-testing-pvalues.html"><a href="intervals-testing-pvalues.html#hypothesis-testing"><i class="fa fa-check"></i><b>3.2</b> Hypothesis testing</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="intervals-testing-pvalues.html"><a href="intervals-testing-pvalues.html#t-tests"><i class="fa fa-check"></i><b>3.2.1</b> T tests</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="intervals-testing-pvalues.html"><a href="intervals-testing-pvalues.html#p-values"><i class="fa fa-check"></i><b>3.3</b> P values</a></li>
+<li class="chapter" data-level="3.4" data-path="intervals-testing-pvalues.html"><a href="intervals-testing-pvalues.html#knitr"><i class="fa fa-check"></i><b>3.4</b> Knitr</a></li>
+<li class="chapter" data-level="3.5" data-path="intervals-testing-pvalues.html"><a href="intervals-testing-pvalues.html#practical-r-exercises-in-swirl-1"><i class="fa fa-check"></i><b>3.5</b> Practical R Exercises in swirl</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="power-bootstrapping-permutation-tests.html"><a href="power-bootstrapping-permutation-tests.html"><i class="fa fa-check"></i><b>4</b> Power, Bootstrapping, &amp; Permutation Tests</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="power-bootstrapping-permutation-tests.html"><a href="power-bootstrapping-permutation-tests.html#power"><i class="fa fa-check"></i><b>4.1</b> Power</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="power-bootstrapping-permutation-tests.html"><a href="power-bootstrapping-permutation-tests.html#calculating-power"><i class="fa fa-check"></i><b>4.1.1</b> Calculating Power</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="power-bootstrapping-permutation-tests.html"><a href="power-bootstrapping-permutation-tests.html#multiple-comparisons"><i class="fa fa-check"></i><b>4.2</b> Multiple Comparisons</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="power-bootstrapping-permutation-tests.html"><a href="power-bootstrapping-permutation-tests.html#notes-on-the-bootstrap"><i class="fa fa-check"></i><b>4.2.1</b> Notes on the bootstrap</a></li>
+<li class="chapter" data-level="4.2.2" data-path="power-bootstrapping-permutation-tests.html"><a href="power-bootstrapping-permutation-tests.html#permutation-tests"><i class="fa fa-check"></i><b>4.2.2</b> Permutation tests</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="about-the-authors.html"><a href="about-the-authors.html"><i class="fa fa-check"></i>About the Authors</a></li>
+<li class="chapter" data-level="5" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>5</b> References</a></li>
+<li class="divider"></li>
+<p style="text-align:center;"> <a href="https://github.com/jhudsl/OTTR_Template" target="blank" > This content was published with</a> <a href="https://bookdown.org/" target="blank"> bookdown by:</a> </p>
+<p style="text-align:center;"> <a href="http://jhudatascience.org/"> The Johns Hopkins Data Science Lab </a></p>
+<p style="text-align:center; font-size: 12px;"> <a href="https://github.com/rstudio4edu/rstudio4edu-book/"> Style adapted from: rstudio4edu-book </a> <a href ="https://creativecommons.org/licenses/by/2.0/"> (CC-BY 2.0) </a></p>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Statistical Inference</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<head>
+  <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,initial-scale=1.0">
+  <!--script src="https://kit.fontawesome.com/6a26f47516.js"></script-->
+  <!--<script src="assets/hideOutput.js"></script>-->
+  <link href="assets/style.css" rel="stylesheet">
+</head>
+
+
+
+<div class="hero-image-container">
+  <img class= "hero-image" src= "https://github.com/jhudsl/OTTR_Template/raw/main/assets/dasl_thin_main_image.png">
+</div>
+<div id="power-bootstrapping-permutation-tests" class="section level1" number="4">
+<h1><span class="header-section-number">Chapter 4</span> Power, Bootstrapping, &amp; Permutation Tests</h1>
+<p>We’ve talked about a Type I error, rejecting the null hypothesis when it’s true. We’ve structured our hypothesis test so that the probability of this happening is small. The other kind of error we could make is to fail to reject when the alternative is true (<strong>Type II error</strong>). Or we might think about the probability of rejecting the null when it is false. This is called <strong>Power = 1 - Type II error</strong>. We don’t have as much control over this probability, since we’ve spent all of our flexibility guaranteeing that the Type I error rate is small. One avenue for the control of power is at the design phase. There, assuming our finances let us, we can pick a large enough sample size so that we’d be likely to reject if the alternative is true. Thus the most frequent use of power is to help us design studies.</p>
+<div id="power" class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> Power</h2>
+<p>Power refers to the probability of rejecting the null hypothesis when it is actually false. As the name suggests, having more power is desirable. Interestingly, power becomes more significant when we fail to reject the null hypothesis than when we do reject it! This is because when we reject the null hypothesis, we are confident that the alternative hypothesis is true. However, when we fail to reject the null hypothesis, we are unsure whether the null hypothesis is true or if we simply failed to detect the alternative hypothesis. Therefore, power is more relevant when we fail to reject the null hypothesis.</p>
+<p>Imagine conducting a study to compare Treatment A and Treatment B, where you only randomized three individuals to each treatment. In this case, if you find no significant difference between the two treatments, it wouldn’t be surprising because the small sample size limits your power to detect meaningful differences. The null result is somewhat expected due to the limited data. On the other hand, if you had 300 individuals in each treatment group and still failed to reject the null hypothesis, it would be more meaningful because with such a large sample size, you would expect to observe a difference if it truly existed. Therefore, power comes into play more prominently with null results rather than non-null results. Power is commonly considered during the study design phase. You want to design your study in a way that provides a reasonable chance of detecting the alternative hypothesis if it is true. This involves carefully selecting factors like sample size, statistical tests, and effect sizes.</p>
+<p>A type II error, also known as a <strong>beta error</strong>, is the failure to reject a false null hypothesis. It is undesirable because it means missing a true effect or relationship. Power is simply <span class="math inline">\(1- \beta\)</span>, representing the probability of correctly rejecting the null hypothesis. In hypothesis testing, the two crucial quantities are the type I error rate (<span class="math inline">\(\alpha\)</span>) and the type II error rate (<span class="math inline">\(\beta\)</span>). However, we often discuss power (<span class="math inline">\(1 - \beta\)</span>) rather than <span class="math inline">\(\beta\)</span> itself.</p>
+<p>Suppose we are interested in testing the mean respiratory disturbance index (RDI) in a specific population of obese subjects. We want to compare whether the mean RDI (<span class="math inline">\(\mu \geq 30\)</span>) . We calculate a t-statistic, which follows a t-distribution under the null hypothesis assumption. By calculating the probability of obtaining a t-statistic larger than the upper quantile of the t-distribution at the significance level <span class="math inline">\(\alpha\)</span>, we determine the probability of rejecting the null hypothesis under the assumption that <span class="math inline">\(\mu=30\)</span>. This probability corresponds to <span class="math inline">\(\alpha\)</span>.</p>
+<p>Power, on the other hand, is calculated similarly but with the alternative hypothesis in mind. Instead of plugging in <span class="math inline">\(\mu=30\)</span>, we use a value greater than 30. Power represents the probability of correctly rejecting the null hypothesis when the true mean (<span class="math inline">\(\mu &gt; 30\)</span>). If we consider a larger <span class="math inline">\(\mu\)</span>, such as 60, our power will increase because we’ll have a higher chance of detecting the difference. Conversely, if the true alternative mean is very close to the null value, say 30.00001, our power will be lower since it is more challenging to detect such a small difference. Thus, power is a function that depends on the mean under the null hypothesis. Values close to the null mean will resemble the type I error rate, while values far from it will yield higher power, potentially approaching 100%.</p>
+<div id="calculating-power" class="section level3" number="4.1.1">
+<h3><span class="header-section-number">4.1.1</span> Calculating Power</h3>
+<p>Assume a sample with normal distribution. This assumption is true either because we have a large sample size and can apply the central limit theorem, or we can simply assume that the underlying population is normally distributed. For the sake of argument, let’s assume that the sample mean (<span class="math inline">\(\bar X\)</span>) is normally distributed, and the population standard deviation (<span class="math inline">\(\sigma\)</span>) is known. In this scenario, we would reject the null hypothesis if our Z-statistic: <span class="math inline">\(\frac{\bar X - 30}{\sigma/\sqrt{n}}&gt;Z_{1-\alpha}\)</span></p>
+<p>Alternatively, we can state that we will reject the null hypothesis if <span class="math inline">\(\bar X\)</span> is greater than 30 plus the product of the z quantile and the standard error of the mean.
+<span class="math display">\[\bar X &gt; 30 + Z_{1-\alpha}\frac{\sigma}{\sqrt{n}}\]</span></p>
+<p><span class="math display">\[Under\space H_0: \bar X \sim N(\mu_0, \sigma^2 / n)\]</span>
+<span class="math display">\[Under\space H_a: \bar X \sim N(\mu_a, \sigma^2 / n)\]</span></p>
+<p>We can easily calculate the power using the R programming language. By taking the <code>pnorm</code> (normal probability)</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="power-bootstrapping-permutation-tests.html#cb37-1" aria-hidden="true" tabindex="-1"></a>alpha <span class="ot">=</span> <span class="fl">0.05</span></span>
+<span id="cb37-2"><a href="power-bootstrapping-permutation-tests.html#cb37-2" aria-hidden="true" tabindex="-1"></a>z <span class="ot">=</span> <span class="fu">qnorm</span>(<span class="dv">1</span> <span class="sc">-</span> alpha)</span>
+<span id="cb37-3"><a href="power-bootstrapping-permutation-tests.html#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(mu0 <span class="sc">+</span> z <span class="sc">*</span> sigma <span class="sc">/</span> <span class="fu">sqrt</span>(n), <span class="at">mean =</span> mua, <span class="at">sd =</span> sigma <span class="sc">/</span> <span class="fu">sqrt</span>(n), <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<p>Example: Suppose someone wants to conduct a study to test whether the mean (<span class="math inline">\(\mu\)</span>) for a specific population is 30 or greater. They are interested in detecting a difference as large as 32, with a sample size of 16, and a known standard deviation of 4.</p>
+<p>We can plug in these values and calculate the power. When we set <span class="math inline">\(\mu = \mu_0 =30\)</span>, the power is 5%. However, when we set <span class="math inline">\(\mu = \mu_a=32\)</span>, the power increases to 64%.</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="power-bootstrapping-permutation-tests.html#cb38-1" aria-hidden="true" tabindex="-1"></a>mu0 <span class="ot">=</span> <span class="dv">30</span>; mua <span class="ot">=</span> <span class="dv">32</span>; sigma <span class="ot">=</span> <span class="dv">4</span>; n <span class="ot">=</span> <span class="dv">16</span></span>
+<span id="cb38-2"><a href="power-bootstrapping-permutation-tests.html#cb38-2" aria-hidden="true" tabindex="-1"></a>z <span class="ot">=</span> <span class="fu">qnorm</span>(<span class="dv">1</span> <span class="sc">-</span> alpha)</span>
+<span id="cb38-3"><a href="power-bootstrapping-permutation-tests.html#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(mu0 <span class="sc">+</span> z <span class="sc">*</span> sigma <span class="sc">/</span> <span class="fu">sqrt</span>(n), <span class="at">mean =</span> mu0, <span class="at">sd =</span> sigma <span class="sc">/</span> <span class="fu">sqrt</span>(n), </span>
+<span id="cb38-4"><a href="power-bootstrapping-permutation-tests.html#cb38-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb38-5"><a href="power-bootstrapping-permutation-tests.html#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(mu0 <span class="sc">+</span> z <span class="sc">*</span> sigma <span class="sc">/</span> <span class="fu">sqrt</span>(n), <span class="at">mean =</span> mua, <span class="at">sd =</span> sigma <span class="sc">/</span> <span class="fu">sqrt</span>(n), </span>
+<span id="cb38-6"><a href="power-bootstrapping-permutation-tests.html#cb38-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<p>This means there is a 64% probability of detecting a mean as large as 32 or larger if we conduct the experiment. By plotting the power curves, which represent the power as a function of <span class="math inline">\(\mu_a\)</span>, with different sample sizes shown in different colors, we can observe interesting patterns.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-3"></span>
+<img src="resources/images/week_04_files/figure-html/1U1PiqeXG4XoKmg8hRFJqE1OFDOJfificBz1jLeDunHo_g257d7b8e795_0_169.png" alt="Plotting the power curve" width="480" />
+<p class="caption">
+Figure 1.3: Plotting the power curve
+</p>
+</div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="power-bootstrapping-permutation-tests.html#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb39-2"><a href="power-bootstrapping-permutation-tests.html#cb39-2" aria-hidden="true" tabindex="-1"></a>nseq <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">8</span>, <span class="dv">16</span>, <span class="dv">32</span>, <span class="dv">64</span>, <span class="dv">128</span>)</span>
+<span id="cb39-3"><a href="power-bootstrapping-permutation-tests.html#cb39-3" aria-hidden="true" tabindex="-1"></a>mua <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">30</span>, <span class="dv">35</span>, <span class="at">by =</span> <span class="fl">0.1</span>)</span>
+<span id="cb39-4"><a href="power-bootstrapping-permutation-tests.html#cb39-4" aria-hidden="true" tabindex="-1"></a>power <span class="ot">=</span> <span class="fu">sapply</span>(nseq, <span class="cf">function</span>(n)</span>
+<span id="cb39-5"><a href="power-bootstrapping-permutation-tests.html#cb39-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pnorm</span>(mu0 <span class="sc">+</span> z <span class="sc">*</span> sigma <span class="sc">/</span> <span class="fu">sqrt</span>(n), <span class="at">mean =</span> mua, <span class="at">sd =</span> sigma <span class="sc">/</span> <span class="fu">sqrt</span>(n), </span>
+<span id="cb39-6"><a href="power-bootstrapping-permutation-tests.html#cb39-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb39-7"><a href="power-bootstrapping-permutation-tests.html#cb39-7" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb39-8"><a href="power-bootstrapping-permutation-tests.html#cb39-8" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(power) <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">&quot;n&quot;</span>, nseq, <span class="at">sep =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb39-9"><a href="power-bootstrapping-permutation-tests.html#cb39-9" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(mua, power)</span>
+<span id="cb39-10"><a href="power-bootstrapping-permutation-tests.html#cb39-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(reshape2)</span>
+<span id="cb39-11"><a href="power-bootstrapping-permutation-tests.html#cb39-11" aria-hidden="true" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> <span class="fu">melt</span>(d, <span class="at">id.vars =</span> <span class="st">&quot;mua&quot;</span>)</span>
+<span id="cb39-12"><a href="power-bootstrapping-permutation-tests.html#cb39-12" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(d2) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;mua&quot;</span>, <span class="st">&quot;n&quot;</span>, <span class="st">&quot;power&quot;</span>)    </span>
+<span id="cb39-13"><a href="power-bootstrapping-permutation-tests.html#cb39-13" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(d2, </span>
+<span id="cb39-14"><a href="power-bootstrapping-permutation-tests.html#cb39-14" aria-hidden="true" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">x =</span> mua, <span class="at">y =</span> power, <span class="at">col =</span> n)) <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="at">size =</span> <span class="dv">2</span>)</span>
+<span id="cb39-15"><a href="power-bootstrapping-permutation-tests.html#cb39-15" aria-hidden="true" tabindex="-1"></a>g  </span></code></pre></div>
+<p>As <span class="math inline">\(\mu_a\)</span> gets larger, the power increases, which indicates a higher likelihood of detecting a larger difference. Additionally, as the sample size increases, the curves shift upwards and reach higher power levels earlier. This aligns with our expectation that collecting more data increases the likelihood of detecting a specific effect. We can use RStudio’s manipulate function to explore power in relation to the two normal distributions. We can visually evaluate the power and observe how it changes with different values.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-5"></span>
+<img src="resources/images/week_04_files/figure-html/1U1PiqeXG4XoKmg8hRFJqE1OFDOJfificBz1jLeDunHo_g257d7b8e795_0_172.png" alt="Plotting the power curve" width="480" />
+<p class="caption">
+Figure 1.5: Plotting the power curve
+</p>
+</div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="power-bootstrapping-permutation-tests.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(manipulate)</span>
+<span id="cb40-2"><a href="power-bootstrapping-permutation-tests.html#cb40-2" aria-hidden="true" tabindex="-1"></a>mu0 <span class="ot">=</span> <span class="dv">30</span></span>
+<span id="cb40-3"><a href="power-bootstrapping-permutation-tests.html#cb40-3" aria-hidden="true" tabindex="-1"></a>myplot <span class="ot">&lt;-</span> <span class="cf">function</span>(sigma, mua, n, alpha){</span>
+<span id="cb40-4"><a href="power-bootstrapping-permutation-tests.html#cb40-4" aria-hidden="true" tabindex="-1"></a>    g <span class="ot">=</span> <span class="fu">ggplot</span>(<span class="fu">data.frame</span>(<span class="at">mu =</span> <span class="fu">c</span>(<span class="dv">27</span>, <span class="dv">36</span>)), <span class="fu">aes</span>(<span class="at">x =</span> mu))</span>
+<span id="cb40-5"><a href="power-bootstrapping-permutation-tests.html#cb40-5" aria-hidden="true" tabindex="-1"></a>    g <span class="ot">=</span> g <span class="sc">+</span> <span class="fu">stat_function</span>(<span class="at">fun=</span>dnorm, <span class="at">geom =</span> <span class="st">&quot;line&quot;</span>, </span>
+<span id="cb40-6"><a href="power-bootstrapping-permutation-tests.html#cb40-6" aria-hidden="true" tabindex="-1"></a>                          <span class="at">args =</span> <span class="fu">list</span>(<span class="at">mean =</span> mu0, <span class="at">sd =</span> sigma <span class="sc">/</span> <span class="fu">sqrt</span>(n)), </span>
+<span id="cb40-7"><a href="power-bootstrapping-permutation-tests.html#cb40-7" aria-hidden="true" tabindex="-1"></a>                          <span class="at">size =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb40-8"><a href="power-bootstrapping-permutation-tests.html#cb40-8" aria-hidden="true" tabindex="-1"></a>    g <span class="ot">=</span> g <span class="sc">+</span> <span class="fu">stat_function</span>(<span class="at">fun=</span>dnorm, <span class="at">geom =</span> <span class="st">&quot;line&quot;</span>, </span>
+<span id="cb40-9"><a href="power-bootstrapping-permutation-tests.html#cb40-9" aria-hidden="true" tabindex="-1"></a>                          <span class="at">args =</span> <span class="fu">list</span>(<span class="at">mean =</span> mua, <span class="at">sd =</span> sigma <span class="sc">/</span> <span class="fu">sqrt</span>(n)), </span>
+<span id="cb40-10"><a href="power-bootstrapping-permutation-tests.html#cb40-10" aria-hidden="true" tabindex="-1"></a>                          <span class="at">size =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)</span>
+<span id="cb40-11"><a href="power-bootstrapping-permutation-tests.html#cb40-11" aria-hidden="true" tabindex="-1"></a>    xitc <span class="ot">=</span> mu0 <span class="sc">+</span> <span class="fu">qnorm</span>(<span class="dv">1</span> <span class="sc">-</span> alpha) <span class="sc">*</span> sigma <span class="sc">/</span> <span class="fu">sqrt</span>(n)</span>
+<span id="cb40-12"><a href="power-bootstrapping-permutation-tests.html#cb40-12" aria-hidden="true" tabindex="-1"></a>    g <span class="ot">=</span> g <span class="sc">+</span> <span class="fu">geom_vline</span>(<span class="at">xintercept=</span>xitc, <span class="at">size =</span> <span class="dv">3</span>)</span>
+<span id="cb40-13"><a href="power-bootstrapping-permutation-tests.html#cb40-13" aria-hidden="true" tabindex="-1"></a>    g</span>
+<span id="cb40-14"><a href="power-bootstrapping-permutation-tests.html#cb40-14" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb40-15"><a href="power-bootstrapping-permutation-tests.html#cb40-15" aria-hidden="true" tabindex="-1"></a><span class="fu">manipulate</span>(</span>
+<span id="cb40-16"><a href="power-bootstrapping-permutation-tests.html#cb40-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">myplot</span>(sigma, mua, n, alpha),</span>
+<span id="cb40-17"><a href="power-bootstrapping-permutation-tests.html#cb40-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">sigma =</span> <span class="fu">slider</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="at">step =</span> <span class="dv">1</span>, <span class="at">initial =</span> <span class="dv">4</span>),</span>
+<span id="cb40-18"><a href="power-bootstrapping-permutation-tests.html#cb40-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">mua =</span> <span class="fu">slider</span>(<span class="dv">30</span>, <span class="dv">35</span>, <span class="at">step =</span> <span class="dv">1</span>, <span class="at">initial =</span> <span class="dv">32</span>),</span>
+<span id="cb40-19"><a href="power-bootstrapping-permutation-tests.html#cb40-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">slider</span>(<span class="dv">1</span>, <span class="dv">50</span>, <span class="at">step =</span> <span class="dv">1</span>, <span class="at">initial =</span> <span class="dv">16</span>),</span>
+<span id="cb40-20"><a href="power-bootstrapping-permutation-tests.html#cb40-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fu">slider</span>(<span class="fl">0.01</span>, <span class="fl">0.1</span>, <span class="at">step =</span> <span class="fl">0.01</span>, <span class="at">initial =</span> <span class="fl">0.05</span>)</span>
+<span id="cb40-21"><a href="power-bootstrapping-permutation-tests.html#cb40-21" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
+<p>In this graph the parameters are currently set to the values used in the previous calculations: <span class="math inline">\(\sigma = 4\)</span>, <span class="math inline">\(\mu_a = 32\)</span>, <span class="math inline">\(n = 16\)</span>, and <span class="math inline">\(\alpha = 5%\)</span>. The first plot illustrates the distribution of the sample mean under the null hypothesis. It is centered at 30 with a variance of <span class="math inline">\(\sigma^2/n\)</span>. The second plot represents the alternative hypothesis, where the sample mean is centered at 32 with the same variance. We have set a critical value (shown as a black line) such that if the sample mean exceeds this threshold, we reject the null hypothesis. The black line is calibrated so that the probability of obtaining statistics larger than it is 5% if the red density is true (i.e., the null hypothesis is true). Power refers to the probability of obtaining a sample mean greater than the black line, assuming the blue curve (alternative hypothesis) is true. In other words, power represents the probability of rejecting the null hypothesis correctly. Conversely, <span class="math inline">\(1-power\)</span> corresponds to the type II error rate.</p>
+<p>If we decrease the significance level (<span class="math inline">\(\alpha\)</span>), the black line moves to the right, making it harder to reject the null hypothesis and resulting in lower power. On the other hand, increasing <span class="math inline">\(\alpha\)</span> leads to better power but also increases the type I error rate. When we decrease <span class="math inline">\(\sigma\)</span> (the standard deviation), the black line moves downward. With less variability in the sample mean, the probability of rejecting the null hypothesis (power) approaches 100%. Conversely, increasing <span class="math inline">\(\sigma\)</span> decreases power because there is more noise in the measurements. Adjusting the mean under the alternative hypothesis (<span class="math inline">\(\mu_a\)</span>) shifts the black line accordingly. As <span class="math inline">\(\mu_a\)</span> moves closer to 30, power decreases, and as it moves further away, power increases. Manipulating the sample size (n) affects the variance of the sample mean. A larger sample size tightens the densities, resulting in better power. Conversely, a smaller sample size leads to lower power. It is recommended to review the code for the manipulate function to gain a better understanding of power in this context. By experimenting with the various parameters, you can observe how power changes in different ways.</p>
+<p>To recap the scenario when testing the alternative hypothesis, specifically focusing on the case where <span class="math inline">\(\mu\)</span> is greater than <span class="math inline">\(\mu_0\)</span> the power is in terms of <span class="math inline">\(1 - \beta\)</span> (where <span class="math inline">\(\beta\)</span> represents the type II error rate), we can use the equation:
+<span class="math display">\[1 - \beta = P\left(\bar X &gt; \mu_0 + z_{1-\alpha} \frac{\sigma}{\sqrt{n}} ; \mu = \mu_a \right)\]</span></p>
+<p>Here, <span class="math inline">\(P\)</span> is the probability that the sample mean <span class="math inline">\(\bar X\)</span> is larger than <span class="math inline">\(\mu_0\)</span>, calculated under the assumption that <span class="math inline">\(\mu\)</span> equals <span class="math inline">\(\mu_a\)</span> (the mean under the alternative hypothesis). It’s important to note that <span class="math inline">\(\bar X\)</span> follows a normal distribution with mean <span class="math inline">\(\mu_a\)</span> and variance <span class="math inline">\(\sigma^2/n\)</span>. The key point to highlight is that in this equation, <span class="math inline">\(\mu_a\)</span>, <span class="math inline">\(\sigma\)</span>, <span class="math inline">\(n\)</span>, and <span class="math inline">\(\beta\)</span> are the unknowns, while <span class="math inline">\(\mu_0\)</span> and usually <span class="math inline">\(\alpha\)</span> (the specified type I error rate) are known. By specifying any three of the unknowns, you can solve for the fourth. For example, if you know the desired alternative mean (<span class="math inline">\(\mu_a\)</span>), the assumed standard deviation (<span class="math inline">\(\sigma\)</span>), and the desired sample size (n), you can solve for power. This approach is commonly used in power calculations during trial planning. Usually, the main concerns revolve around n (sample size) or <span class="math inline">\(\beta\)</span> (desired power). You may want to determine the necessary sample size to achieve a specific power level, or given a fixed sample size, assess the resulting power. However, you can also solve for <span class="math inline">\(\mu_a\)</span> or <span class="math inline">\(\sigma\)</span> depending on your requirements.</p>
+<p>Here are some basic rules regarding power:</p>
+<ol style="list-style-type: decimal">
+<li>As alpha (significance level) increases, power also increases. The power of a one-sided test is greater than the power of the corresponding two-sided test.</li>
+<li>The further <span class="math inline">\(\mu_a\)</span> (mean under the alternative hypothesis) is from <span class="math inline">\(\mu_0\)</span>, the higher the power.</li>
+<li>As the sample size (n) increases, the sample mean has less variability, resulting in higher power.</li>
+<li>When the standard deviation (<span class="math inline">\(\sigma\)</span>) decreases, the sample mean has less variability, leading to higher power.</li>
+</ol>
+<p>An interesting fact about power is that it often depends on a function of these parameters rather than each parameter individually. In this case, the function is one-dimensional, so you only need to know one number to calculate power. That number is the effect size, which is the difference between the null and alternative means divided by the standard error. The effect size is unit-free, making it useful and interpretable across different problems.
+### T test power
+We do not actually calculate power in the exact manner described in the previous section. Those were meant to help understand the concepts, assuming we knew <span class="math inline">\(\sigma\)</span> and the data followed a Gaussian distribution or could be approximated as such due to the central limit theorem. We often use the <code>power.t.test</code> function in R to calculate power. We will provide some insights around t-test power before explaining how to use <code>power.t.test</code>.</p>
+<p>The argument for t-test power is similar to what we did for the normal distribution case. We reject the null hypothesis if our test statistic, <span class="math inline">\(\frac{\bar X - \mu_0}{S\sqrt{n}}\)</span>, exceeds <span class="math inline">\(t_{1-\alpha,n-1}\)</span> a quantile instead of a z quantile since we are dealing with a t-test.
+However, when calculating power, this is done under the assumption that <span class="math inline">\(\mu=\mu_a\)</span> (the value under the alternative hypothesis), not <span class="math inline">\(\mu_0\)</span>. It is important to note that the statistic (<span class="math inline">\(\frac{\bar X - \mu_0}{S\sqrt{n}}\)</span>) does not follow a t-distribution if the true mean is not <span class="math inline">\(\mu_0\)</span>. Instead, it follows something called the non-central t-distribution, which we won’t cover here. Thus, evaluating the non-central t-distribution is necessary to calculate power.</p>
+<p>The <code>power.t.test</code> function allows you to calculate power by evaluating the non-central t-distribution. Similar to before, you have some known parameters like <span class="math inline">\(\mu_0\)</span> and <span class="math inline">\(\alpha\)</span>, and some unknown parameters like <span class="math inline">\(\mu_a\)</span>, <span class="math inline">\(\sigma\)</span>, and <span class="math inline">\(n\)</span>. By omitting one of the unknown parameters and specifying the others, <code>power.t.test</code> will solve for the omitted parameter.</p>
+<p>In the following examples, we specify n, <code>delta</code> (difference in means), and the standard deviation to calculate power.</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="power-bootstrapping-permutation-tests.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">power.t.test</span>(<span class="at">n =</span> <span class="dv">16</span>, <span class="at">delta =</span> <span class="dv">2</span> <span class="sc">/</span> <span class="dv">4</span>, <span class="at">sd=</span><span class="dv">1</span>, <span class="at">type =</span> <span class="st">&quot;one.sample&quot;</span>,  <span class="at">alt =</span> <span class="st">&quot;one.sided&quot;</span>)<span class="sc">$</span>power</span>
+<span id="cb41-2"><a href="power-bootstrapping-permutation-tests.html#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">power.t.test</span>(<span class="at">n =</span> <span class="dv">16</span>, <span class="at">delta =</span> <span class="dv">2</span>, <span class="at">sd=</span><span class="dv">4</span>, <span class="at">type =</span> <span class="st">&quot;one.sample&quot;</span>,  <span class="at">alt =</span> <span class="st">&quot;one.sided&quot;</span>)<span class="sc">$</span>power</span>
+<span id="cb41-3"><a href="power-bootstrapping-permutation-tests.html#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="fu">power.t.test</span>(<span class="at">n =</span> <span class="dv">16</span>, <span class="at">delta =</span> <span class="dv">100</span>, <span class="at">sd=</span><span class="dv">200</span>, <span class="at">type =</span> <span class="st">&quot;one.sample&quot;</span>, <span class="at">alt =</span> <span class="st">&quot;one.sided&quot;</span>)<span class="sc">$</span>power</span></code></pre></div>
+<p>The resulting power is dependent on the effect size, which is the difference between <span class="math inline">\(\mu_0\)</span> and <span class="math inline">\(\mu_a\)</span> divided by the standard deviation. The effect size is the key factor driving the power calculation.</p>
+<p>We can also calculate sample size by providing the desired power to <code>power.t.test</code>.</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="power-bootstrapping-permutation-tests.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">power.t.test</span>(<span class="at">power =</span> .<span class="dv">8</span>, <span class="at">delta =</span> <span class="dv">2</span> <span class="sc">/</span> <span class="dv">4</span>, <span class="at">sd=</span><span class="dv">1</span>, <span class="at">type =</span> <span class="st">&quot;one.sample&quot;</span>,  <span class="at">alt =</span> <span class="st">&quot;one.sided&quot;</span>)<span class="sc">$</span>n</span>
+<span id="cb42-2"><a href="power-bootstrapping-permutation-tests.html#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">power.t.test</span>(<span class="at">power =</span> .<span class="dv">8</span>, <span class="at">delta =</span> <span class="dv">2</span>, <span class="at">sd=</span><span class="dv">4</span>, <span class="at">type =</span> <span class="st">&quot;one.sample&quot;</span>,  <span class="at">alt =</span> <span class="st">&quot;one.sided&quot;</span>)<span class="sc">$</span>n</span>
+<span id="cb42-3"><a href="power-bootstrapping-permutation-tests.html#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="fu">power.t.test</span>(<span class="at">power =</span> .<span class="dv">8</span>, <span class="at">delta =</span> <span class="dv">100</span>, <span class="at">sd=</span><span class="dv">200</span>, <span class="at">type =</span> <span class="st">&quot;one.sample&quot;</span>, <span class="at">alt =</span> <span class="st">&quot;one.sided&quot;</span>)<span class="sc">$</span>n</span></code></pre></div>
+<p>For a given effect size, we can determine the required sample size to achieve a specific power level. It is advisable to round up the fractional sample size to the nearest integer when dealing with real data.</p>
+<p>Throughout the examples, we observe that the calculations remain the same when specifying equivalent effect sizes, regardless of the specific values used for <code>delta</code> and the standard deviation.</p>
+<p>Exercise: you can omit the delta parameter and input a specific sample size (n) into the <code>power.t.test</code> function. This will allow you to determine the minimum detectable delta, the smallest difference between mu0 and mu a that can be detected with 80% power using that sample size. With the code provided earlier, this extension should not be too challenging.</p>
+<p>We recommend using <code>power.t.test</code> as your initial approach for power calculations. One of the main reasons behind this preference is that power calculations involve various factors and settings that can easily lead to confusion. It is common to overestimate the power or underestimate the required sample size. Therefore, when in doubt, it is advisable to simplify the power calculation as much as possible. You can try to reframe your question as a t-test or a binomial test to perform a straightforward power calculation. Although this approach may yield a slightly conservative power or sample size estimate, it provides a clear understanding of the calculation. Once you have a solid foundation, you can proceed to more complex power calculations if necessary.</p>
+</div>
+</div>
+<div id="multiple-comparisons" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> Multiple Comparisons</h2>
+<p>This topic is being taught by Jeff Leek. Jeff is known for his contributions to the field.</p>
+<p>This part focuses on the topic of multiple testing. We discussed hypothesis testing earlier in the course, and mentioned the importance of correcting for multiple tests to avoid deceiving ourselves. In this section, we’ll explore how to perform these corrections. The underlying idea is that hypothesis testing and significance analysis are frequently used techniques. However, they are often misused. One common practice is calculating multiple p-values when analyzing the same dataset and then only reporting the smallest p-value or considering all p-values below 0.05 as significant. This approach leads to issues as we demonstrate shortly.</p>
+<p>Our goal is to correct for multiple testing in order to prevent false positives or false discoveries when conducting analyses involving numerous variables. There are two essential components to multiple testing corrections. First, we need to define an error measure that we want to control. Second, we require a statistical method or correction that helps control that error measure. These concepts are related to the three eras of statistics, as discussed in Brad Efron’s book. The first era focused on large-scale population description using extensive datasets. The second era developed optimal inference techniques for extracting information from small sample sizes when data collection was challenging and costly. The third and current era is characterized by scientific mass production, where data is readily available and inexpensive. However, this also means that we perform an increasing number of analyses. If we fail to correct for the fact that each analysis carries a small potential for error, these errors can accumulate.</p>
+<p>The need for multiple testing corrections arises due to advancements in technology, which have led to a proliferation of data. These technologies span various fields, from next-generation sequencing in molecular biology to patient imaging in clinical studies and the use of electronic medical records. Additionally, personalized or individualized quantitative self-measurements, such as those obtained with devices like the Nike Fuel Band or FitBit, contribute to the increase in available data. So, why should we correct for multiple tests? Allow me to illustrate the key problem using this cartoon example from <a href="https://xkcd.com/882/">xkcd page</a>, where we want to investigate whether jelly beans cause acne..</p>
+<div class="figure">
+<img src="https://imgs.xkcd.com/comics/significant.png" alt="" />
+<p class="caption"><a href="https://imgs.xkcd.com/comics/significant.png" class="uri">https://imgs.xkcd.com/comics/significant.png</a></p>
+</div>
+<p>So what happens is you send a team of scientists to investigate the relationship between jelly beans and acne. Initially, they examine all types of jelly beans and find that the p-value is greater than 0.05, indicating no significant association. They then decide to test each color of jelly beans individually to see if any specific color is linked to acne. However, for each color tested, the p-value is still greater than 0.05, so they do not report any significant results. Finally, after testing over 20 different types of jelly beans, they discover a significant association between green jelly beans and acne. They claim that there is only a 5% chance of this association occurring by chance alone. However, considering the number of hypotheses tested (20 in this case), it becomes highly likely that at least one of them would result in a coincidental finding. If we allow for a 5% chance of error in each hypothesis test and perform at least 20 tests, we can expect to encounter at least one error, as 20 multiplied by 5% is approximately 100%. We have been using p-values and hypothesis testing as interchangeable terms, but they are not exactly the same.</p>
+<p>To illustrate this, let’s consider a hypothesis test for a parameter, <span class="math inline">\(\beta\)</span>, where we want to determine if it equals zero or not.
+In a linear regression model, if the coefficient for a certain variable is equal to zero, it implies no association between the variables. Conversely, if it is not equal to zero, there is some association. To perform a hypothesis test, we fit the linear regression model and calculate a p-value. Then, we compare the p-value to a predetermined threshold. If the p-value is below the threshold, we reject the null hypothesis that <span class="math inline">\(\beta\)</span> equals zero and conclude that <span class="math inline">\(\beta\)</span> is not equal to zero. If the p-value is above the threshold, we fail to reject the null hypothesis and state that <span class="math inline">\(\beta\)</span> equals zero. This is the essence of a hypothesis test.</p>
+<p>In the context of hypothesis testing, we have a table of possible outcomes. Each row represents a specific claim about <span class="math inline">\(\beta\)</span> (equal to zero or not equal to zero), while each column represents the true state of the world (<span class="math inline">\(\beta\)</span> equals zero or not equal to zero). When conducting multiple hypothesis tests, situations where we claim <span class="math inline">\(\beta\)</span> is equal to zero but it is actually not fall into one cell, and situations where we claim <span class="math inline">\(\beta\)</span> is not equal to zero but it is actually equal to zero fall into another cell. Therefore, there are two types of errors that can occur.</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th><span class="math inline">\(\beta=0\)</span></th>
+<th><span class="math inline">\(\beta\neq0\)</span></th>
+<th><span class="math inline">\(Hypotheses\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Claim <span class="math inline">\(\beta=0\)</span></td>
+<td><span class="math inline">\(U\)</span></td>
+<td><span class="math inline">\(T\)</span></td>
+<td><span class="math inline">\(m-R\)</span></td>
+</tr>
+<tr class="even">
+<td>Claim <span class="math inline">\(\beta\neq 0\)</span></td>
+<td><span class="math inline">\(V\)</span></td>
+<td><span class="math inline">\(S\)</span></td>
+<td><span class="math inline">\(R\)</span></td>
+</tr>
+<tr class="odd">
+<td>Claims</td>
+<td><span class="math inline">\(m_0\)</span></td>
+<td><span class="math inline">\(m-m_0\)</span></td>
+<td><span class="math inline">\(m\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Type I errors, or false positives, occur when we claim that beta is not equal to zero (there is a relationship), but in reality, there is no relationship. We denote the number of these errors as v. On the other hand, Type II errors, or false negatives, occur when we claim that beta is equal to zero (no relationship), but in reality, there is a relationship.</p>
+<p>Generally, when conducting scientific investigations, people tend to be more concerned about Type I errors, or false positives. We want to minimize the number of times we are led astray or encounter false positives. However, the emphasis on the two error rates may vary depending on the nature of the problem and the relative costs associated with each type of error. In multiple testing, there are several error rates to consider, which form the first component of a multiple testing procedure.</p>
+<p>The first error rate to consider is the false positive rate. This rate represents the frequency at which false results are deemed significant. In other words, it measures the average fraction of times we classify results as significant when they are not. This rate is calculated by dividing the number of false significant variables by the total number of non-significant variables.</p>
+<p>Another error measure is the family-wise error rate (FWER). It quantifies the probability of having at least one false positive result. The variable V represents the count of instances where there is no relationship between variables, yet we claim that there is. By controlling the family-wise error rate, we aim to limit the probability of making one or more false claims.</p>
+<p>The false discovery rate (FDR) is a distinct error measure that differs from the false positive rate. It captures the rate at which claims of significance are false. It calculates the ratio of expected false discoveries (E) to the number of claims of significance (R). In other words, it measures the rate at which our assertions of a relationship between variables are incorrect.</p>
+<p>The false positive rate is closely related to the Type I error rate, but there is a subtle distinction between the two. If you want to explore this topic further, you can refer to the Wikipedia page <a href="https://en.wikipedia.org/wiki/False_positive_rate">linked here</a>.</p>
+<p>The next step in multiple testing is defining a procedure that can control the specified error measure. In other words, we need a method to constrain the error rate in a particular manner. To control the false positive rate, you can utilize the calculated p-values directly. By setting a threshold alpha (between 0 and 1) and considering all p-values below this threshold as significant, you can effectively control the false positive rate at the chosen level on average.</p>
+<p>In other words, when controlling the false positive rate, the expected rate of false positives is kept below the threshold alpha. However, there’s a problem with this approach. Let’s consider a scenario where you perform a large number of hypothesis tests, say 10,000 tests. Although this might seem extreme, it is common in high-dimensional settings or signal processing contexts. If you designate all p-values below 0.05 as significant (with alpha set to 0.05), the expected number of false positives would be 500 (10,000 tests multiplied by the false positive rate). Consequently, if you obtain 500 significant results from these tests, it is highly likely that most of them are false positives. This raises the question of how to control a different error rate to avoid an excessive number of false positives.</p>
+<p>One option is to control the family-wise error rate, as discussed earlier. The <a href="https://en.wikipedia.org/wiki/Bonferroni_correction">Bonferroni correction</a>, the oldest multiple testing correction method, can be used for this purpose. The basic idea is to calculate the p-values normally and then adjust the <span class="math inline">\(\alpha\)</span> level. By dividing the original <span class="math inline">\(\alpha\)</span> by the number of hypothesis tests performed (e.g., <span class="math inline">\(\alpha\)</span> divided by 10 if there are 10 tests), a new <span class="math inline">\(\alpha\)</span> level is obtained. Any p-values below this new <span class="math inline">\(\alpha\)</span> level are deemed significant, effectively controlling the family-wise error rate on average. This method is easy to calculate and minimizes errors, as the probability of even one false positive is kept low. However, a downside is that it can be overly conservative, especially when dealing with a large number of tests. Allowing for a few false positives might be preferred if it increases the chances of discovering more genuine signals.</p>
+<p><strong>Basic idea</strong>:
+* Suppose you do <span class="math inline">\(m\)</span> tests
+* You want to control FWER at level <span class="math inline">\(\alpha\)</span> so <span class="math inline">\(Pr(V \geq 1) &lt; \alpha\)</span>
+* Calculate P-values normally
+* Set <span class="math inline">\(\alpha_{fwer} = \alpha/m\)</span>
+* Call all <span class="math inline">\(P\)</span>-values less than <span class="math inline">\(\alpha_{fwer}\)</span> significant</p>
+<p><strong>Pros</strong>: Easy to calculate, conservative
+<strong>Cons</strong>: May be very conservative</p>
+<p>This is where the false discovery rate (FDR) correction comes into play. It is the most commonly used error rate correction method for multiple testing, particularly when conducting numerous hypothesis tests in genomics, imaging, astronomy, and other signal processing fields. The FDR aims to control the expected number of false discoveries divided by the total number of discoveries, which can be interpreted as the level of noise in the results. If the FDR is set to <span class="math inline">\(\alpha\)</span>, it means that you expect <span class="math inline">\(\alpha\)</span> percent of the claimed discoveries to be false. To apply the FDR correction, calculate the p-values normally and arrange them in ascending order. Each p-value is annotated with its rank (e.g., the smallest p-value is labeled as (1)).</p>
+<p><strong>Basic idea</strong>:
+* Suppose you do <span class="math inline">\(m\)</span> tests
+* You want to control FDR at level <span class="math inline">\(\alpha\)</span> so <span class="math inline">\(E\left[\frac{V}{R}\right]\)</span>
+* Calculate P-values normally
+* Order the P-values from smallest to largest <span class="math inline">\(P_{(1)},...,P_{(m)}\)</span>
+* Call any <span class="math inline">\(P_{(i)} \leq \alpha \times \frac{i}{m}\)</span> significant</p>
+<p><strong>Pros</strong>: Still pretty easy to calculate, less conservative (maybe much less)</p>
+<p><strong>Cons</strong>: Allows for more false positives, may behave strangely under dependence</p>
+<p>Now we consider the smallest calculated p-value, denoted as (1), and order them up to the maximum p-value, denoted as (m). Let’s assume there are m hypothesis tests. For each p-value at the ith position, we check if it is less than or equal to alpha times i divided by m. If this condition is true, we deem it significant; otherwise, we do not. This procedure is designed to control the false discovery rate. It shares similarities with the Bonferroni correction in terms of ease of calculation, but it is less conservative. If there is a substantial amount of signal present and a few false positives can be tolerated, the false discovery rate correction may lead to the discovery of more genuine signals. However, it does allow for more false positives, especially if the error rate is set to a large value. Additionally, it may exhibit peculiar behavior when there is dependence among the hypothesis tests.</p>
+<p>Example: In the following graph we will control all the error rates we discussed at a level of 0.2. Here, we have ten p-values ordered from smallest to largest. On the y-axis, we have the p-values themselves. The red line represents all the p-values that would be considered significant at an uncorrected alpha level of 0.2. It corresponds to the p-values below 0.2. Although this no-correction approach controls the false positive rate, it can lead to a significant number of false positives when conducting numerous hypothesis tests.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-9"></span>
+<img src="resources/images/week_04_files/figure-html/1U1PiqeXG4XoKmg8hRFJqE1OFDOJfificBz1jLeDunHo_g257d7b8e795_0_175.png" alt="Plotting the power curve" width="480" />
+<p class="caption">
+Figure 2.1: Plotting the power curve
+</p>
+</div>
+<p>Next, let’s examine the false discovery rate. This correction aims to control the proportion of false positives at a level of 0.2. To calculate this, we follow the gray line, which is a linear line with a slope determined by the alpha level. We compare each p-value with this line from smallest to largest. In this example, we would call the first three p-values significant, thus controlling a slightly different error measure. Lastly, the Bonferroni correction involves dividing 0.2 by the number of hypothesis tests (in this case, 10) to obtain 0.02. This corresponds to a horizontal line. According to the Bonferroni correction, only the first two p-values would be considered significant, and the remaining ones would be deemed insignificant. The Bonferroni correction imposes a more stringent control over the family-wise error rate. This example provides a conceptual understanding of how different procedures work and where the cutoffs are set for different sets of p-values.</p>
+<p>Another approach is to adjust the p-values instead of adjusting the alpha level. Adjusted p-values, also known as corrected p-values, can be calculated to directly control error measures without modifying the alpha parameter. It is worth noting that adjusted p-values do not possess the same properties as classical p-values and should not be treated as such. However, they can be useful for controlling error measures.</p>
+<p>Example: Using the Bonferroni correction show how adjusted p-values work. Suppose we have m p-values. To adjust them, we can calculate m times each p-value and take the maximum of that and 1. This ensures that the adjusted p-values do not exceed 1, just like the original p-values. By multiplying the p-values by m instead of dividing alpha by m, we can determine the number of adjusted p-values that are less than alpha. This yields the same set of significant results as before. Consequently, we can use these adjusted p-values, such as Bonferroni-adjusted p-values, to assess significance by comparing them to the original alpha level, such as 0.05. If we multiply the p-values by the number of tests performed and count how many are less than alpha, we effectively control the family-wise error rate at level alpha.</p>
+<p>Now, let’s consider an example where there are no true positives.</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="power-bootstrapping-permutation-tests.html#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1010093</span>)</span>
+<span id="cb43-2"><a href="power-bootstrapping-permutation-tests.html#cb43-2" aria-hidden="true" tabindex="-1"></a>pValues <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>,<span class="dv">1000</span>)</span>
+<span id="cb43-3"><a href="power-bootstrapping-permutation-tests.html#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>){</span>
+<span id="cb43-4"><a href="power-bootstrapping-permutation-tests.html#cb43-4" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">20</span>)</span>
+<span id="cb43-5"><a href="power-bootstrapping-permutation-tests.html#cb43-5" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">20</span>)</span>
+<span id="cb43-6"><a href="power-bootstrapping-permutation-tests.html#cb43-6" aria-hidden="true" tabindex="-1"></a>  pValues[i] <span class="ot">&lt;-</span> <span class="fu">summary</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x))<span class="sc">$</span>coeff[<span class="dv">2</span>,<span class="dv">4</span>]</span>
+<span id="cb43-7"><a href="power-bootstrapping-permutation-tests.html#cb43-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb43-8"><a href="power-bootstrapping-permutation-tests.html#cb43-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-9"><a href="power-bootstrapping-permutation-tests.html#cb43-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Controls false positive rate</span></span>
+<span id="cb43-10"><a href="power-bootstrapping-permutation-tests.html#cb43-10" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(pValues <span class="sc">&lt;</span> <span class="fl">0.05</span>)</span></code></pre></div>
+<p>In this simulation, 1,000 data sets are generated where the variables y and x have no relationship. Despite this absence of a relationship, the p-values for the relationship between y and x are calculated for all 1,000 simulated examples. Among these p-values, the number that is less than 0.05 is determined. In this case, even though there is no true relationship, approximately 5% of the performed tests are falsely identified as significant, amounting to 51 tests.
+To address this, we can adjust the p-values and apply corrections like the Bonferroni correction or the Benjamini-Hochberg correction for controlling the false discovery rate. Using the <code>P.adjust</code> function in R, the p-values are adjusted accordingly.</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="power-bootstrapping-permutation-tests.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Controls FWER </span></span>
+<span id="cb44-2"><a href="power-bootstrapping-permutation-tests.html#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">p.adjust</span>(pValues,<span class="at">method=</span><span class="st">&quot;bonferroni&quot;</span>) <span class="sc">&lt;</span> <span class="fl">0.05</span>)</span>
+<span id="cb44-3"><a href="power-bootstrapping-permutation-tests.html#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Controls FDR </span></span>
+<span id="cb44-4"><a href="power-bootstrapping-permutation-tests.html#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">p.adjust</span>(pValues,<span class="at">method=</span><span class="st">&quot;BH&quot;</span>) <span class="sc">&lt;</span> <span class="fl">0.05</span>)</span></code></pre></div>
+<p>For the Bonferroni correction, the adjusted p-values are compared to the alpha level of 0.05, resulting in zero significant discoveries when there are no true positives. Similarly, the Benjamini-Hochberg correction can be applied by adjusting the p-values and examining the number of adjusted p-values less than 0.05. Again, in the case of no significant relationships, no discoveries should be made, and the result reflects this expectation.</p>
+<p>Now, let’s consider another simulated scenario to further illustrate the concepts. In this case, we will have a relationship between the two variables 50% of the time.</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="power-bootstrapping-permutation-tests.html#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1010093</span>)</span>
+<span id="cb45-2"><a href="power-bootstrapping-permutation-tests.html#cb45-2" aria-hidden="true" tabindex="-1"></a>pValues <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>,<span class="dv">1000</span>)</span>
+<span id="cb45-3"><a href="power-bootstrapping-permutation-tests.html#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>){</span>
+<span id="cb45-4"><a href="power-bootstrapping-permutation-tests.html#cb45-4" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">20</span>)</span>
+<span id="cb45-5"><a href="power-bootstrapping-permutation-tests.html#cb45-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># First 500 beta=0, last 500 beta=2</span></span>
+<span id="cb45-6"><a href="power-bootstrapping-permutation-tests.html#cb45-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(i <span class="sc">&lt;=</span> <span class="dv">500</span>){y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">20</span>)}<span class="cf">else</span>{ y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">20</span>,<span class="at">mean=</span><span class="dv">2</span><span class="sc">*</span>x)}</span>
+<span id="cb45-7"><a href="power-bootstrapping-permutation-tests.html#cb45-7" aria-hidden="true" tabindex="-1"></a>  pValues[i] <span class="ot">&lt;-</span> <span class="fu">summary</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x))<span class="sc">$</span>coeff[<span class="dv">2</span>,<span class="dv">4</span>]</span>
+<span id="cb45-8"><a href="power-bootstrapping-permutation-tests.html#cb45-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb45-9"><a href="power-bootstrapping-permutation-tests.html#cb45-9" aria-hidden="true" tabindex="-1"></a>trueStatus <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;zero&quot;</span>,<span class="st">&quot;not zero&quot;</span>),<span class="at">each=</span><span class="dv">500</span>)</span>
+<span id="cb45-10"><a href="power-bootstrapping-permutation-tests.html#cb45-10" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(pValues <span class="sc">&lt;</span> <span class="fl">0.05</span>, trueStatus)</span></code></pre></div>
+<p>To simulate this, we generate 1,000 sets of y and x variables. For the first 500 sets, the y values are independent of x, while for the last 500 sets, the y values have a mean equal to 2 times x, indicating a relationship between y and x. We calculate a p-value for each case and define the true status as beta = 0 for the first 500 sets and beta ≠ 0 for the last 500 sets. This allows us to analyze the results.</p>
+<p>First, let’s examine the number of p-values less than 0.05 without any correction. We find that, in cases where there is actually no relationship between the variables, we still have around 5% false positive results. On the other hand, for the cases where there is a relationship, all the p-values are less than 0.05, correctly identifying the true signals.</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="power-bootstrapping-permutation-tests.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Controls FWER </span></span>
+<span id="cb46-2"><a href="power-bootstrapping-permutation-tests.html#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(<span class="fu">p.adjust</span>(pValues,<span class="at">method=</span><span class="st">&quot;bonferroni&quot;</span>) <span class="sc">&lt;</span> <span class="fl">0.05</span>,trueStatus)</span>
+<span id="cb46-3"><a href="power-bootstrapping-permutation-tests.html#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Controls FDR </span></span>
+<span id="cb46-4"><a href="power-bootstrapping-permutation-tests.html#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(<span class="fu">p.adjust</span>(pValues,<span class="at">method=</span><span class="st">&quot;BH&quot;</span>) <span class="sc">&lt;</span> <span class="fl">0.05</span>,trueStatus)</span></code></pre></div>
+<p>Next, if we apply the Bonferroni correction by adjusting the p-values using the P.adjust function with the method set to Bonferroni, we observe slightly fewer significant results. In other words, we miss 23 cases where there should be a signal. However, we have zero false positives because we are controlling the probability of any false positive to be less than 0.05.</p>
+<p>Now, let’s consider the false discovery rate (FDR) and apply the Benjamini-Hochberg correction. By setting the method to “bh” in the P.adjust function, we discover all the significant results, but we identify fewer false positives compared to the uncorrected analysis. In this case, around 5% of the cases are falsely called significant, while only about 5% of the time is there actually no true relationship.</p>
+<p>To visualize the effects of the p-value adjustment, we can plot the p-values versus the adjusted p-values for both the Bonferroni correction and the Benjamini-Hochberg correction. For the Bonferroni method, we multiply each p-value by the number of tests performed (1,000 in this case). As a result, the smallest p-values remain less than one, but beyond a certain point, all the p-values multiplied by 1,000 become equal to or greater than one. Since adjusted p-values cannot exceed one, we observe a flat line in the plot.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-14"></span>
+<img src="resources/images/week_04_files/figure-html/1U1PiqeXG4XoKmg8hRFJqE1OFDOJfificBz1jLeDunHo_g257d7b8e795_0_178.png" alt="Plotting the p_values" width="480" />
+<p class="caption">
+Figure 1.12: Plotting the p_values
+</p>
+</div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="power-bootstrapping-permutation-tests.html#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb47-2"><a href="power-bootstrapping-permutation-tests.html#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pValues,<span class="fu">p.adjust</span>(pValues,<span class="at">method=</span><span class="st">&quot;bonferroni&quot;</span>),<span class="at">pch=</span><span class="dv">19</span>)</span>
+<span id="cb47-3"><a href="power-bootstrapping-permutation-tests.html#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pValues,<span class="fu">p.adjust</span>(pValues,<span class="at">method=</span><span class="st">&quot;BH&quot;</span>),<span class="at">pch=</span><span class="dv">19</span>)</span></code></pre></div>
+<p>Overall, these analyses demonstrate the usefulness of p-value adjustment methods in understanding and controlling error rates, even though they may not directly impact the performance of hypothesis tests.</p>
+<p>In contrast, when applying the Benjamini-Hochberg correction, we observe a slightly increasing function between the p-value and the adjusted p-value. The adjusted p-value is generally larger across the entire range compared to the actual p-value, although not significantly larger in this particular case. This behavior occurs because there are many significant results present.</p>
+<p>Now, let’s discuss some additional notes and resources related to multiple testing. Multiple testing is a subfield of statistics with various correction methods available depending on factors such as the dependence structure and specific choices made in the statistical model.</p>
+<p>For most standard problems, the basic Bonferroni or Benjamini-Hochberg correction is usually sufficient. However, if there is strong dependence between the tests, you may want to consider using the “method = BY” option in the p.adjust function or explore other direct adjustments tailored to the dependence between hypothesis tests. We have conducted some research in this area, and I invite you to explore my papers for more information.</p>
+<p>Regarding resources, there is a comprehensive and informative paper titled “A Gentle Introduction to Multiple Testing Procedures with Applications in Genomics.” It focuses on genomics, an area where multiple testing has seen significant development as a statistical discipline. Similarly, “Statistical Significance for Genome-Wide Studies” provides a gentle introduction to multiple testing, even for readers not familiar with molecular biology.</p>
+<ul>
+<li><a href="http://www.amazon.com/Multiple-Procedures-Applications-Genomics-Statistics/dp/0387493166/ref=sr_1_2/102-3292576-129059?ie=UTF8&amp;s=books&amp;qid=1187394873&amp;sr=1-2">Multiple testing procedures with applications to genomics</a></li>
+<li><a href="http://www.pnas.org/content/100/16/9440.full">Statistical significance for genome-wide studies</a></li>
+<li><a href="http://ies.ed.gov/ncee/pubs/20084018/app_b.asp">Introduction to multiple testing</a></li>
+</ul>
+<p>Lastly, if you’re interested in delving deeper into multiple testing, We recommend a comprehensive introduction that covers the basics in more depth. It serves as a valuable resource for expanding your understanding of this topic.
+## Resampling
+Resampling-based procedures offer a means to perform statistical inferences based on the data at hand, without relying heavily on population parameters. Data scientists tend to favor resampling-based inferences due to their data-centric nature, scalability to large studies, and minimal reliance on assumptions. These procedures allow us to make robust inferences by leveraging the available data and are particularly valuable when dealing with complex or uncertain scenarios.
+### Bootstrapping
+The bootstrap method, invented by the renowned statistician Bradley Efron in 1979, is an incredibly valuable tool for constructing confidence intervals, estimating standard errors, and performing inferences that would otherwise be challenging. In fact, it is considered one of the most important procedures in the history of statistics, as it has liberated data analysts from relying heavily on complex mathematical calculations to obtain distributional properties of statistics.</p>
+<p>The term “bootstrap” originates from the phrase “pulling oneself up by one’s bootstraps.” The concept of the bootstrap procedure is not about achieving the physically impossible, but rather about leveraging available information to make reliable inferences. It enables us to directly connect the information we have with the inferences we make, making it a fitting name for this statistical technique. The bootstrap method is both important and liberating, aligning well with the spirit of data science.
+Example: Imagine we want to evaluate the behavior of the average of 50 die rolls. The population distribution is depicted by the equally weighted bars representing the numbers one through six.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-16"></span>
+<img src="resources/images/week_04_files/figure-html/1U1PiqeXG4XoKmg8hRFJqE1OFDOJfificBz1jLeDunHo_g257d7b8e795_0_187.png" alt="Die roll" width="480" />
+<p class="caption">
+Figure 1.14: Die roll
+</p>
+</div>
+<p>There are a couple of approaches we could take. One option is to mathematically derive the distribution of the average of 50 die rolls without resorting to simulation. Another approach is to roll the die 50 times, calculate the average, and repeat this process numerous times to obtain multiple averages. However, this method assumes that the true population distribution is one-sixth for each number. While it may be challenging to determine the probability of obtaining a value like 5.5 through calculations alone, rolling the die multiple times and averaging the results provides a practical and intuitive way to estimate it. For certain statistics like the average, we have some knowledge about their distribution, such as the centering around the population mean and the variance being equal to sigma squared divided by n. However, we will focus on the average initially to demonstrate how the bootstrap method extends to other statistics beyond the average.</p>
+<p>Consider a similar problem where we are uncertain about the fairness of the die generating our data. We don’t know the probabilities assigned to each number (one, two, three, four, five, or six). We only have a single sample of size 50, so we don’t have a distribution of averages from the true die that generated the data. On the left-hand side, you can see a histogram representing the occurrences of each number based on one sample realization from this unknown population.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-17"></span>
+<img src="resources/images/week_04_files/figure-html/1U1PiqeXG4XoKmg8hRFJqE1OFDOJfificBz1jLeDunHo_g257d7b8e795_0_190.png" alt="Die roll" width="480" />
+<p class="caption">
+Figure 1.15: Die roll
+</p>
+</div>
+<p>In this scenario, we cannot evaluate the behavior of averages of 50 die rolls from this population since we don’t know the population distribution or which die to roll from. Here’s where bootstrapping comes into play. Instead of sampling from the true distribution, we can sample repeatedly from our empirical distribution. We create collections of 50 die rolls using the probabilities estimated from our sample. In this case, we would sample from the blue bars, considering their respective probabilities, and repeat this process to obtain averages from these samples. By doing so, we can understand the distribution of averages, even though we only have one true average from the real population. Mechanically, the bootstrap procedure involves taking each observation (one, two, three, four, five, or six) and putting them into a bag. Then, we draw samples of size 50 from this bag with replacement, meaning the same data point might be selected multiple times. We calculate the average for each sample and repeat this process several times. The fundamental idea is to precisely replicate the simulation experiment we would have conducted if we had access to the true population die and used the observed distribution generated by the specific realization of 50 die rolls we obtained.</p>
+<p>This is the basic principle of bootstrapping: we utilize our observed data to construct an estimated population distribution. Then, we simulate from this estimated distribution to understand the distribution of a statistic we are interested in. In the upcoming examples, we will explore less contrived scenarios to illustrate the application of bootstrapping.</p>
+<p>Now, we will explore the data using the R programming language and specifically the <code>father.son</code> dataset. To simplify the process, I will define the variable <code>x</code> to represent the sons’ heights from the dataset. We’ll denote <code>n</code> as the number of observations, and for our bootstrapping procedure, we will perform 10,000 bootstrap resamples.</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="power-bootstrapping-permutation-tests.html#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(UsingR)</span>
+<span id="cb48-2"><a href="power-bootstrapping-permutation-tests.html#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(father.son)</span>
+<span id="cb48-3"><a href="power-bootstrapping-permutation-tests.html#cb48-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> father.son<span class="sc">$</span>sheight</span>
+<span id="cb48-4"><a href="power-bootstrapping-permutation-tests.html#cb48-4" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
+<span id="cb48-5"><a href="power-bootstrapping-permutation-tests.html#cb48-5" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb48-6"><a href="power-bootstrapping-permutation-tests.html#cb48-6" aria-hidden="true" tabindex="-1"></a>resamples <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">sample</span>(x,</span>
+<span id="cb48-7"><a href="power-bootstrapping-permutation-tests.html#cb48-7" aria-hidden="true" tabindex="-1"></a>                           n <span class="sc">*</span> B,</span>
+<span id="cb48-8"><a href="power-bootstrapping-permutation-tests.html#cb48-8" aria-hidden="true" tabindex="-1"></a>                           <span class="at">replace =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb48-9"><a href="power-bootstrapping-permutation-tests.html#cb48-9" aria-hidden="true" tabindex="-1"></a>                    B, n)</span>
+<span id="cb48-10"><a href="power-bootstrapping-permutation-tests.html#cb48-10" aria-hidden="true" tabindex="-1"></a>resampledMedians <span class="ot">&lt;-</span> <span class="fu">apply</span>(resamples, <span class="dv">1</span>, median)</span></code></pre></div>
+<p>First, we will use the <code>sample</code> command. When we specify <code>sample(x, n, replace = TRUE)</code>, it means that we draw a sample of size <code>n</code> from the variable <code>x</code> with replacement.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-19"></span>
+<img src="resources/images/week_04_files/figure-html/1U1PiqeXG4XoKmg8hRFJqE1OFDOJfificBz1jLeDunHo_g257d7b8e795_0_193.png" alt="Plot of the histogram of the resamples" width="480" />
+<p class="caption">
+Figure 4.1: Plot of the histogram of the resamples
+</p>
+</div>
+<p>In other words, each time we select an observation, we put it back into the pool before drawing the next one. This process simulates resampling from an empirical distribution defined by our data, where each observed data point has a probability of 1/n. This is known as the empirical distribution.</p>
+<p>Next, we arrange these resamples into a matrix with the number of bootstrap rows and the number of sample size columns. Each row of this matrix, called “resamples,” represents a completely resampled dataset. We take the original data and draw a sample of size “n” with replacement to create each resampled dataset. This is equivalent to regenerating a sample of size “n” from a distribution that assigns a probability of 1/n to each observed data point.</p>
+<p>Suppose we are interested in a specific statistic, such as the median. For each resampled dataset, we calculate the median using the <code>apply</code> statement. The density estimate obtained from the resampled medians is visualized, with a vertical line representing the observed median. In this case, we have repeatedly drawn new datasets of the same length from the collection of sons’ heights, applying the median calculation each time. This process is repeated 10,000 times, resulting in a collection of medians. The density estimate provides an approximation of the distribution of medians based on our observed data when we lack knowledge of the actual population distribution. The median serves as a central quantity in bootstrapping.</p>
+<p>Using the resampled distribution, we can perform various calculations. For example, we can compute the standard deviation of this distribution to estimate the standard error of the median. Additionally, we can use quantiles to obtain confidence interval estimates. These are the types of analyses commonly performed using bootstrap resampled distributions.</p>
+<div id="notes-on-the-bootstrap" class="section level3" number="4.2.1">
+<h3><span class="header-section-number">4.2.1</span> Notes on the bootstrap</h3>
+<p>The bootstrap principle states that if you have a statistic that estimates a population parameter of interest, but you don’t know the sampling distribution of that statistic, you can use the distribution defined by the observed data to investigate and estimate the sampling distribution. While the bootstrap principle doesn’t necessarily require simulation, it is often easier and more practical to use simulation methods. For instance, if you want to determine the distribution of the average of 50 die rolls, it would be challenging to mathematically derive it precisely, making simulation a more feasible approach.</p>
+<p>In the context of bootstrapping, we will focus on a few aspects, such as creating confidence intervals and estimating standard errors. The field of bootstrapping offers a wealth of possibilities beyond what we will cover here.</p>
+<p>Let’s review the general procedure. You start with your observed data and simulate complete datasets by drawing from the observed data with replacement. This process is an approximation of drawing from the sampling distribution of the statistic of interest, as far as the observed data approximates the real population distribution. As a reminder, we calculate the statistic for each simulated dataset and then use these simulated statistics to define a confidence interval or compute the standard deviation of the distribution to estimate the standard error.</p>
+<p>Now, let’s dive into the bootstrap algorithm for calculating a confidence interval or the bootstrap standard error for the median based on a set of N observations. We begin with a vector of length N representing our data. The next step is to resample N observations with replacement from the observed data to create a resampled complete dataset. It’s crucial to sample with replacement to allow for the possibility of repeated observations in the resampled dataset. If we didn’t sample with replacement, we would essentially end up with a copy of the original dataset, albeit with a different order. In our example, we calculate the median for each resampled dataset. If you’re interested in a different statistic, you would simply compute that statistic for the simulated dataset. We repeat this resampling step B times, where B is the number of bootstrap resamples. It is advisable to choose a large value for B to minimize the Monte Carlo error, which refers to the error introduced by the approximation involved in using resampling. Ideally, we would know the exact bootstrap distribution without resorting to resampling, but in practice, we rely on Monte Carlo methods. Setting B to a sufficiently large value, such as 10,000 or more, ensures that the medians obtained from the resampling process are drawn approximately from the sampling distribution of the median based on N observations.</p>
+<p>The bootstrap procedure allows us to approximate the population distribution, which is often sufficient for our purposes. There is substantial theoretical evidence supporting the effectiveness of the bootstrap method. With bootstrap resamples, we can perform various analyses. First, it is common to visualize the distribution using density estimates or histograms. Additionally, we can calculate the standard deviation of the bootstrap resamples, providing an estimate of the standard error of the median. Moreover, by taking quantiles of the bootstrap resampled medians, such as the 2.5th and 97.5th percentiles, we can construct a bootstrap confidence interval for the median. This approach provides a straightforward way to develop a confidence interval without relying on complex statistical techniques.</p>
+<p>Now let’s go through a quick example code using the father-son data. We have a vector <code>X</code> representing the sons’ heights, <code>B</code> as the number of bootstrap resamples (set to 10,000), and <code>N</code> as the length of <code>X</code>. To obtain complete resampled datasets, we use the <code>sample</code> command in R with <code>replace = TRUE</code>, sampling <code>N * B</code> elements from <code>X</code>. The resulting vector is then reshaped into a matrix with <code>B</code> rows and <code>N</code> columns, where each row represents a bootstrap resample. Next, we calculate the median for each row, and the standard deviation of these medians provides an estimate of the standard error of the median.</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="power-bootstrapping-permutation-tests.html#cb49-1" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb49-2"><a href="power-bootstrapping-permutation-tests.html#cb49-2" aria-hidden="true" tabindex="-1"></a>resamples <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">sample</span>(x,</span>
+<span id="cb49-3"><a href="power-bootstrapping-permutation-tests.html#cb49-3" aria-hidden="true" tabindex="-1"></a>                           n <span class="sc">*</span> B,</span>
+<span id="cb49-4"><a href="power-bootstrapping-permutation-tests.html#cb49-4" aria-hidden="true" tabindex="-1"></a>                           <span class="at">replace =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb49-5"><a href="power-bootstrapping-permutation-tests.html#cb49-5" aria-hidden="true" tabindex="-1"></a>                    B, n)</span>
+<span id="cb49-6"><a href="power-bootstrapping-permutation-tests.html#cb49-6" aria-hidden="true" tabindex="-1"></a>medians <span class="ot">&lt;-</span> <span class="fu">apply</span>(resamples, <span class="dv">1</span>, median)</span>
+<span id="cb49-7"><a href="power-bootstrapping-permutation-tests.html#cb49-7" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(medians)</span>
+<span id="cb49-8"><a href="power-bootstrapping-permutation-tests.html#cb49-8" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(medians, <span class="fu">c</span>(.<span class="dv">025</span>, .<span class="dv">975</span>))</span></code></pre></div>
+<p>For the construction of a confidence interval, we extract the vector of resampled medians and compute the quantiles. In this example, we take the 2.5th and 97.5th percentiles to obtain a 95% confidence interval. The histogram of the bootstrap resamples is plotted using <code>ggplot</code>, which takes a data frame as input. The resulting plot provides an estimate of the sampling distribution of the median based on the bootstrap resamples.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-21"></span>
+<img src="resources/images/week_04_files/figure-html/1U1PiqeXG4XoKmg8hRFJqE1OFDOJfificBz1jLeDunHo_g257d7b8e795_0_196.png" alt="Histogram of bootstrap resamples" width="480" />
+<p class="caption">
+Figure 4.2: Histogram of bootstrap resamples
+</p>
+</div>
+<p>It’s worth noting that the bootstrap procedure we discussed here is the non-parametric bootstrap. The confidence interval obtained by taking the percentiles can be improved upon by using the bias-corrected and accelerated (BCa) interval. This interval accounts for bias and is easy to implement using the bootstrap package in R. This introduction provides a basic understanding of the bootstrap method. It is an incredibly useful procedure with numerous variations and wide applicability. When dealing with specific scenarios such as time series, regression models, longitudinal or multilevel data, there are additional considerations and techniques to apply the bootstrap effectively.</p>
+</div>
+<div id="permutation-tests" class="section level3" number="4.2.2">
+<h3><span class="header-section-number">4.2.2</span> Permutation tests</h3>
+<p>We’ll conclude the class by discussing a highly valuable tool for data scientists known as permutation tests. These tests are particularly useful for group comparisons, so let’s start with an example to illustrate their application.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-22"></span>
+<img src="resources/images/week_04_files/figure-html/1U1PiqeXG4XoKmg8hRFJqE1OFDOJfificBz1jLeDunHo_g257d7b8e795_0_206.png" alt="Insect spray data" width="480" />
+<p class="caption">
+Figure 4.3: Insect spray data
+</p>
+</div>
+<p>In this study, researchers conducted experiments with batches of insects, applying different pesticides labeled as sprays. The number of dead insects in each batch was recorded for each spray. Let’s focus on comparing insect spray B with insect spray C. The null hypothesis states that the distributions of observations from each group are the same, implying that the specific labels of the counts are irrelevant. To operationalize this, we can imagine a data frame with counts in one column and spray group labels in another column. We would calculate a statistic such as the difference in the average number of insects killed between group B and group C. This observed test statistic represents the difference we observe in the data.</p>
+<p>Now, let’s consider permuting the group labels. We can randomly shuffle the vector of labels using a command like <code>sample</code> in R. After permuting, we recalculate the test statistic for each permutation. You can choose any statistic you prefer, such as the mean difference in counts, the geometric means, or even a t-statistic. Rather than comparing the test statistic with a t-null distribution, we compare it to a permutation-based null distribution. To calculate a p-value, we determine the percentage of simulations in which the simulated statistic was more extreme, favoring the alternative hypothesis, compared to the observed statistic. In the case of a difference in means, “more extreme” would mean a greater difference in means in the direction of the alternative hypothesis. This process yields a permutation-based p-value.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Data type</th>
+<th>Statistic</th>
+<th>Test name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Ranks</td>
+<td>rank sum</td>
+<td>rank sum test</td>
+</tr>
+<tr class="even">
+<td>Binary</td>
+<td>hypergeometric prob</td>
+<td>Fisher’s exact test</td>
+</tr>
+<tr class="odd">
+<td>Raw data</td>
+<td></td>
+<td>ordinary permutation test</td>
+</tr>
+</tbody>
+</table>
+<p>Permutation tests are powerful and have been reinvented in various settings. For example, the rank sum test, a well-known test statistic, is a permutation test where the data is replaced by ranks instead of the original raw values. Fisher’s exact test, which you may have heard of, is another permutation-based test in which the data is binary, and a specific test statistic is employed. If you use the raw data directly, you are essentially conducting an ordinary permutation test. It’s worth mentioning that randomization tests exist as a separate entity, specifically when group labels are explicitly randomized. In our insect spray example, batches could have had the sprays randomized to them, making it a randomized test.</p>
+<p>Permutation tests have broad applicability and are a powerful tool in the data scientist’s toolkit. Operationally, a randomization test follows a similar procedure to a permutation test. However, the conclusions drawn from a randomization test may be stronger, and the interpretation of the results can differ slightly. It’s worth noting that permutation strategies can also be employed in regression. In this case, you would permute a regressor, providing a different approach to obtaining a null distribution compared to the normal distributions covered in regression classes.</p>
+<p>Permutation tests are particularly effective in multivariate settings, as they allow for the calculation of maximum statistics that control family-wise error rates. While we won’t delve deeply into these topics, our aim is to guide you through a simple permutation test so that you can grasp the fundamental ideas. Let’s proceed with an example to illustrate how to conduct a permutation test.</p>
+<p>To begin, let’s subset the data to focus on InsectSprays B and C. Our outcome variable, y, represents the count of dead insects, while the group variable represents the spray or pesticide labels. We align the y and group vectors accordingly, ensuring each element corresponds to the same batch. Our test statistic is the average difference in the mean number of dead insects between groups B and C across batches. The observed test statistic is obtained by applying the test statistic function to our outcome and group vectors, which are correctly aligned.</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="power-bootstrapping-permutation-tests.html#cb50-1" aria-hidden="true" tabindex="-1"></a>subdata <span class="ot">&lt;-</span> InsectSprays[InsectSprays<span class="sc">$</span>spray <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;B&quot;</span>, <span class="st">&quot;C&quot;</span>),]</span>
+<span id="cb50-2"><a href="power-bootstrapping-permutation-tests.html#cb50-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> subdata<span class="sc">$</span>count</span>
+<span id="cb50-3"><a href="power-bootstrapping-permutation-tests.html#cb50-3" aria-hidden="true" tabindex="-1"></a>group <span class="ot">&lt;-</span> <span class="fu">as.character</span>(subdata<span class="sc">$</span>spray)</span>
+<span id="cb50-4"><a href="power-bootstrapping-permutation-tests.html#cb50-4" aria-hidden="true" tabindex="-1"></a>testStat <span class="ot">&lt;-</span> <span class="cf">function</span>(w, g) <span class="fu">mean</span>(w[g <span class="sc">==</span> <span class="st">&quot;B&quot;</span>]) <span class="sc">-</span> <span class="fu">mean</span>(w[g <span class="sc">==</span> <span class="st">&quot;C&quot;</span>])</span>
+<span id="cb50-5"><a href="power-bootstrapping-permutation-tests.html#cb50-5" aria-hidden="true" tabindex="-1"></a>observedStat <span class="ot">&lt;-</span> <span class="fu">testStat</span>(y, group)</span>
+<span id="cb50-6"><a href="power-bootstrapping-permutation-tests.html#cb50-6" aria-hidden="true" tabindex="-1"></a>permutations <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="dv">1</span> <span class="sc">:</span> <span class="dv">10000</span>, <span class="cf">function</span>(i) <span class="fu">testStat</span>(y, <span class="fu">sample</span>(group)))</span>
+<span id="cb50-7"><a href="power-bootstrapping-permutation-tests.html#cb50-7" aria-hidden="true" tabindex="-1"></a>observedStat</span>
+<span id="cb50-8"><a href="power-bootstrapping-permutation-tests.html#cb50-8" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(permutations <span class="sc">&gt;</span> observedStat)</span></code></pre></div>
+<p>Next, we break the alignment by permuting the group labels. We use the <code>sample</code> function to randomly permute the group labels, generating 10,000 test statistics where the association between y and group is disrupted due to the permuted labels. This process is performed under the null hypothesis that the group labels are unrelated to the outcome. The observed statistic of 13.25 represents the average count of dead insects for group B minus the count for group C, suggesting an average excess of 13 dead insects per batch for group B compared to group C.</p>
+<p>We calculate the percentage of permuted test statistics that are larger or more extreme in favor of the alternative hypothesis compared to the observed statistic. In this particular dataset, we find that the percentage is zero, indicating that across 10,000 permutations, we couldn’t find a configuration of group labels that resulted in a more extreme test statistic than the observed one. Formally, the p-value is very small, close to zero, leading us to reject the null hypothesis for any reasonable significance level (<span class="math inline">\(\alpha\)</span>). It’s worth mentioning that the p-value is not exactly zero because we can consider at least one permutation that yields a test statistic as large as the observed one, namely the permutation that restores our original data. However, this minor detail is inconsequential when comparing the p-value to a standard critical value like 5%.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-24"></span>
+<img src="resources/images/week_04_files/figure-html/1U1PiqeXG4XoKmg8hRFJqE1OFDOJfificBz1jLeDunHo_g257d7b8e795_0_209.png" alt="Histogram of bootstrap resamples" width="480" />
+<p class="caption">
+Figure 3.1: Histogram of bootstrap resamples
+</p>
+</div>
+<p>In the graph, we display the null distribution generated by our permutations. This distribution plays a similar role to the t-distribution or standard normal distribution in hypothesis testing, where we assume the data is normal or appeal to the central limit theorem. In this case, the null distribution is centered at zero and ranges from -10 to +10. The vertical line represents the observed statistic, which lies far in the tail of the null distribution, suggesting that the null distribution is likely not the true distribution and that group B is indeed substantially different from group C. The histogram provides a visual representation of this observation, and we can now quantify it with a p-value and perform a formal hypothesis test.</p>
+<p>Whether it’s in bootstrapping, where the focus is on the sampling distribution of a statistic, or in permutation testing, where we base formal inferences on the exchangeability of group labels, it is crucial to examine histograms or density estimates of the resampled distributions. These visualizations provide valuable insights into the behavior of the resampling procedure.</p>
+
+</div>
+</div>
+</div>
+<hr>
+<center> 
+  <div class="footer">
+      All illustrations <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY. </a>
+      <br>
+      All other materials <a href= "https://creativecommons.org/licenses/by/4.0/"> CC-BY </a> unless noted otherwise.
+  </div>
+</center>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="intervals-testing-pvalues.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="about-the-authors.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
