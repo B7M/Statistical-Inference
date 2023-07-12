@@ -114,7 +114,7 @@ sd(apply(matrix(rnorm(nosim * n), nosim), 1, mean))
 ```
 
 ```
-## [1] 0.2930196
+## [1] 0.326209
 ```
 
 ```r
