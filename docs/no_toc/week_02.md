@@ -118,7 +118,7 @@ You can explore this using the following code snippet in R:
 
 
 ```
-## [1] 0.3071087
+## [1] 0.3051036
 ```
 
 ```
@@ -515,27 +515,23 @@ To summarize briefly, we covered the Law of Large Numbers, which states that ave
 In the cases of Poisson and binomial distributions, which are discrete, the Central Limit Theorem may not accurately approximate their distributions. However, exact procedures exist for these cases. We also learned a simple fix for constructing confidence intervals in the binomial case by adding two successes and two failures, which provides a better interval without requiring complex computations. This method can be easily done by hand or mentally, even without access to a computer.
 
 
-
-- The LLN states that averages of iid samples
-converge to the population means that they are estimating
+- The LLN states that averages of iid samples converge to the population means that they are estimating
 - The CLT states that averages are approximately normal, with distributions
   - centered at the population mean
   - with standard deviation equal to the standard error of the mean
   - CLT gives no guarantee that $n$ is large enough
-- Taking the mean and adding and subtracting the relevant
-normal quantile times the SE yields a confidence interval for the mean
+- Taking the mean and adding and subtracting the relevant normal quantile times the SE yields a confidence interval for the mean
   - Adding and subtracting 2 SEs works for 95% intervals
-- Confidence intervals get wider as the coverage increases
-(why?)
-- Confidence intervals get narrower with less variability or
-larger sample sizes
-- The Poisson and binomial case have exact intervals that
-don't require the CLT
+- Confidence intervals get wider as the coverage increases (why?)
+- Confidence intervals get narrower with less variability or larger sample sizes
+- The Poisson and binomial case have exact intervals that don't require the CLT
   - But a quick fix for small sample size binomial calculations is to add 2 successes and failures
 
 ## Practical R Exercises in swirl
 
 During this week of the course you should complete the following lessons in the Statistical Inference swirl course:
+
 - Variance
 - CommonDistros
 - Asymptotics
+
