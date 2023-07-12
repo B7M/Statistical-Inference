@@ -180,8 +180,20 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.4" data-path="intervals-testing-pvalues.html"><a href="intervals-testing-pvalues.html#knitr"><i class="fa fa-check"></i><b>3.4</b> Knitr</a></li>
 <li class="chapter" data-level="3.5" data-path="intervals-testing-pvalues.html"><a href="intervals-testing-pvalues.html#practical-r-exercises-in-swirl-1"><i class="fa fa-check"></i><b>3.5</b> Practical R Exercises in swirl</a></li>
 </ul></li>
+<li class="chapter" data-level="4" data-path="power-bootstrapping-permutation-tests.html"><a href="power-bootstrapping-permutation-tests.html"><i class="fa fa-check"></i><b>4</b> Power, Bootstrapping, &amp; Permutation Tests</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="power-bootstrapping-permutation-tests.html"><a href="power-bootstrapping-permutation-tests.html#power"><i class="fa fa-check"></i><b>4.1</b> Power</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="power-bootstrapping-permutation-tests.html"><a href="power-bootstrapping-permutation-tests.html#calculating-power"><i class="fa fa-check"></i><b>4.1.1</b> Calculating Power</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="power-bootstrapping-permutation-tests.html"><a href="power-bootstrapping-permutation-tests.html#multiple-comparisons"><i class="fa fa-check"></i><b>4.2</b> Multiple Comparisons</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="power-bootstrapping-permutation-tests.html"><a href="power-bootstrapping-permutation-tests.html#notes-on-the-bootstrap"><i class="fa fa-check"></i><b>4.2.1</b> Notes on the bootstrap</a></li>
+<li class="chapter" data-level="4.2.2" data-path="power-bootstrapping-permutation-tests.html"><a href="power-bootstrapping-permutation-tests.html#permutation-tests"><i class="fa fa-check"></i><b>4.2.2</b> Permutation tests</a></li>
+</ul></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="about-the-authors.html"><a href="about-the-authors.html"><i class="fa fa-check"></i>About the Authors</a></li>
-<li class="chapter" data-level="4" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>4</b> References</a></li>
+<li class="chapter" data-level="5" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>5</b> References</a></li>
 <li class="divider"></li>
 <p style="text-align:center;"> <a href="https://github.com/jhudsl/OTTR_Template" target="blank" > This content was published with</a> <a href="https://bookdown.org/" target="blank"> bookdown by:</a> </p>
 <p style="text-align:center;"> <a href="http://jhudatascience.org/"> The Johns Hopkins Data Science Lab </a></p>
@@ -309,7 +321,7 @@ This means that the sample mean becomes more concentrated around the population 
 <p>Since we lack repeated sample means in a given dataset, we estimate the sample variance of the mean as <span class="math inline">\(S^2\)</span> divided by n and the logical estimate of the standard error as <span class="math inline">\(\frac{S}{\sqrt{n}}\)</span>. The standard error of the mean (or the sample standard error of the mean) is defined as <span class="math inline">\(\frac{S}{\sqrt{n}}\)</span>. The standard deviation (S) is an estimate of the variability of the population, while the standard error (<span class="math inline">\(\frac{S}{\sqrt{n}}\)</span>) represents the variability of averages of random samples of size n from the population.</p>
 <p>Example: If we take standard normals (with a variance of one), the standard deviation of means of n standard normals is expected to be one over <span class="math inline">\(\frac{1}{\sqrt{n}}\)</span>. By simulating multiple draws of ten standard normals and calculating their mean, followed by taking the standard deviation of these averages, we should obtain an approximate value of <span class="math inline">\(\frac{1}{\sqrt{n}}\)</span>.</p>
 <p>You can explore this using the following code snippet in R:</p>
-<pre><code>## [1] 0.3180515</code></pre>
+<pre><code>## [1] 0.3109452</code></pre>
 <pre><code>## [1] 0.3162278</code></pre>
 <p>Similar simulations can be performed for standard uniforms (variance of <span class="math inline">\(\frac{1}{12}\)</span>), Poisson(4) distributions (variance of 4), and coin flips (variance of <span class="math inline">\(p*(1-p)\)</span>, assuming p=0.5 then <span class="math inline">\(Var(X)=0.25\)</span>). The results of these simulations should align with the theoretical values predicted by our rule.</p>
 <p>Understanding the standard error of the mean is crucial in determining the variability of sample means. Simulation experiments can help illustrate these concepts, especially when investigating the distribution of sample means and estimating their standard error.</p>
