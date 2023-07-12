@@ -38,7 +38,6 @@ conditional-probability
 independence
 expected-values
 practical-r-exercises-in-swirl
-variability-distribution-asymptotics
 variability
 variance-simulation-examples
 normal-distribution
