@@ -331,7 +331,7 @@ This means that the sample mean becomes more concentrated around the population 
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="variability-distribution-asymptotics.html#cb11-1" aria-hidden="true" tabindex="-1"></a>nosim <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
 <span id="cb11-2"><a href="variability-distribution-asymptotics.html#cb11-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">10</span></span>
 <span id="cb11-3"><a href="variability-distribution-asymptotics.html#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(<span class="fu">apply</span>(<span class="fu">matrix</span>(<span class="fu">rnorm</span>(nosim <span class="sc">*</span> n), nosim), <span class="dv">1</span>, mean))</span></code></pre></div>
-<pre><code>## [1] 0.309302</code></pre>
+<pre><code>## [1] 0.3173953</code></pre>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="variability-distribution-asymptotics.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">/</span> <span class="fu">sqrt</span>(n)</span></code></pre></div>
 <pre><code>## [1] 0.3162278</code></pre>
 <p>Similar simulations can be performed for standard uniforms (variance of <span class="math inline">\(\frac{1}{12}\)</span>), Poisson(4) distributions (variance of 4), and coin flips (variance of <span class="math inline">\(p*(1-p)\)</span>, assuming p=0.5 then <span class="math inline">\(Var(X)=0.25\)</span>). The results of these simulations should align with the theoretical values predicted by our rule.</p>

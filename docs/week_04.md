@@ -34,7 +34,7 @@ pnorm(mu0 + z * sigma / sqrt(n), mean = mua, sd = sigma / sqrt(n), lower.tail = 
 
 Example: Suppose someone wants to conduct a study to test whether the mean ($\mu$) for a specific population is 30 or greater. They are interested in detecting a difference as large as 32, with a sample size of 16, and a known standard deviation of 4.
 
-We can plug in these values and calculate the power. When we set $\mu = \mu_0 =30$, the power is 5%. However, when we set $\mu = \mu_a=32$, the power increases to 64%. 
+We can plug in these values and calculate the power. When we set $\mu = \mu_0 =30$, the power is 5%. However, when we set $\mu = \mu_a=32$, the power increases to 64%.
 
 
 ```r
