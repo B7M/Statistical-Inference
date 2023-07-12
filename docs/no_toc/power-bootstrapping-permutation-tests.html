@@ -627,10 +627,12 @@ Figure 2.4: Histogram of bootstrap resamples
 <div id="part-1-simulation-exercise-instructions" class="section level3" number="4.3.1">
 <h3><span class="header-section-number">4.3.1</span> Part 1: Simulation Exercise Instructions</h3>
 <p>In this project you will investigate the exponential distribution in R and compare it with the Central Limit Theorem. The exponential distribution can be simulated in R with <code>rexp(n, lambda)</code> where lambda is the rate parameter. The mean of exponential distribution is 1/lambda and the standard deviation is also 1/lambda. Set lambda = 0.2 for all of the simulations. You will investigate the distribution of averages of 40 exponentials. Note that you will need to do a thousand simulations.</p>
-<p>Illustrate via simulation and associated explanatory text the properties of the distribution of the mean of 40 exponentials. You should:
-- Show the sample mean and compare it to the theoretical mean of the distribution.
-- Show how variable the sample is (via variance) and compare it to the theoretical variance of the distribution.
-- Show that the distribution is approximately normal.</p>
+<p>Illustrate via simulation and associated explanatory text the properties of the distribution of the mean of 40 exponentials. You should:</p>
+<ul>
+<li>Show the sample mean and compare it to the theoretical mean of the distribution.</li>
+<li>Show how variable the sample is (via variance) and compare it to the theoretical variance of the distribution.</li>
+<li>Show that the distribution is approximately normal.</li>
+</ul>
 <p>In point 3, focus on the difference between the distribution of a large collection of random exponentials and the distribution of a large collection of averages of 40 exponentials.</p>
 <p>As a motivating example, compare the distribution of 1000 random uniforms</p>
 <div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="power-bootstrapping-permutation-tests.html#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(<span class="fu">runif</span>(<span class="dv">1000</span>))</span></code></pre></div>
@@ -644,19 +646,23 @@ Confused? Try re-watching video lecture 07 for a starter on how to complete this
 </div>
 <div id="part-2-basic-inferential-data-analysis-instructions" class="section level3" number="4.3.2">
 <h3><span class="header-section-number">4.3.2</span> Part 2: Basic Inferential Data Analysis Instructions</h3>
-<p>In the second portion of the project, we’re going to analyze the ToothGrowth data in the R datasets package.
-- Load the <code>ToothGrowth</code> data and perform some basic exploratory data analyses
-- Provide a basic summary of the data.
-- Use confidence intervals and/or hypothesis tests to compare tooth growth by supp and dose. (Only use the techniques from class, even if there’s other approaches worth considering)
-- State your conclusions and the assumptions needed for your conclusions.</p>
+<p>In the second portion of the project, we’re going to analyze the ToothGrowth data in the R datasets package.</p>
+<ul>
+<li>Load the <code>ToothGrowth</code> data and perform some basic exploratory data analyses</li>
+<li>Provide a basic summary of the data.</li>
+<li>Use confidence intervals and/or hypothesis tests to compare tooth growth by supp and dose. (Only use the techniques from class, even if there’s other approaches worth considering)</li>
+<li>State your conclusions and the assumptions needed for your conclusions.</li>
+</ul>
 </div>
 </div>
 <div id="practical-r-exercises-in-swirl-3" class="section level2" number="4.4">
 <h2><span class="header-section-number">4.4</span> Practical R Exercises in swirl</h2>
-<p>During this week of the course you should complete the following lessons in the Statistical Inference swirl course:
-- Power
-- Multiple Testing
-- Resampling</p>
+<p>During this week of the course you should complete the following lessons in the Statistical Inference swirl course:</p>
+<ul>
+<li>Power</li>
+<li>Multiple Testing</li>
+<li>Resampling</li>
+</ul>
 
 </div>
 </div>
